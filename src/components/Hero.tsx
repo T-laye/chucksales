@@ -25,7 +25,7 @@ export default function Hero() {
           className=""
         />
       </div>
-      <div className="section-container flex flex-col justify-center min-h-screen ">
+      <div className="section-container flex flex-col justify-center min-h-screen mt-16 lg:mt-0">
         <div className="flex flex-col ">
           <h1 className="">
             Never struggle to <br className="" /> raise liquidity

@@ -20,6 +20,7 @@ export default function Header() {
         <div className="lg:flex items-center lg:gap-8">
           <Logo />
           <nav
+            onClick={handleNav}
             className={`${
               showNav ? "translate-y-0" : "-translate-y-full lg:translate-y-0"
             } duration-200 fixed h-screen bg-customGrayTransparent lg:bg-dark backdrop-blur-sm top-0 left-0 right-0 lg:static lg:h-auto`}
