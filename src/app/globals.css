@@ -32,7 +32,7 @@ body {
   @apply bg-dark;
 }
 section .section-container {
-  @apply py-20 container px-4 lg:px-8 mx-auto;
+  @apply py-20 lg:py-40 container px-5 lg:px-10 mx-auto;
 }
 
 .hero_bg {
@@ -52,4 +52,11 @@ section .section-container {
 
 h1 {
   @apply text-4xl font-sfBold text-center sm:text-7xl lg:text-8xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-xl lg:text-3xl font-sfBold;
 }

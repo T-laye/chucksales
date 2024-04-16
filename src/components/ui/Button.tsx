@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 
 interface ButtonProps {
   css?: string;
-  title?: string;
+  title: string;
   fn?: MouseEventHandler<HTMLButtonElement>;
   nav?: boolean;
   primary?: boolean;

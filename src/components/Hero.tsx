@@ -25,7 +25,7 @@ export default function Hero() {
           className=""
         />
       </div>
-      <div className="section-container flex flex-col justify-center min-h-screen mt-16 lg:mt-0">
+      <div className="section-container flex flex-col justify-center  min-h-screen mt-16 lg:mt-[0%]">
         <div className="flex flex-col ">
           <h1 className="">
             Never struggle to <br className="" /> raise liquidity
@@ -44,10 +44,10 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="bg-transparent flex flex-col sm:flex-row items-center justify-evenly h-[322px] sm:h-[162px] rounded-[40px] max-w-[280px] sm:max-w-[994px] gap-x-10 mx-auto w-full mt-20 z-10">
-          <Stats stat={532} title="Developers" />
-          <Stats stat={532} title="Contributors" />
-          <Stats stat={532} title="Projects" />
+        <div className="bg-transparent flex flex-col sm:flex-row items-center justify-evenly h-[322px] sm:h-[162px] rounded-[40px] max-w-[280px] sm:max-w-[994px] gap-x-10 mx-auto w-full mt-24 lg:mt-56 z-10">
+          <Stats stat={32} title="Developers" />
+          <Stats stat={152} title="Contributors" />
+          <Stats stat={500} title="Projects" />
         </div>
       </div>
     </section>
