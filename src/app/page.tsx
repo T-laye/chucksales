@@ -1,3 +1,10 @@
+import Header from "@/components/Header";
+
 export default function Home() {
-  return <main className="bg-primary">Never Struggle to raise liquidity</main>;
+  return (
+    <>
+      <Header />
+      {/* <main className="bg-primary">Never Struggle to raise liquidity</main> */}
+    </>
+  );
 }

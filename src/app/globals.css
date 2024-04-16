@@ -21,8 +21,16 @@
   font-style: normal;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 body {
-  font-family: "SF-Bold";
-  font-weight: 700;
-  font-size: 96px;
+  font-family: "SF-Reg";
+  overflow-x: hidden;
+  color: white;
+}
+
+section div {
+  @apply container px-4 lg:px-8 mx-auto;
 }
