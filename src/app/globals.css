@@ -29,8 +29,30 @@ body {
   font-family: "SF-Reg";
   overflow-x: hidden;
   color: white;
+  @apply bg-dark;
 }
-
+section {
+  @apply py-20;
+}
 section div {
   @apply container px-4 lg:px-8 mx-auto;
+}
+
+.hero_bg {
+  background: linear-gradient(
+      90.17deg,
+      #05070c 0.14%,
+      #05070c 19.58%,
+      rgba(5, 7, 12, 0.64) 49%,
+      #05070c 77.41%,
+      #05070c 99.85%
+    ),
+    url("/images/hero_bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  @apply text-4xl font-sfBold text-center sm:text-7xl lg:text-8xl;
 }

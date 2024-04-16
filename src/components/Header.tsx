@@ -15,7 +15,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 lg:px-8 bg-dark ">
+    <header className="fixed top-0 left-0 right-0 lg:px-8 bg-dark z-[100]">
       <div className="container px-4 py-3 max-[350px]:px-1 mx-auto flex items-center justify-between">
         <div className="lg:flex items-center lg:gap-8">
           <Logo />
@@ -45,7 +45,7 @@ export default function Header() {
           <div className="lg:flex items-center lg:text-2xl text-lg p-1 lg:h-8 lg:w-8 text-[#FFFFFFCC] justify-center bg-[#333] cursor-pointer rounded-full max-[300px]:hidden ">
             <IoIosNotificationsOutline />
           </div>
-          <Button />
+          <Button title="Connect wallet" nav={true} />
           <HiOutlineMenuAlt3
             onClick={handleNav}
             size={28}
