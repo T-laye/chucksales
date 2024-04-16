@@ -31,11 +31,8 @@ body {
   color: white;
   @apply bg-dark;
 }
-section {
-  @apply py-20;
-}
-section div {
-  @apply container px-4 lg:px-8 mx-auto;
+section .section-container {
+  @apply py-20 container px-4 lg:px-8 mx-auto;
 }
 
 .hero_bg {
