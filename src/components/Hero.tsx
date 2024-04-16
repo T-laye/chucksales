@@ -26,7 +26,7 @@ export default function Hero() {
         />
       </div>
       <div className="section-container flex flex-col justify-center min-h-screen ">
-        <div className="flex flex-col mt-[20%] xl:mt-[5%]">
+        <div className="flex flex-col ">
           <h1 className="">
             Never struggle to <br className="" /> raise liquidity
           </h1>
