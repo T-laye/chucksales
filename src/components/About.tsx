@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section>
       <div className="section-container">
-        <div className="flex flex-col gap-[120px] lg:gap-[200px]">
+        <div className="flex flex-col gap-[100px] lg:gap-[200px]">
           <AboutCard
             icon="/icons/eye_icon.svg"
             btnTitle="Get Started"
