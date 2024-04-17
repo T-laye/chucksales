@@ -5,7 +5,7 @@ import Image from "next/image";
 const Ready = () => {
   return (
     <section className="bg-primary">
-      <div className="section-container md:flex md:items-center md:gap-28">
+      <div className="section-container  md:flex md:items-center md:gap-28">
         <div className="lg:w-1/2">
           <h3 className="leading-6 md:text-3xl lg:text-5xl">
             Ready to be part of the future of presale liquidity?
@@ -30,7 +30,7 @@ const Ready = () => {
           </div>
         </div>
 
-        <div className=" flex justify-center mt-12 md:mt-0 md:w-1/2">
+        <div className=" flex justify-center md:justify-end mt-12 md:mt-0 md:w-1/2">
           <div className="relative ml-10 ">
             <div className="absolute top-10 -left-16 w-[94px] h-[94px] md:w-[100px] md:h-[100px] lg:w-[170px] lg:h-[170px] lg:top-20 rounded-3xl overflow-hidden object-cover">
               <Image
