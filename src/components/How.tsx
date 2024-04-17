@@ -6,7 +6,7 @@ const How = () => {
     <section>
       <div className="section-container">
         <h2 className="md:text-center">How it works</h2>
-        <div className="relative mt-12 mx-auto max-w-[918px] bg-customGrayTransparent pl-10 sm:pl-12 pr-2 md:px-8 py-20 rounded-3xl flex flex-col gap-20 md:gap-28">
+        <div className="relative mt-12 mx-auto max-w-[918px] bg-customGrayTransparent pl-10 sm:pl-12 pr-2 md:px-8 py-20 rounded-3xl flex flex-col gap-14 md:gap-28">
           <HowCard
             image="/images/how_1.png"
             number="1"
@@ -40,7 +40,7 @@ const How = () => {
             title="Distribution"
           />
           {/* <HowCard reverse={true} /> */}
-          <div className="bg-white w-[1px] h-[1000px] md:h-[1200px] absolute top-[7%] left-4 md:top-[50%] md:left-[50%] md:-translate-x-[50%] md:-translate-y-[50%]"></div>
+          <div className="bg-white w-[1px] h-[800px] md:h-[1200px] absolute top-[10%] left-4 md:top-[50%] md:left-[50%] md:-translate-x-[50%] md:-translate-y-[50%]"></div>
         </div>
       </div>
     </section>

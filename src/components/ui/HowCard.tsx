@@ -37,15 +37,17 @@ const HowCard: React.FC<HowCardProps> = ({
       </div>
 
       <div
-        className={`flex flex-col flex-1 gap-2 ${
+        className={`flex flex-col flex-1 gap-1 md:gap-2 ${
           reverse ? "md:items-end" : ""
         } `}
       >
-        <div className="font-sfBold bg-primary text-[30px] w-[52px] h-[52px] rounded-full flex justify-center items-center">
+        <div className="font-sfBold bg-primary text-2xl md:text-[30px] w-8 h-8 md:w-[52px] md:h-[52px] rounded-full flex justify-center items-center">
           {number}
         </div>
-        <h2 className="font-sfBold">{title}</h2>
-        <p className={`text-base ${reverse ? "md:text-end" : ""}`}>{text}</p>
+        <h2 className="font-sfBold text-xl md:text-2xl">{title}</h2>
+        <p className={`text-sm md:text-base  ${reverse ? "md:text-end" : ""}`}>
+          {text}
+        </p>
       </div>
     </div>
   );
