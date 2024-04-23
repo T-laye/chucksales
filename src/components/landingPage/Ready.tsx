@@ -1,8 +1,19 @@
+"use client";
 import React from "react";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Ready = () => {
+  const router = useRouter();
+
+  const gotoSignUp = () => {
+    router.push("/signUp");
+  };
+  const gotoLaunchApp = () => {
+    router.push("/");
+  };
+
   return (
     <section className="bg-primary">
       <div className="section-container  md:flex md:items-center md:gap-28">
@@ -22,10 +33,12 @@ const Ready = () => {
             <Button
               title="I'm a Developer"
               css="bg-white text-primary w-full md:w-[183px]"
+              fn={gotoSignUp}
             />
             <Button
               title="I'm a Contributor"
               css="bg-white text-primary w-full md:w-[183px]"
+              fn={gotoLaunchApp}
             />
           </div>
         </div>

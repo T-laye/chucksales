@@ -1,5 +1,5 @@
 import React from "react";
-import HowCard from "./ui/HowCard";
+import HowCard from "../ui/HowCard";
 
 const How = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./ui/Logo";
+import Logo from "../ui/Logo";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,25 +13,43 @@ const Footer = () => {
         <div className="flex justify-around text-xs md:gap-24">
           <div className="flex flex-col gap-2 md:gap-6">
             <h4 className="text-base mb-2 md:mt-6 ">Refuel</h4>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               Relay
             </Link>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               Swap
             </Link>
           </div>
           <div className="flex flex-col gap-2 md:gap-6">
             <h4 className="text-base mb-2 md:mt-6">Resources</h4>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               FAQ
             </Link>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               Developers
             </Link>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               Docs
             </Link>
-            <Link className="hover:text-primary duration-150 inline-bock" href="">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
               Support
             </Link>
           </div>

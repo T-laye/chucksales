@@ -1,5 +1,5 @@
 import React from "react";
-import AboutCard from "./ui/AboutCard";
+import AboutCard from "../ui/AboutCard";
 
 const About = () => {
   return (

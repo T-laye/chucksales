@@ -1,8 +1,8 @@
 "use client";
-import Button from "./ui/Button";
-import Logo from "./ui/Logo";
+import Button from "../ui/Button";
+import Logo from "../ui/Logo";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import NavLink from "./ui/NavLink";
+import NavLink from "../ui/NavLink";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -43,9 +43,9 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-3 lg:gap-5">
-          <div className="lg:flex items-center lg:text-2xl text-lg p-1 lg:h-8 lg:w-8 text-[#FFFFFFCC] justify-center bg-[#333] cursor-pointer rounded-full max-[300px]:hidden ">
+          {/* <div className="lg:flex items-center lg:text-2xl text-lg p-1 lg:h-8 lg:w-8 text-[#FFFFFFCC] justify-center bg-[#333] cursor-pointer rounded-full max-[300px]:hidden ">
             <IoIosNotificationsOutline />
-          </div>
+          </div> */}
           <Button title="Connect wallet" nav={true} />
           <HiOutlineMenuAlt3
             onClick={handleNav}

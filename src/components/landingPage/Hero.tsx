@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Button from "./ui/Button";
-import Stats from "./ui/Stats";
+import Button from "../ui/Button";
+import Stats from "../ui/Stats";
 
 export default function Hero() {
   return (
