@@ -16,7 +16,7 @@ const Ready = () => {
 
   return (
     <section className="bg-primary">
-      <div className="section-container  md:flex md:items-center md:gap-28">
+      <div className="section-container md:flex md:items-center md:gap-28">
         <div className="lg:w-1/2">
           <h3 className="leading-6 md:text-3xl lg:text-5xl">
             Ready to be part of the future of presale liquidity?
