@@ -61,7 +61,7 @@ h3 {
 }
 
 label {
-  @apply text-sm;
+  @apply text-sm md:text-base;
 }
 
 input {

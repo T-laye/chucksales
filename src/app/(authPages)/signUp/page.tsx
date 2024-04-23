@@ -162,7 +162,7 @@ const Page: React.FC = () => {
       </div>
 
       <div className="mt-6">
-        <p className="text-center text-xs ">
+        <p className="text-center text-xs md:text-base">
           {" "}
           Already have an account ?{" "}
           <span className="text-primary">

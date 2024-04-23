@@ -94,13 +94,13 @@ const Page: React.FC = () => {
         </div>
 
         <div>
-          <Button title="Sign up" css="w-full" loading={loading} />
+          <Button title="Sign in" css="w-full" loading={loading} />
         </div>
       </form>
 
       <div className="flex items-center mt-4 mb-2">
         <div className="h-[1px] flex-1  bg-white"></div>
-        <div className="mx-4 text-xs">or</div>
+        <div className="mx-4 text-xs md:text-base">or</div>
         <div className="h-[1px] flex-1  bg-white"></div>
       </div>
 
@@ -114,7 +114,7 @@ const Page: React.FC = () => {
       </div>
 
       <div className="mt-6">
-        <p className="text-center text-xs ">
+        <p className="text-center text-xs md:text-base">
           {" "}
           Don&apos;t have an account ?{" "}
           <span className="text-primary">
