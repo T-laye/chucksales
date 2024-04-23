@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+// import AOS from "aos";
+// import "aos/dist/aos.css";
 
-// const inter = Inter({ subsets: ["latin"] });
+// AOS.init();
 
 export const metadata: Metadata = {
   title: "Chucksales",

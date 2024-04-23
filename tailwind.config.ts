@@ -22,6 +22,8 @@ const config: Config = {
         customGrayLight: "#363636",
         customGrayLightTRansparent: "#71717180",
         transparent: "#221F3599",
+        input: "#ECECEC99",
+        error: "#df0000",
       },
     },
   },
