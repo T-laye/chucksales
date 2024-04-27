@@ -6,7 +6,7 @@ import React from "react";
 
 const Faq = () => {
   return (
-    <section className=" ">
+    <section id="faq">
       <div className="section-container">
         <h2 className="font-sfBold md:text-center md:text-4xl lg:text-5xl">
           Frequently Asked Questions (FAQs)

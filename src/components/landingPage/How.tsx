@@ -3,7 +3,7 @@ import HowCard from "../ui/HowCard";
 
 const How = () => {
   return (
-    <section>
+    <section id="howItWorks">
       <div className="section-container">
         <h2 className="md:text-center font-sfBold">How it works</h2>
         <div className="relative mt-12 mx-auto max-w-[918px] bg-customGrayTransparent pl-10 sm:pl-12 pr-2 md:px-8 py-20 rounded-3xl flex flex-col gap-14 md:gap-28">
