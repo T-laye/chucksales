@@ -4,6 +4,7 @@ import Header from "@/components/landingPage/Header";
 import Hero from "@/components/landingPage/Hero";
 import Ready from "@/components/landingPage/Ready";
 import How from "@/components/landingPage/How";
+import Faq from "@/components/landingPage/Faq";
 
 export default function Home() {
   return (
@@ -14,8 +15,9 @@ export default function Home() {
         <About />
         <Ready />
         <How />
-        <Footer />
+        <Faq />
       </main>
+      <Footer />
     </>
   );
 }

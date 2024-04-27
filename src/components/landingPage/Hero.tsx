@@ -7,7 +7,7 @@ import Stats from "../ui/Stats";
 export default function Hero() {
   return (
     <section className=" hero_bg min-h-screen relative">
-      <div className="absolute top-[10%] -right-[55%] lg:top-[0%] lg:-right-[70%] 2xl:-right-[50%] -z-0 ">
+      <div className="absolute top-[0%] -right-[55%] sm:-right-[10%] 2xl:-right-[5%] -z-0 ">
         <Image
           src="/images/big_glow.svg"
           height={500}
