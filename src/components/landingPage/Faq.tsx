@@ -49,8 +49,8 @@ const Faq = () => {
           <p className="text-xs text-[#FFFFFFCC] md:font-base">
             Reach out on telegram
           </p>
-          <Link href="#" className="inline-block text-primary md:font-base">
-            Bawo (CEO)
+          <Link href="https://t.me/Ron_btc" className="inline-block text-primary md:font-base">
+            Ron (CEO)
           </Link>
         </div>
       </div>

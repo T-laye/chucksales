@@ -22,11 +22,11 @@ const Page = () => {
       <section className="min-h-screen">
         <div className="section-container  lg:flex ">
           <div className="fixed  w-full lg:w-1/5  lg:bottom-0 lg:h-screen top-16 left-0 px-4 h-12 flex items-center  bg-dark">
-            <div className=" lg:container  lg:mx-auto lg:h-full lg:w-full  bg-dark lg:mt-48">
+            <div className=" mx-auto container  lg:mx-auto lg:h-full w-full  bg-dark lg:mt-48">
               <IoMenuOutline
                 onClick={handleOpenNav}
                 size={28}
-                className="text-white  lg:hidden md:ml-4 cursor-pointer"
+                className="text-white  lg:hidden sm:ml-4 cursor-pointer"
               />
               <div
                 onClick={handleOpenNav}
@@ -63,7 +63,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="lg:w-4/5  max-w-[1000px] bg-dark lg:ml-52 2xl:ml-80  ">
+          <div className="lg:w-4/5  max-w-[1000px] bg-dark lg:ml-52 2xl:ml-80 md:px-8 ">
             <h2 className="font-sfBold mt-10 lg:mt-0 md:text-3xl lg:text-5xl">
               Documentation
             </h2>

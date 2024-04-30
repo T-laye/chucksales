@@ -10,29 +10,15 @@ const Footer = () => {
         <div className="mb-5">
           <Logo w="w-[192px] mx-auto" />
         </div>
-        <div className="flex justify-around text-xs md:text-base md:gap-24">
-          <div className="flex flex-col gap-2 md:gap-6">
-            <h4 className="text-base md:text-lg mb-2 md:mt-6 ">Refuel</h4>
-            <Link
-              className="hover:text-primary duration-150 inline-bock"
-              href=""
-            >
-              Relay
-            </Link>
-            <Link
-              className="hover:text-primary duration-150 inline-bock"
-              href=""
-            >
-              Swap
-            </Link>
-          </div>
-          <div className="flex flex-col gap-2 md:gap-6">
-            <h4 className="text-base mb-2 md:mt-6 md:text-lg">Resources</h4>
+          {/* <h4 className="text-base mb-2 md:mt-6 md:text-lg">Resources</h4> */}
+        <div className="flex justify-around items-center text-xs md:text-base md:gap-24">
+          <div className="flex flex-col gap-2 md:gap-6 ">
+            {/* <h4 className="text-base md:text-lg mb-2 md:mt-6 ">Refuel</h4> */}
             {/* <Link
               className="hover:text-primary duration-150 inline-bock"
               href=""
             >
-              FAQ
+              Relay
             </Link> */}
             <Link
               className="hover:text-primary duration-150 inline-bock"
@@ -46,6 +32,20 @@ const Footer = () => {
             >
               Docs
             </Link>
+          </div>
+          <div className="flex flex-col gap-2 md:gap-6">
+            <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
+              Swap
+            </Link>
+            {/* <Link
+              className="hover:text-primary duration-150 inline-bock"
+              href=""
+            >
+              FAQ
+            </Link> */}
             <Link
               className="hover:text-primary duration-150 inline-bock"
               href=""
