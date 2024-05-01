@@ -3,8 +3,19 @@
 import Image from "next/image";
 import Button from "../ui/Button";
 import Stats from "../ui/Stats";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter();
+
+  const goToLaunchApp = () => {
+    router.push("/launchApp");
+  };
+
+  const goToSignIn = () => {
+    router.push("/signIn");
+  };
+
   return (
     <section className=" hero_bg min-h-screen relative">
       <div className="absolute top-[0%] -right-[55%] sm:-right-[10%] 2xl:-right-[5%] -z-0 ">
@@ -35,11 +46,16 @@ export default function Hero() {
             through presales.
           </p>
           <div className="flex justify-center items-center gap-4 lg:gap-8 flex-col  lg:flex-row z-10">
-            <Button title="Launch app" css="w-full lg:w-[200px] " />
+            <Button
+              fn={goToLaunchApp}
+              title="Launch app"
+              css="w-full lg:w-[200px] "
+            />
             <Button
               title="List my projects"
               css="w-full lg:w-[200px]   "
               primary={false}
+              fn={goToSignIn}
             />
           </div>
         </div>

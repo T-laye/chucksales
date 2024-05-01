@@ -21,8 +21,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </div>
       <div className="lg:w-1/2 sm:h-full  flex items-center justify-center container mx-auto px-5 lg:px-10">
         <div className="max-w-[414px]  w-full">
-          <div className="mt-5 flex justify-center lg:hidden">
-            <Logo w="w-[160px]" />
+          <div className="mt-5 flex justify-center ">
+            <Logo w="w-[160px] lg:w-[200pxs]" />
           </div>
           {children}
         </div>
