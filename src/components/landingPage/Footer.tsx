@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <section>
+    <section className="bg-dark">
       <div className="container mx-auto px-5 lg:px-10 py-10 lg:py-20 md:flex md:items-center justify-evenly">
         <div className="mb-5">
           <Logo w="w-[192px] mx-auto" />
         </div>
-          {/* <h4 className="text-base mb-2 md:mt-6 md:text-lg">Resources</h4> */}
+        {/* <h4 className="text-base mb-2 md:mt-6 md:text-lg">Resources</h4> */}
         <div className="flex justify-around items-center text-xs md:text-base md:gap-24">
           <div className="flex flex-col gap-2 md:gap-6 ">
             {/* <h4 className="text-base md:text-lg mb-2 md:mt-6 ">Refuel</h4> */}
@@ -55,7 +55,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h4 className="text-base mb-2 md:mb-6 text-center md:text-lg md:text-start mt-4 ">
+          <h4 className="text-base mb-2 md:mb-6 text-center md:text-lg md:text-start mt-4 md:mt-0 ">
             Socials
           </h4>
           <div className="flex justify-center items-center gap-6">
