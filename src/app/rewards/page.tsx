@@ -87,6 +87,7 @@ const Page = () => {
                   width={700}
                   height={700}
                   className="h-full w-full object-contain"
+                  loading="lazy"
                 />
               </div>
             </div>
