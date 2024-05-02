@@ -32,7 +32,7 @@ const Page = () => {
       (Error as FormikErrors<AuthFormValues>)[fieldName] &&
       (Touch as FormikTouched<AuthFormValues>)[fieldName]
         ? "focus:border-error foucus:text-error"
-        : "border-primary "
+        : "border-primaryTransparent "
     }`;
   };
 

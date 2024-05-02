@@ -71,3 +71,41 @@ input {
 .form_errors {
   @apply text-error text-xs text-end mt-1;
 }
+
+/* Width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track (the area behind the thumb) */
+::-webkit-scrollbar-track {
+  @apply bg-primaryTransparent;
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  /* background: #888; */
+  @apply bg-primary rounded-lg;
+}
+
+/* Handle on hover */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px;
+  text-align: center;
+  text-wrap: nowrap;
+}
+tr {
+  @apply px-5;
+}
+th {
+  /* background-color: #f2f2f2; */
+  @apply pb-6 font-medium;
+}
