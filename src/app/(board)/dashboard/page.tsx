@@ -22,19 +22,19 @@ const Page = () => {
   return (
     <>
       <Header />
-      <section className="py-20">
-        <div className="h-[96px] w-full ">
+      <section className="pt-20 pb-40">
+        <div className="h-[96px] md:h-[191px] w-full ">
           <Image
             src="/images/cover_pic.png"
             alt="cover photo"
-            width={700}
-            height={700}
+            width={1000}
+            height={1000}
             className="h-full w-full object-cover"
             loading="lazy"
           />
         </div>
-        <div className="container mx-auto flex flex-col items-center -mt-8">
-          <div className="h-20  w-20 rounded-full border-2 border-dark overflow-hidden ">
+        <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-14">
+          <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full border-2 border-dark overflow-hidden ">
             <Image
               src="/images/profile_pic.png"
               alt="cover photo"
@@ -44,10 +44,12 @@ const Page = () => {
               loading="lazy"
             />
           </div>
-          <div className="flex flex-col items-center">
-            <h3 className="font-semibold mt-1">Johnson Sam</h3>
-            <p className="text-xs mt-1">0xwimnkd48h8...nje983hfbuj</p>
-            <p className="text-xs mt-1">Joined April 15th</p>
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-semibold md:text-3xl mt-1">Johnson Sam</h3>
+            <p className="text-xs md:text-base mt-1">
+              0xwimnkd48h8...nje983hfbuj
+            </p>
+            <p className="text-xs md:text-base mt-1">Joined April 15th</p>
           </div>
         </div>
 
@@ -87,11 +89,11 @@ const Page = () => {
                 </div>
               </div>
 
-              <div className="my-16 ">
-                <h4 className="text-center mb-6">
+              <div className="my-16 flex flex-col items-center">
+                <h4 className="text-center md:text-xl mb-6">
                   Oops you don&apos;t have any project
                 </h4>
-                <Button title="Add project" css="w-full" />
+                <Button title="Add project" css="w-full md:w-[145px]" />
               </div>
 
               <div className="border border-primaryTransparent rounded-lg py-2  ">
