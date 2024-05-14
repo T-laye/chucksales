@@ -1,14 +1,17 @@
 "use client";
+import Pagination from "@/components/Pagination";
 import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
 import { AuthFormValues } from "@/types/Forms";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const Page = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -29,6 +32,10 @@ const Page = () => {
       //   router.push("/signUp/verification");
     }, 3000);
   }
+
+  const goToViewProject = () => {
+    router.push("/launchApp/[viewProject]");
+  };
 
   const handleActiveTab = (tab: number) => {
     setActiveTab(tab);
@@ -142,7 +149,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -157,7 +164,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -172,7 +179,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -187,7 +194,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -202,7 +209,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -217,7 +224,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -232,7 +239,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -247,7 +254,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -262,7 +269,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -277,7 +284,7 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                     {/* Data */}
@@ -292,13 +299,14 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" />
+                        <Button title="View project" fn={goToViewProject} />
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
+              <Pagination />
           </div>
         </div>
       </section>

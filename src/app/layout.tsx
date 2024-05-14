@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ReduxProvider from "@/redux/ReduxProvider";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
 
@@ -17,8 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ReduxProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ReduxProvider>
   );
 }

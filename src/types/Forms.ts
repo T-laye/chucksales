@@ -4,3 +4,8 @@ export interface AuthFormValues {
   password: string;
   cPassword?: string;
 }
+export interface ContributeFormValues {
+  contributeTo: string;
+  amount: string;
+  coin: string;
+}
