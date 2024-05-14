@@ -67,6 +67,9 @@ label {
 input {
   @apply mt-2 border border-input rounded-lg w-full h-11 bg-dark px-2 py-1 caret-primary focus:border outline-none focus:outline-none focus:border-primary duration-500;
 }
+textarea {
+  @apply mt-2 border border-input rounded-lg w-full h-24 bg-dark px-2 py-1 caret-primary focus:border outline-none focus:outline-none focus:border-primary duration-500 resize-none;
+}
 
 .form_errors {
   @apply text-error text-xs text-end mt-1;

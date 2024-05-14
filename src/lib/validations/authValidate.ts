@@ -1,5 +1,14 @@
-export function signUp_validate(values) {
-  const errors = {};
+import { AuthFormValues } from "@/types/Forms";
+
+interface ErrorsState {
+  fullName?: string;
+  email?: string;
+  password?: string;
+  cPassword?: string;
+}
+
+export function signUp_validate(values: AuthFormValues): ErrorsState {
+  const errors: ErrorsState = {};
 
   if (!values.fullName) {
     errors.fullName = "Required";
@@ -31,8 +40,9 @@ export function signUp_validate(values) {
 
   return errors;
 }
-export function signIn_validate(values) {
-  const errors = {};
+
+export function signIn_validate(values: AuthFormValues): ErrorsState {
+  const errors: ErrorsState = {};
 
   if (!values.email) {
     errors.email = "Required";

@@ -1,13 +1,18 @@
 "use client";
-import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const router = useRouter();
+
+  const gotoAddProject = () => {
+    router.push("/dashboard/addProject");
+  };
 
   const handleActiveTab = (tab: number) => {
     setActiveTab(tab);
@@ -21,8 +26,7 @@ const Page = () => {
 
   return (
     <>
-      <Header />
-      <section className="pt-20 pb-40">
+      <section className="">
         <div className="h-[96px] md:h-[191px] w-full ">
           <Image
             src="/images/cover_pic.png"
@@ -93,7 +97,11 @@ const Page = () => {
                 <h4 className="text-center md:text-xl mb-6">
                   Oops you don&apos;t have any project
                 </h4>
-                <Button title="Add project" css="w-full md:w-[145px]" />
+                <Button
+                  title="Add project"
+                  css="w-full md:w-[145px]"
+                  fn={gotoAddProject}
+                />
               </div>
 
               <div className="border border-primaryTransparent rounded-lg py-2  ">

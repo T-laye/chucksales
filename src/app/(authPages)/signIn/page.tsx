@@ -5,11 +5,11 @@ import { useFormik, FormikErrors, FormikTouched } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { signIn_validate } from "@/lib/validate";
 import { AuthFormValues } from "@/types/Forms";
 import { useRouter } from "next/navigation";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
+import { signIn_validate } from "@/lib/validations/authValidate";
 
 const Page: React.FC = () => {
   const [loading, setLoading] = useState(false);
