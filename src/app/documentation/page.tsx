@@ -34,10 +34,10 @@ const Page = () => {
                   openNav
                     ? "translate-x-0 duration-150"
                     : "-translate-x-[200%] duration-150"
-                } fixed lg:static lg:translate-x-0 top-28 flex flex-col items-center lg:bg-dark bg-customGray w-[176px] min-h-[216.5px] rounded-lg lg:w-full  lg:rounded-none lg:h-full p-2 `}
+                } fixed lg:static lg:translate-x-0 top-28 flex flex-col items-center 2xl:items-end lg:bg-dark bg-customGray w-[176px] min-h-[216.5px] rounded-lg lg:w-full  lg:rounded-none lg:h-full p-2 `}
               >
-                <Logo w="w-[144px]" />
-                <ul className="px-2 flex flex-col w-full lg:w-fit bg-customGray lg:bg-dark mx-auto gap-1 ">
+                <Logo w="w-[144px] lg:hidden" />
+                <ul className=" px-2 flex flex-col w-full lg:w-fit bg-customGray lg:bg-dark 2xl:mx-0 2xl:place-self-end mx-auto gap-1 ">
                   <h4 className="mt-5 mb-1 lg:text-xl">OVERVIEW</h4>
                   <NavLink
                     title="Introduction"

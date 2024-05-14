@@ -4,7 +4,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface FaqListProps {
   question: string;
-  answer: string;
+  answer: any;
   border?: boolean;
 }
 

@@ -33,7 +33,7 @@ const Page = () => {
             loading="lazy"
           />
         </div>
-        <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-14">
+        <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full border-2 border-dark overflow-hidden ">
             <Image
               src="/images/profile_pic.png"
