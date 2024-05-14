@@ -1,4 +1,5 @@
 "use client";
+import Pagination from "@/components/Pagination";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -289,6 +290,7 @@ const Page = () => {
               </div>
             </div>
           </div>
+          <Pagination />
         </section>
       </section>
     </>
