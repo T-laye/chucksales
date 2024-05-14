@@ -62,11 +62,12 @@ const Page = () => {
           <div className=" flex flex-col mt-2  w-full md:flex-row md:justify-between items-center">
             <div className="max-w-3xl">
               <p className="text-xs md:text-base text-center md:text-start  ">
-                Chuck was born out of a deep admiration for the iconic Chuck
-                Norris memes, but it stands for so much more than just internet
-                meme. This token is at the core of a vibrant and fun-loving meme
-                community with a noble mission: to shine a light on animal
-                welfare. So, whether you are here.
+                &quot;Ethereum Shitcoin&quot; is a token that strategically taps
+                into the meme culture surrounding Ethereum, offering a unique
+                perspective on the cryptocurrency market. With a limited
+                circulation and a notable 15% allocation to holders of Eth Marge
+                Shanghai NFT, it aligns with the growing interest in
+                non-fungible tokens.
               </p>
               <div className=" flex gap-x-7 gap-y-3 items-center my-6 flex-wrap justify-center md:justify-start">
                 <div className="flex items-center gap-4">
