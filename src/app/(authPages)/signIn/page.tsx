@@ -34,7 +34,7 @@ const Page: React.FC = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      //   router.push("/signUp/verification");
+      router.push("/dashboard");
     }, 3000);
   }
 
