@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ReduxProvider from "@/redux/ReduxProvider";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
-
-// AOS.init();
+import "./globals.css";
+import { headers } from "next/headers";
+import { cookieToInitialState } from "wagmi";
+import { config } from "@/config";
+import Web3ModalProvider from "@/context";
 
 export const metadata: Metadata = {
   title: "Chucksales",
@@ -17,11 +18,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
-    <ReduxProvider>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </ReduxProvider>
+    // <WagmiProviders>
+    <Web3ModalProvider initialState={initialState}>
+      <ReduxProvider>
+        <html lang="en">
+          <body>{children}</body>
+        </html>
+      </ReduxProvider>
+    </Web3ModalProvider>
+    // </WagmiProviders>
   );
 }

@@ -36,7 +36,7 @@ const Footer = () => {
           <div className="flex flex-col gap-2 md:gap-6">
             <Link
               className="hover:text-primary duration-150 inline-bock"
-              href="https://bridge.base.org/deposit"
+              href="https://superbridge.app/base "
             >
               Swap
             </Link>
