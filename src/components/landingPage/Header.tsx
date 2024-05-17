@@ -11,14 +11,12 @@ import { useRouter } from "next/navigation";
 export default function Header() {
   const [showNav, setshowNav] = useState(false);
   const router = useRouter();
-  const { open } = useWeb3Modal();
+  const { open, close } = useWeb3Modal();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleNav = () => {
     setshowNav(!showNav);
   };
-  // const pushToConnectWallet = () => {
-  //   router.push("/connectWallet");
-  // };
 
   return (
     <header className="fixed top-0 left-0 right-0 lg:px-8 bg-dark z-[100]">
@@ -53,8 +51,16 @@ export default function Header() {
           {/* <div className="lg:flex items-center lg:text-2xl text-lg p-1 lg:h-8 lg:w-8 text-[#FFFFFFCC] justify-center bg-[#333] cursor-pointer rounded-full max-[300px]:hidden ">
             <IoIosNotificationsOutline />
           </div> */}
-          <Button title="Connect wallet" nav={true} fn={() => open()} />
-          {/* <w3m-button /> */}
+          {/* <Button
+            title="Connect wallet"
+            nav={true}
+            loading={isLoading}
+            fn={() => {
+              open();
+              setIsLoading(!isLoading);
+            }}
+          /> */}
+          <w3m-button />
           <HiOutlineMenuAlt3
             onClick={handleNav}
             size={28}
