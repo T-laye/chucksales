@@ -45,7 +45,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
 
   const formik = useFormik<ContributeFormValues>({
     initialValues: {
-      contributeTo: `0xaa60472bbdd22b20f7f5fb0c373b56076e570dc1751e108d75678725037da4fc`,
+      contributeTo: `0x${0}`,
       amount: "",
       coin: "",
     },
@@ -129,7 +129,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               You&apos;re Contributing to
             </label>
             <input
-              readOnly
+              // readOnly
               type="contributeTo"
               className={getInputClassNames("contributeTo")}
               {...formik.getFieldProps("contributeTo")}
