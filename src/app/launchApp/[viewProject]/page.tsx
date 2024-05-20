@@ -270,6 +270,7 @@ const Page = () => {
       {showContributeModal && (
         <ContributeModal
           showCongratsModal={handleOpenCongratsModal}
+          isConfirming={isConfirming}
           data={data}
           hash={hash}
           isConfirmed={isConfirmed}

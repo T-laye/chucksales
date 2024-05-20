@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { parseEther } from "viem";
 import { contribution_validate } from "@/lib/validations/ProjectValidate";
 import { convertToNumber } from "@/utils/Helpers";
+import BtnLoader from "../ui/BtnLoader";
 
 interface ContributeModalProps {
   showCongratsModal: any;
@@ -24,6 +25,7 @@ interface ContributeModalProps {
   sendTransaction: any;
   hash: any;
   isPending: boolean;
+  isConfirming: boolean;
 }
 
 const ContributeModal: React.FC<ContributeModalProps> = ({
@@ -31,6 +33,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   data,
   isSuccess,
   isConfirmed,
+  isConfirming,
   sendTransaction,
   hash,
   isPending,
@@ -114,45 +117,46 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   };
   return (
     <div className="flex justify-center items-center px-4 md:px-8 fixed bg-[#05070CCC] backdrop-blur-sm top-0 bottom-0 left-0 right-0 ">
-      <div className="max-w-[506px] w-full rounded-2xl min-h-[428px] bg-[#131318] pt-3 px-3 pb-6 md:px-6 md:pb-8 md:pt-6">
-        <div className="flex justify-end">
-          <MdOutlineCancel
-            className="text-lg md:text-3xl text-[#ffffff60]"
-            onClick={handleCloseModal}
-          />
-        </div>
-        <h3 className="text-primary text-center mb-8">Contribute</h3>
-
-        <form onSubmit={formik.handleSubmit}>
-          <div className="flex flex-col mb-4">
-            <label className="" htmlFor="contributeTo">
-              You&apos;re Contributing to
-            </label>
-            <input
-              // readOnly
-              type="contributeTo"
-              className={getInputClassNames("contributeTo")}
-              {...formik.getFieldProps("contributeTo")}
+      {!isConfirming ? (
+        <div className="max-w-[506px] w-full rounded-2xl min-h-[428px] bg-[#131318] pt-3 px-3 pb-6 md:px-6 md:pb-8 md:pt-6">
+          <div className="flex justify-end">
+            <MdOutlineCancel
+              className="text-lg md:text-3xl text-[#ffffff60]"
+              onClick={handleCloseModal}
             />
-            {formik.touched.contributeTo && formik.errors.contributeTo && (
-              <div className="form_errors">{formik.errors.contributeTo}</div>
-            )}
           </div>
-          <div className="flex flex-col mb-6">
-            <label className="" htmlFor="amount">
-              Amount
-            </label>
-            <input
-              type="text"
-              className={getInputClassNames("amount")}
-              {...formik.getFieldProps("amount")}
-            />
-            {formik.touched.amount && formik.errors.amount && (
-              <div className="form_errors">{formik.errors.amount}</div>
-            )}
-          </div>
+          <h3 className="text-primary text-center mb-8">Contribute</h3>
 
-          {/* <div className="text-xs md:text-base my-8 flex flex-col gap-2">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="flex flex-col mb-4">
+              <label className="" htmlFor="contributeTo">
+                You&apos;re Contributing to
+              </label>
+              <input
+                // readOnly
+                type="contributeTo"
+                className={getInputClassNames("contributeTo")}
+                {...formik.getFieldProps("contributeTo")}
+              />
+              {formik.touched.contributeTo && formik.errors.contributeTo && (
+                <div className="form_errors">{formik.errors.contributeTo}</div>
+              )}
+            </div>
+            <div className="flex flex-col mb-6">
+              <label className="" htmlFor="amount">
+                Amount
+              </label>
+              <input
+                type="text"
+                className={getInputClassNames("amount")}
+                {...formik.getFieldProps("amount")}
+              />
+              {formik.touched.amount && formik.errors.amount && (
+                <div className="form_errors">{formik.errors.amount}</div>
+              )}
+            </div>
+
+            {/* <div className="text-xs md:text-base my-8 flex flex-col gap-2">
             <div className="flex justify-between">
               <div>Account Balance</div>
               <div>0.0002%</div>
@@ -170,16 +174,21 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               <div>{hash && <div>Transaction Hash: {hash}</div>}</div>
             </div>
           </div> */}
-          <div>
-            <Button
-              title="Contribute"
-              css="w-full"
-              loading={isPending}
-              type="submit"
-            />
-          </div>
-        </form>
-      </div>
+            <div>
+              <Button
+                title="Contribute"
+                css="w-full"
+                loading={isPending}
+                type="submit"
+              />
+            </div>
+          </form>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center max-w-[506px] w-full rounded-2xl min-h-[281px] bg-[#131318] p-6">
+          <BtnLoader size={100} css="text-primary" />
+        </div>
+      )}
     </div>
   );
 };
