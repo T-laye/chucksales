@@ -86,7 +86,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         gasUsed,
       } = data;
       dispatch(handleContributeModal(false));
-      dispatch(handleCongratsModal(false));
+      dispatch(handleCongratsModal(true));
       dispatch(handleTransactionSuccess(isSuccess));
       dispatch(handleHash(hash));
       dispatch(
