@@ -123,8 +123,8 @@ const Page = () => {
               </div>
             </div>
             <Button
-              title="Contribute"
-              css="w-full md:w-[145px]"
+              title={isConnected ? "Contribute" : "Connect & Contribute"}
+              css="w-full md:w-fit"
               fn={handleOpenContributeModal}
             />
           </div>
