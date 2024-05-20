@@ -19,3 +19,8 @@ export const startCounting = (
   // Cleanup the interval when the component is unmounted
   return () => clearInterval(interval);
 };
+
+ export const convertToNumber = (value: bigint) => {
+   const string = Number(value);
+   return string;
+ };

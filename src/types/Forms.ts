@@ -5,7 +5,7 @@ export interface AuthFormValues {
   cPassword?: string;
 }
 export interface ContributeFormValues {
-  contributeTo: string;
+  contributeTo: `0x${string}` ;
   amount: string;
   coin: string;
 }

@@ -15,10 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
   const dispatch = useDispatch();
-  const { showContributeModal, showCongratsModal } = useSelector(
-    (state: any) => state.variables
-  );
-  //   console.log(showContributeModal);
+  const { showContributeModal, showCongratsModal, transactionData } =
+    useSelector((state: any) => state.variables);
+  console.log(transactionData);
 
   const handleOpenContributeModal = () => {
     dispatch(handleContributeModal(true));

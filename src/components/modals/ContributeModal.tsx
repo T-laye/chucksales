@@ -1,12 +1,22 @@
 "use client";
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import Button from "../ui/Button";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
 import { ContributeFormValues } from "@/types/Forms";
 import { useRouter } from "next/navigation";
-import { handleContributeModal } from "@/redux/slices/variables";
+import {
+  handleCongratsModal,
+  handleContributeModal,
+  handleHash,
+  handleTransactionData,
+  handleTransactionSuccess,
+} from "@/redux/slices/variables";
 import { useDispatch, useSelector } from "react-redux";
+import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
+import { parseEther } from "viem";
+import { contribution_validate } from "@/lib/validations/ProjectValidate";
+import { convertToNumber } from "@/utils/Helpers";
 
 interface ContributeModalProps {
   showCongratsModal?: any;
@@ -15,10 +25,29 @@ interface ContributeModalProps {
 const ContributeModal: React.FC<ContributeModalProps> = ({
   showCongratsModal,
 }) => {
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const {
+    data: hash,
+    sendTransaction,
+    isPending,
+    error,
+    isSuccess,
+  } = useSendTransaction();
 
-  const router = useRouter();
+  // const { transactionHash, transactionSuccessful } = useSelector(
+  //   (state: any) => state.variables
+  // );
+  // console.log(error);
+
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    data,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
+
+  //  0xaa60472bbdd22b20f7f5fb0c373b56076e570dc1751e108d75678725037da4fc
 
   const handleCloseModal = () => {
     dispatch(handleContributeModal(false));
@@ -26,24 +55,58 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
 
   const formik = useFormik<ContributeFormValues>({
     initialValues: {
-      contributeTo: "",
+      contributeTo: `0x${0}`,
       amount: "",
       coin: "",
     },
-    //   validate: signIn_validate,
+    validate: contribution_validate,
     onSubmit: handleSubmit,
   });
 
-  function handleSubmit(values: ContributeFormValues): void {
-    console.log(values);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      dispatch(handleContributeModal(false));
-      showCongratsModal();
-      //   router.push("/signUp/verification");
-    }, 3000);
+  async function handleSubmit(values: ContributeFormValues) {
+    const to = values.contributeTo;
+    const value = values.amount;
+    sendTransaction({ to, value: parseEther(value) });
   }
+
+  useEffect(() => {
+    if ((isConfirmed || isSuccess) && hash && data) {
+      const {
+        blockHash,
+        chainId,
+        contractAddress,
+        from,
+        status,
+        to,
+        transactionHash,
+        transactionIndex,
+        blockNumber,
+        cumulativeGasUsed,
+        effectiveGasPrice,
+        gasUsed,
+      } = data;
+      dispatch(handleContributeModal(false));
+      dispatch(handleCongratsModal(false));
+      dispatch(handleTransactionSuccess(isSuccess));
+      dispatch(handleHash(hash));
+      dispatch(
+        handleTransactionData({
+          blockHash,
+          chainId,
+          contractAddress,
+          from,
+          status,
+          to,
+          transactionHash,
+          transactionIndex,
+          blockNumber: convertToNumber(blockNumber),
+          cumulativeGasUsed: convertToNumber(cumulativeGasUsed),
+          effectiveGasPrice: convertToNumber(effectiveGasPrice),
+          gasUsed: convertToNumber(gasUsed),
+        })
+      );
+    }
+  }, [data, dispatch, hash, isConfirmed, isSuccess]);
 
   const getInputClassNames = (
     fieldName: keyof ContributeFormValues
@@ -80,36 +143,40 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               <div className="form_errors">{formik.errors.contributeTo}</div>
             )}
           </div>
-          <div className="flex flex-col mb-4">
-            <label className="" htmlFor="contributeTo">
+          <div className="flex flex-col mb-6">
+            <label className="" htmlFor="amount">
               Amount
             </label>
             <input
-              type="contributeTo"
-              className={getInputClassNames("contributeTo")}
-              {...formik.getFieldProps("contributeTo")}
+              type="text"
+              className={getInputClassNames("amount")}
+              {...formik.getFieldProps("amount")}
             />
-            {formik.touched.contributeTo && formik.errors.contributeTo && (
-              <div className="form_errors">{formik.errors.contributeTo}</div>
+            {formik.touched.amount && formik.errors.amount && (
+              <div className="form_errors">{formik.errors.amount}</div>
             )}
           </div>
 
-          <div className="text-xs md:text-base my-8 flex flex-col gap-2">
+          {/* <div className="text-xs md:text-base my-8 flex flex-col gap-2">
             <div className="flex justify-between">
-              <div>Network fee (est.)</div>
-              <div>2 USDT</div>
+              <div>Account Balance</div>
+              <div>0.0002%</div>
             </div>
             <div className="flex justify-between">
-              <div>Percentage gained</div>
-              <div>0.0002%</div>
+              <div>Gas fee (est.)</div>
+              <div>2 USDT</div>
             </div>
             <div className="flex justify-between">
               <div>Transfer time</div>
               <div>11:59GMT+1</div>
             </div>
-          </div>
+            <div className="flex justify-between">
+              <div>Transaction Hash</div>
+              <div>{hash && <div>Transaction Hash: {hash}</div>}</div>
+            </div>
+          </div> */}
           <div>
-            <Button title="Contribute" css="w-full" loading={loading} />
+            <Button title="Contribute" css="w-full" loading={isPending} />
           </div>
         </form>
       </div>

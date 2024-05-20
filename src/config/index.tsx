@@ -1,10 +1,11 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { cookieStorage, createStorage } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+// import { mainnet, sepolia, base, dogechain } from "wagmi/chains";
+import { mainnet, base, optimism, arbitrum } from "wagmi/chains";
 
 // Get projectId at https://cloud.walletconnect.com
-export const projectId= process?.env?.NEXT_PUBLIC_PROJECT_ID;
+export const projectId = process?.env?.NEXT_PUBLIC_PROJECT_ID;
 
 if (!projectId) throw new Error("Project ID is not defined");
 
@@ -16,7 +17,7 @@ const metadata = {
 };
 
 // Create wagmiConfig
-const chains = [mainnet, sepolia] as const;
+const chains = [mainnet, optimism, arbitrum, base] as const;
 export const config: any = defaultWagmiConfig({
   chains,
   projectId,
@@ -27,3 +28,6 @@ export const config: any = defaultWagmiConfig({
   }),
   //   ...wagmiOptions, // Optional - Override createConfig parameters
 });
+
+//0x46Cd627b680d4681AaCa7C240392eca089631b67
+

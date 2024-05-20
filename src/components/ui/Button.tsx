@@ -20,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      disabled={loading}
       onClick={fn}
       className={`${css}  ${
         primary ? "bg-primary" : "bg-none border border-primary text-primary"
