@@ -8,21 +8,30 @@ import {
   handleCongratsModal,
   handleContributeModal,
 } from "@/redux/slices/variables";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+import { useAccount } from "wagmi";
 
 const Page = () => {
   const dispatch = useDispatch();
+  const { open, close } = useWeb3Modal();
+  const { address, connector, isConnected } = useAccount();
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
   console.log(transactionData);
 
   const handleOpenContributeModal = () => {
-    dispatch(handleContributeModal(true));
-    dispatch(handleCongratsModal(false));
+    if (!isConnected) {
+      open();
+    } else {
+      dispatch(handleContributeModal(true));
+      // dispatch(handleCongratsModal(false));
+    }
   };
+
   const handleOpenCongratsModal = () => {
     dispatch(handleCongratsModal(true));
     dispatch(handleContributeModal(false));

@@ -13,7 +13,11 @@ import {
   handleTransactionSuccess,
 } from "@/redux/slices/variables";
 import { useDispatch, useSelector } from "react-redux";
-import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
+import {
+  useAccount,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import { parseEther } from "viem";
 import { contribution_validate } from "@/lib/validations/ProjectValidate";
 import { convertToNumber } from "@/utils/Helpers";
@@ -26,6 +30,8 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   showCongratsModal,
 }) => {
   const dispatch = useDispatch();
+  const { address, connector, isConnected } = useAccount();
+  // console.log(address, isConnected);
   const {
     data: hash,
     sendTransaction,
@@ -33,11 +39,6 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
     error,
     isSuccess,
   } = useSendTransaction();
-
-  // const { transactionHash, transactionSuccessful } = useSelector(
-  //   (state: any) => state.variables
-  // );
-  // console.log(error);
 
   const {
     isLoading: isConfirming,
