@@ -13,15 +13,35 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { useAccount } from "wagmi";
+import {
+  useAccount,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 
 const Page = () => {
   const dispatch = useDispatch();
   const { open, close } = useWeb3Modal();
+  const {
+    data: hash,
+    sendTransaction,
+    isPending,
+    error,
+    isSuccess,
+  } = useSendTransaction();
+
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    data,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
   const { address, connector, isConnected } = useAccount();
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
-  console.log(transactionData);
+
+  // console.log(transactionData);
 
   const handleOpenContributeModal = () => {
     if (!isConnected) {
@@ -248,9 +268,17 @@ const Page = () => {
         </section>
       </section>
       {showContributeModal && (
-        <ContributeModal showCongratsModal={handleOpenCongratsModal} />
+        <ContributeModal
+          showCongratsModal={handleOpenCongratsModal}
+          data={data}
+          hash={hash}
+          isConfirmed={isConfirmed}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          sendTransaction={sendTransaction}
+        />
       )}
-      {showCongratsModal && <CongratsModal />}
+      {showCongratsModal && <CongratsModal isConfirming={isConfirming} />}
     </>
   );
 };

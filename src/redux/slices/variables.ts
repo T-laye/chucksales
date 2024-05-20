@@ -6,12 +6,12 @@ interface MyState {
   transactionSuccessful?: string;
   transactionHash?: string;
   transactionData?: any;
+  transactionDataFetch?: boolean;
 }
 
 const initialState: MyState = {
   showContributeModal: false,
   showCongratsModal: false,
-  transactionSuccessful: "",
   transactionHash: "",
   transactionData: {},
 };
@@ -29,9 +29,6 @@ const variables = createSlice({
     handleHash: (state, action) => {
       state.transactionHash = action.payload;
     },
-    handleTransactionSuccess: (state, action) => {
-      state.transactionSuccessful = action.payload;
-    },
     handleTransactionData: (state, action) => {
       state.transactionData = action.payload;
     },
@@ -41,8 +38,8 @@ const variables = createSlice({
 export const {
   handleContributeModal,
   handleCongratsModal,
-  handleTransactionSuccess,
   handleHash,
   handleTransactionData,
+  
 } = variables.actions;
 export default variables.reducer;

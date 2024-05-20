@@ -8,6 +8,7 @@ interface ButtonProps {
   nav?: boolean;
   loading?: boolean;
   primary?: boolean;
+  type?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,10 +18,12 @@ const Button: React.FC<ButtonProps> = ({
   nav = false,
   primary = true,
   loading = false,
+  type = "button",
 }) => {
   return (
     <button
       disabled={loading}
+      type={type}
       onClick={fn}
       className={`${css}  ${
         primary ? "bg-primary" : "bg-none border border-primary text-primary"

@@ -10,43 +10,32 @@ import {
   handleContributeModal,
   handleHash,
   handleTransactionData,
-  handleTransactionSuccess,
 } from "@/redux/slices/variables";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useAccount,
-  useSendTransaction,
-  useWaitForTransactionReceipt,
-} from "wagmi";
 import { parseEther } from "viem";
 import { contribution_validate } from "@/lib/validations/ProjectValidate";
 import { convertToNumber } from "@/utils/Helpers";
 
 interface ContributeModalProps {
-  showCongratsModal?: any;
+  showCongratsModal: any;
+  data: any;
+  isSuccess: boolean;
+  isConfirmed: boolean;
+  sendTransaction: any;
+  hash: any;
+  isPending: boolean;
 }
 
 const ContributeModal: React.FC<ContributeModalProps> = ({
   showCongratsModal,
+  data,
+  isSuccess,
+  isConfirmed,
+  sendTransaction,
+  hash,
+  isPending,
 }) => {
   const dispatch = useDispatch();
-  const { address, connector, isConnected } = useAccount();
-  // console.log(address, isConnected);
-  const {
-    data: hash,
-    sendTransaction,
-    isPending,
-    error,
-    isSuccess,
-  } = useSendTransaction();
-
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-    data,
-  } = useWaitForTransactionReceipt({
-    hash,
-  });
 
   //  0xaa60472bbdd22b20f7f5fb0c373b56076e570dc1751e108d75678725037da4fc
 
@@ -56,7 +45,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
 
   const formik = useFormik<ContributeFormValues>({
     initialValues: {
-      contributeTo: `0x${0}`,
+      contributeTo: `0xaa60472bbdd22b20f7f5fb0c373b56076e570dc1751e108d75678725037da4fc`,
       amount: "",
       coin: "",
     },
@@ -71,7 +60,10 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   }
 
   useEffect(() => {
-    if ((isConfirmed || isSuccess) && hash && data) {
+    // if (isSuccess && !isConfirmed) {
+    //   dispatch(handleTransactionDataFetch(true));
+    // }
+    if (isConfirmed && hash && data) {
       const {
         blockHash,
         chainId,
@@ -87,8 +79,9 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         gasUsed,
       } = data;
       dispatch(handleContributeModal(false));
+      // handleTransactionDataFetch(false);
       dispatch(handleCongratsModal(true));
-      dispatch(handleTransactionSuccess(isSuccess));
+      // dispatch(handleTransactionSuccess(isSuccess));
       dispatch(handleHash(hash));
       dispatch(
         handleTransactionData({
@@ -136,6 +129,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               You&apos;re Contributing to
             </label>
             <input
+              readOnly
               type="contributeTo"
               className={getInputClassNames("contributeTo")}
               {...formik.getFieldProps("contributeTo")}
@@ -177,7 +171,12 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
             </div>
           </div> */}
           <div>
-            <Button title="Contribute" css="w-full" loading={isPending} />
+            <Button
+              title="Contribute"
+              css="w-full"
+              loading={isPending}
+              type="submit"
+            />
           </div>
         </form>
       </div>
