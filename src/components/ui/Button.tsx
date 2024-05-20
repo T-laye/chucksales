@@ -8,7 +8,7 @@ interface ButtonProps {
   nav?: boolean;
   loading?: boolean;
   primary?: boolean;
-  type?: string;
+  type?: any;
 }
 
 const Button: React.FC<ButtonProps> = ({
