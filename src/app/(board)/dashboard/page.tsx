@@ -63,7 +63,7 @@ const Page = () => {
               {isConnected ? address : ""}
             </p>
             <p className="text-xs md:text-base mt-1">
-              Joined {formatDate(user?.createdDate)}
+              Joined {user?.createdDate ? formatDate(user?.createdDate) : ""}
             </p>
           </div>
         </div>

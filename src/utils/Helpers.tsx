@@ -34,22 +34,29 @@ export const capitalize = (sentence: string): string => {
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
-  
-  const options: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  };
+  if (date) {
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
 
-  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
-  
-  // Remove ordinal suffix if any (optional, based on your regex logic)
-  const formattedDateTime = formattedDate.replace(/(\d+)(th|st|nd|rd)/, "$1$2");
+    const formattedDate = new Intl.DateTimeFormat("en-US", options)?.format(
+      date
+    );
 
-  return formattedDateTime;
+    // Remove ordinal suffix if any (optional, based on your regex logic)
+    const formattedDateTime = formattedDate.replace(
+      /(\d+)(th|st|nd|rd)/,
+      "$1$2"
+    );
+    return formattedDateTime;
+  } else {
+    return "";
+  }
 };
 
 // Example usage
