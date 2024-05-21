@@ -1,5 +1,6 @@
 "use client";
 import Logo from "@/components/ui/Logo";
+import Toast from "@/components/ui/Toast";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -27,6 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </div>
       </div>
+      <Toast />
     </section>
   );
 };

@@ -15,7 +15,7 @@ const Page = () => {
   const router = useRouter();
   const { auth } = useSelector((state: any) => state.auth);
   const user = auth?.user;
-  console.log(user);
+  // console.log(user);
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");

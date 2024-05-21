@@ -5,6 +5,7 @@ import {
   setCredentials,
 } from "@/redux/slices/authSlice";
 import { AuthFormValues } from "@/types/Forms";
+import { toast } from "@/utils/Toast";
 import { Dispatch } from "@reduxjs/toolkit";
 import { AxiosInstance } from "axios";
 
@@ -85,6 +86,8 @@ export const handleSignIn = async ({
         router.push("/dashboard");
         break;
     }
+    const message = res.data.data.message;
+    toast({ dispatch, message });
   } catch (error) {
     console.log(error);
     dispatch(loginError());
