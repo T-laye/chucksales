@@ -10,11 +10,15 @@ import { useRouter } from "next/navigation";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
 import { signIn_validate } from "@/lib/validations/authValidate";
+import { handleSignIn } from "@/services/user";
+import axios from "@/config/axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { pending } = useSelector((state: any) => state.auth);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -30,12 +34,7 @@ const Page: React.FC = () => {
   });
 
   function handleSubmit(values: AuthFormValues): void {
-    console.log(values);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      router.push("/dashboard");
-    }, 3000);
+    handleSignIn({ axios, dispatch, router, values });
   }
 
   const getInputClassNames = (fieldName: keyof AuthFormValues): string => {
@@ -94,7 +93,12 @@ const Page: React.FC = () => {
         </div>
 
         <div>
-          <Button title="Sign in" css="w-full" loading={loading} />
+          <Button
+            title="Sign in"
+            css="w-full"
+            loading={pending}
+            type="submit"
+          />
         </div>
       </form>
 

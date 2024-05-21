@@ -1,5 +1,8 @@
+"use client";
 import Header from "@/components/landingPage/Header";
-import React from "react";
+import React, { Suspense } from "react";
+import AuthProvider from "../(authPages)/AuthProvider";
+import Loading from "@/components/ui/loading";
 
 interface layoutProps {
   children: React.ReactNode;
@@ -7,10 +10,12 @@ interface layoutProps {
 
 const layout: React.FC<layoutProps> = ({ children }) => {
   return (
-    <div>
+    <AuthProvider>
       <Header />
-      <section className="pt-20 pb-40">{children}</section>
-    </div>
+      {/* <Suspense fallback={<Loading />}> */}
+        <div className="pt-20 pb-40">{children}</div>
+      {/* </Suspense> */}
+    </AuthProvider>
   );
 };
 

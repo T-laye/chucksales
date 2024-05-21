@@ -5,18 +5,21 @@ export interface AuthFormValues {
   cPassword?: string;
 }
 export interface ContributeFormValues {
-  contributeTo: `0x${string}` ;
+  contributeTo: `0x${string}`;
   amount: string;
   coin: string;
 }
 export interface ProjectFormValues {
-  name?: string;
-  description?: string;
-  logo?: string;
-  email?: string;
-  wallet?: string;
-  twitter?: string;
-  discord?: string;
-  telegram?: string;
-  website?: string;
+  name: string;
+  description: string;
+  logo?: any;
+  email: string;
+  wallet: string;
+  twitter: string;
+  discord: string;
+  telegram: string;
+  website: string;
+  goLive?: boolean;
+  percentageCirculation: number;
+  totalTokenCirculation: number;
 }

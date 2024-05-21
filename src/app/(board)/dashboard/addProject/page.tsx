@@ -6,7 +6,7 @@ import { FormikErrors, FormikTouched, useFormik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import * as Yup from "yup";
+
 
 const Page = () => {
   const [loading, setLoading] = useState(false);
@@ -17,13 +17,15 @@ const Page = () => {
     initialValues: {
       name: "",
       description: "",
-      logo: "",
+      // logo: "",
       email: "",
       wallet: "",
       twitter: "",
       discord: "",
       telegram: "",
       website: "",
+      percentageCirculation: 0,
+      totalTokenCirculation: 0,
     },
     validationSchema: project_validation,
     onSubmit: handleSubmit,
@@ -155,9 +157,9 @@ const Page = () => {
                 </p>
               </div>
             </label>
-            {formik.touched.logo && formik.errors.logo && (
+            {/* {formik.touched.logo && formik.errors.logo && (
               <div className="form_errors">{formik.errors.logo}</div>
-            )}
+            )} */}
           </div>
           {/*  */}
           <div className="md:grid md:grid-cols-2 md:gap-5 ">

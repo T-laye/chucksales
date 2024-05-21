@@ -11,12 +11,16 @@ import Image from "next/image";
 import { IoEyeOutline } from "react-icons/io5";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { signUp_validate } from "@/lib/validations/authValidate";
+import { handleSignUp } from "@/services/user";
+import axios from "@/config/axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const { pending } = useSelector((state: any) => state.auth);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -37,12 +41,7 @@ const Page: React.FC = () => {
   });
 
   function handleSubmit(values: AuthFormValues): void {
-    console.log(values);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      router.push("/signUp/verification");
-    }, 3000);
+    handleSignUp({ axios, dispatch, router, values });
   }
 
   const getInputClassNames = (fieldName: keyof AuthFormValues): string => {
@@ -142,7 +141,12 @@ const Page: React.FC = () => {
         </div>
 
         <div>
-          <Button title="Sign up" css="w-full" loading={loading} />
+          <Button
+            title="Sign up"
+            css="w-full"
+            loading={pending}
+            type="submit"
+          />
         </div>
       </form>
 

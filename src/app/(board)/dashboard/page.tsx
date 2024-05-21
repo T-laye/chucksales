@@ -1,15 +1,21 @@
 "use client";
 import Pagination from "@/components/Pagination";
 import Button from "@/components/ui/Button";
+import { capitalize, formatDate } from "@/utils/Helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { useAccount } from "wagmi";
 
 const Page = () => {
-  const [loading, setLoading] = useState(false);
+  const { address, isConnected } = useAccount();
   const [activeTab, setActiveTab] = useState(0);
   const router = useRouter();
+  const { auth } = useSelector((state: any) => state.auth);
+  const user = auth?.user;
+  console.log(user);
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");
@@ -50,11 +56,15 @@ const Page = () => {
             />
           </div>
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="font-semibold md:text-3xl mt-1">Johnson Sam</h3>
+            <h3 className="font-semibold md:text-3xl mt-1">
+              {capitalize(user?.name)}
+            </h3>
             <p className="text-xs md:text-base mt-1">
-              0xwimnkd48h8...nje983hfbuj
+              {isConnected ? address : ""}
             </p>
-            <p className="text-xs md:text-base mt-1">Joined April 15th</p>
+            <p className="text-xs md:text-base mt-1">
+              Joined {formatDate(user?.createdDate)}
+            </p>
           </div>
         </div>
 

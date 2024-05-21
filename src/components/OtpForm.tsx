@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 // OtpInput component
 const OtpInput: React.FC = () => {
@@ -10,8 +11,9 @@ const OtpInput: React.FC = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const inputRefs = useRef<HTMLInputElement[]>([]);
+  const user = sessionStorage.getItem("user");
 
-  //   console.log(otp);
+  // console.log(user);
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
@@ -60,13 +62,14 @@ const OtpInput: React.FC = () => {
 
   const handleSubmit = () => {
     const otpValues = otp.join("");
-    console.log(otpValues);
+    // console.log(otpValues);
 
-    if (otpValues === "123456") {
+    if (otpValues === "123456" && user) {
       setLoading(true);
       setError(false);
 
       setTimeout(() => {
+        router.push("/dashboard");
         setLoading(false);
       }, 2000);
     } else {

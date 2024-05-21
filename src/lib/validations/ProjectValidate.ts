@@ -4,7 +4,7 @@ import * as Yup from "yup";
 const project_validation = Yup.object().shape({
   name: Yup.string().required("required"),
   description: Yup.string().required("required"),
-  logo: Yup.string().required("required"),
+  // logo: Yup.string().required("required"),
   email: Yup.string().email("Invalid email address").required("required"),
   wallet: Yup.string().required("required"),
   twitter: Yup.string().required("required"),
