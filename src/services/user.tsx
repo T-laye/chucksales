@@ -30,29 +30,41 @@ export const handleSignUp = async ({
       password: values.password,
     });
 
-    // console.log(res);
-
-    switch (res.data.data.statusCode) {
-      case 400:
-        dispatch(loginError());
-        // toast message res.data.data.message
-        break;
-      case 403:
-        // toast message
-        break;
-      default:
-        const accessToken = res.data.data.accessToken;
-        const user = res.data?.data?.user;
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("user", JSON.stringify(user));
-        dispatch(setCredentials({ ...res.data }));
-        dispatch(loginSuccess());
-        router.push("/signUp/verification");
-        break;
+    console.log(res);
+    if (res.status === 201) {
+      const accessToken = res.data.data.accessToken;
+      const user = res.data?.data?.user;
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("user", JSON.stringify(user));
+      dispatch(setCredentials({ ...res.data }));
+      dispatch(loginSuccess());
+      router.push("/signUp/verification");
+       toast({
+         dispatch,
+         message: "Successfully Created",
+       });
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const statusCode = error.response.data.statusCode;
     dispatch(loginError());
+
+    console.log(error.response.data.statusCode);
+    if (statusCode === 400) {
+      toast({
+        dispatch,
+        message: "Password not strong enough",
+      });
+    } else if (statusCode === 403) {
+      toast({
+        dispatch,
+        message: "User email already exist",
+      });
+    } else {
+      toast({
+        dispatch,
+        message: "Something went wrong!!!",
+      });
+    }
   }
 };
 

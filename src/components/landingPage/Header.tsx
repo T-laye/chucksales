@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 lg:px-8 bg-dark z-[100]">
-      <div className="container px-4 py-3 max-[350px]:px-1 mx-auto flex items-center justify-between">
+      <div className="container px-4 py-3 max-[350px]:px-1 mx-auto flex items-center justify-between ">
         <div className="lg:flex items-center lg:gap-8">
           <Logo />
           <nav
@@ -29,7 +29,7 @@ export default function Header() {
               showNav ? "translate-y-0" : "-translate-y-full lg:translate-y-0"
             } duration-200 fixed h-screen bg-customGrayTransparent lg:bg-dark backdrop-blur-sm top-0 left-0 right-0 lg:static lg:h-auto`}
           >
-            <div className="flex flex-col bg-dark p-6 gap-16 pb-20 lg:p-0 lg:pb-0">
+            <div className="flex flex-col bg-dark pt-14 px-6 gap-16 pb-20 lg:p-0 lg:pb-0">
               <div className="flex justify-between items-center lg:hidden">
                 <Logo />
                 <IoClose
@@ -47,20 +47,8 @@ export default function Header() {
             </div>
           </nav>
         </div>
+        <w3m-button />
         <div className="flex items-center gap-3 lg:gap-5">
-          {/* <div className="lg:flex items-center lg:text-2xl text-lg p-1 lg:h-8 lg:w-8 text-[#FFFFFFCC] justify-center bg-[#333] cursor-pointer rounded-full max-[300px]:hidden ">
-            <IoIosNotificationsOutline />
-          </div> */}
-          {/* <Button
-            title="Connect wallet"
-            nav={true}
-            loading={isLoading}
-            fn={() => {
-              open();
-              setIsLoading(!isLoading);
-            }}
-          /> */}
-          <w3m-button />
           <HiOutlineMenuAlt3
             onClick={handleNav}
             size={28}
