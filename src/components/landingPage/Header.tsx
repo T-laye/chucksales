@@ -47,8 +47,13 @@ export default function Header() {
             </div>
           </nav>
         </div>
-        <w3m-button />
+        <div className="md:hidden">
+          <w3m-button />
+        </div>
         <div className="flex items-center gap-3 lg:gap-5">
+          <div className="hidden md:block">
+            <w3m-button />
+          </div>
           <HiOutlineMenuAlt3
             onClick={handleNav}
             size={28}
