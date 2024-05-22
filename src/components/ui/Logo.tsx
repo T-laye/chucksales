@@ -10,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({ w = "w-28 lg:w-48" }) => {
     <Link href="/">
       <div className={`${w}`}>
         <Image
-          src="/images/chuck_logo.svg"
+          src="/images/chuck_logo.png"
           alt="Chucksales Logo"
           width={700}
           height={700}

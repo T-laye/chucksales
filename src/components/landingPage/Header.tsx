@@ -47,11 +47,11 @@ export default function Header() {
             </div>
           </nav>
         </div>
-        <div className="md:hidden">
+        <div className="flex w-full justify-end mr-2 sm:hidden ">
           <w3m-button />
         </div>
         <div className="flex items-center gap-3 lg:gap-5">
-          <div className="hidden md:block">
+          <div className="hidden sm:block ">
             <w3m-button />
           </div>
           <HiOutlineMenuAlt3
