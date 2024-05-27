@@ -20,23 +20,29 @@ export function signUp_validate(values: AuthFormValues): ErrorsState {
     errors.email = "Invalid email address";
   }
 
-  if (!values.password) {
-    errors.password = "Required";
-  } else if (values.password.length < 6) {
-    errors.password = "Must be at least 6 characters";
-  } else if (values.password.includes(" ")) {
-    errors.password = "Invalid Password";
-  }
+ if (!values.password) {
+   errors.password = "Required";
+ } else if (values.password.length < 8) {
+   errors.password = "Must be at least 8 characters";
+ } else if (values.password.includes(" ")) {
+   errors.password = "Invalid Password";
+ } else if (!/[A-Z]/.test(values.password)) {
+   errors.password = "Must contain at least one uppercase letter";
+ } else if (!/[a-z]/.test(values.password)) {
+   errors.password = "Must contain at least one lowercase letter";
+ } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(values.password)) {
+   errors.password = "Must contain at least one special character";
+ }
 
-  if (!values.cPassword) {
-    errors.cPassword = "Required";
-  } else if (values.cPassword.length < 6) {
-    errors.cPassword = "Must be at least 6 characters";
-  } else if (values.cPassword.includes(" ")) {
-    errors.cPassword = "Invalid Password";
-  } else if (values.cPassword !== values.password) {
-    errors.cPassword = "Not matching with password";
-  }
+if (!values.cPassword) {
+  errors.cPassword = "Required";
+} else if (values.cPassword.length < 8) {
+  errors.cPassword = "Must be at least 8 characters";
+} else if (values.cPassword.includes(" ")) {
+  errors.cPassword = "Invalid Password";
+} else if (values.cPassword !== values.password) {
+  errors.cPassword = "Not matching with password";
+}
 
   return errors;
 }

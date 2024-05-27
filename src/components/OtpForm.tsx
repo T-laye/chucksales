@@ -64,22 +64,6 @@ const OtpInput: React.FC = () => {
     ));
   };
 
-  // const handleSubmit = () => {
-  //   const otpValues = otp.join("");
-  //   // console.log(otpValues);
-
-  //   if (otpValues === "123456" && user) {
-  //     setLoading(true);
-  //     setError(false);
-
-  //     setTimeout(() => {
-  //       router.push("/dashboard");
-  //       setLoading(false);
-  //     }, 2000);
-  //   } else {
-  //     setError(true);
-  //   }
-  // };
 
   function handleSubmit(values: AuthFormValues): any {
     handleOtp({ axios, dispatch, router, values, otpValues: otp.join("") });
