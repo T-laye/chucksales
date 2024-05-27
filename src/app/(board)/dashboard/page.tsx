@@ -29,11 +29,13 @@ const Page = () => {
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
       axiosAuth.get(
-        `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
+        `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
   const projectData = data?.data?.data;
   const errorCode = error?.message;
+
+  // console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -70,7 +72,7 @@ const Page = () => {
         <td>
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-            <span className="block">{p.name}</span>
+            <span className="block">{capitalize(p.name)}</span>
           </div>
         </td>
         <td className="">{p.email}</td>
@@ -200,7 +202,7 @@ const Page = () => {
                       <table>
                         <thead className="border-b border-primaryTransparent ">
                           <tr>
-                            <td>Name</td>
+                            <td className="">Name</td>
                             <td>Email</td>
                             <td>Total Amount Generated</td>
                             <td>Total Token</td>

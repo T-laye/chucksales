@@ -3,17 +3,35 @@ import Pagination from "@/components/Pagination";
 import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
+import axios from "@/config/axios";
 import { AuthFormValues } from "@/types/Forms";
+import { useQuery } from "@tanstack/react-query";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const Page = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const { order, take, pageNumber } = useSelector(
+    (state: any) => state.variables
+  );
+  // const user = auth?.user?.user;
+  const { data, isLoading, error, isError } = useQuery({
+    queryKey: ["projects", order, pageNumber, take],
+    queryFn: () =>
+      axios.get(
+        `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
+      ),
+  });
+  const projectData = data?.data?.data;
+  const errorCode = error?.message;
+
+  // console.log(projectData);
 
   const formik = useFormik<AuthFormValues>({
     initialValues: {
@@ -306,7 +324,7 @@ const Page = () => {
                 </table>
               </div>
             </div>
-              <Pagination totalCount={20} />
+            <Pagination totalCount={20} />
           </div>
         </div>
       </section>
