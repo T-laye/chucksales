@@ -27,7 +27,7 @@ import {
 const Page = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { viewProject: projectId } = useParams();
+  const { projectId } = useParams();
   const axiosAuth = useAxiosAuth();
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables

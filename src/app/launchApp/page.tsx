@@ -3,6 +3,7 @@ import Pagination from "@/components/Pagination";
 import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
+import Loading from "@/components/ui/Loading";
 import axios from "@/config/axios";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { AuthFormValues } from "@/types/Forms";
@@ -163,26 +164,29 @@ const Page = () => {
               </div>
             </div>
 
-            <div className="border border-primaryTransparent rounded-lg py-2  ">
-              <h3 className="p-5 pt-2">
-                {" "}
-                Project ({projectData?.totalCount || 0})
-              </h3>
-              <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
-                <table>
-                  <thead className="border-b border-primaryTransparent ">
-                    <tr>
-                      <td>Name</td>
-                      <td>Amount raised</td>
-                      <td>Time left</td>
-                      <td>Wallet address</td>
-                      <td>Action</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* Data */}
-                    {renderProjects()}
-                    {/* <tr>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <div className="border border-primaryTransparent rounded-lg py-2  ">
+                <h3 className="p-5 pt-2">
+                  {" "}
+                  Project ({projectData?.totalCount || 0})
+                </h3>
+                <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
+                  <table>
+                    <thead className="border-b border-primaryTransparent ">
+                      <tr>
+                        <td>Name</td>
+                        <td>Amount raised</td>
+                        <td>Time left</td>
+                        <td>Wallet address</td>
+                        <td>Action</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* Data */}
+                      {renderProjects()}
+                      {/* <tr>
                       <td>
                         <div className="flex justify-center items-center gap-3 ">
                           <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
@@ -196,11 +200,11 @@ const Page = () => {
                         <Button title="View project" fn={gotoViewProject} />
                       </td>
                     </tr> */}
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-
+            )}
             {data && <Pagination totalCount={projectData?.totalCount} />}
           </div>
         </div>

@@ -20,10 +20,10 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const axiosAuth = useAxiosAuth();
-  const { auth } = useSelector((state: any) => state.auth);
-  const { order, take, pageNumber } = useSelector(
-    (state: any) => state.variables
-  );
+    const { auth } = useSelector((state: any) => state.auth);
+    const { order, take, pageNumber } = useSelector(
+      (state: any) => state.variables
+    );
   const user = auth?.user;
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
@@ -35,7 +35,7 @@ const Page = () => {
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  console.log(projectData);
+  // console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -53,7 +53,7 @@ const Page = () => {
   };
 
   const gotoViewProject = (id: string) => {
-    router.push(`/dashboard/${id}`);
+    router.push(`/dashboard/${id}/viewProject`);
   };
 
   const handleActiveTab = (tab: number) => {
