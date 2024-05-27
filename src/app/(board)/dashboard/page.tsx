@@ -24,7 +24,7 @@ const Page = () => {
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
-  const user = auth?.user;
+  const user = auth?.user?.user;
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
@@ -44,7 +44,7 @@ const Page = () => {
     }
   }
 
-  console.log(errorCode);
+  console.log(user);
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");
