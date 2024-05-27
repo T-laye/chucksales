@@ -28,12 +28,12 @@ const Page = () => {
       toast({ dispatch, message: "Successfully Created" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       router.back();
-      console.log(data);
+      // console.log(data);
     },
 
     onError: (error: any) => {
       toast({ dispatch, message: "Failed to Create" });
-      console.log(error);
+      // console.log(error);
     },
   });
 
