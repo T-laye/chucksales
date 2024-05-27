@@ -158,7 +158,7 @@ const Page = () => {
                     Completed contributions
                   </div>
                 </div>
-                <div className="flex w-full gap-2 items-center ">
+                <div className="flex w-full gap-2 items-center justify-end ">
                   <div className="flex w-full flex-col mt-2 relative md:mb-0 md:flex-1 md:max-w-[325px]">
                     <input
                       type="text"
