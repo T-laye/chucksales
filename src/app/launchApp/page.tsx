@@ -4,7 +4,9 @@ import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
 import axios from "@/config/axios";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { AuthFormValues } from "@/types/Forms";
+import { capitalize } from "@/utils/Helpers";
 import { useQuery } from "@tanstack/react-query";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
 import Image from "next/image";
@@ -17,6 +19,7 @@ const Page = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const axiosAuth = useAxiosAuth();
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
@@ -31,7 +34,7 @@ const Page = () => {
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  // console.log(projectData);
+  console.log(projectData);
 
   const formik = useFormik<AuthFormValues>({
     initialValues: {
@@ -51,8 +54,8 @@ const Page = () => {
     }, 3000);
   }
 
-  const goToViewProject = () => {
-    router.push("/launchApp/[viewProject]");
+  const gotoViewProject = (projectId: string) => {
+    router.push(`/launchApp/${projectId}`);
   };
 
   const handleActiveTab = (tab: number) => {
@@ -65,6 +68,25 @@ const Page = () => {
     } whitespace-nowrap p-[10px] duration-150 cursor-pointer  rounded-lg h-[28px] flex justify-center items-center text-xs md:text-base`;
   };
 
+  const renderProjects = () => {
+    return projectData?.projects?.data?.map((p: any) => (
+      <tr key={p.id}>
+        <td>
+          <div className="flex justify-start items-center gap-3 ">
+            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
+            <span className="block">{capitalize(p.name)}</span>
+          </div>
+        </td>
+        <td className="">{p.email}</td>
+        <td className="">{p.totalAmountGenerate}</td>
+        <td>{p.totalToken}</td>
+        <td>{p.status}</td>
+        <td>
+          <Button title="View project" fn={() => gotoViewProject(p.id)} />
+        </td>
+      </tr>
+    ));
+  };
   return (
     <>
       <Header />
@@ -142,7 +164,10 @@ const Page = () => {
             </div>
 
             <div className="border border-primaryTransparent rounded-lg py-2  ">
-              <h3 className="p-5 pt-2"> Project (6)</h3>
+              <h3 className="p-5 pt-2">
+                {" "}
+                Project ({projectData?.totalCount || 0})
+              </h3>
               <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
                 <table>
                   <thead className="border-b border-primaryTransparent ">
@@ -156,7 +181,8 @@ const Page = () => {
                   </thead>
                   <tbody>
                     {/* Data */}
-                    <tr>
+                    {renderProjects()}
+                    {/* <tr>
                       <td>
                         <div className="flex justify-center items-center gap-3 ">
                           <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
@@ -167,164 +193,15 @@ const Page = () => {
                       <td className="">01:45:30</td>
                       <td>0xght456ytn54j890lkijbh12</td>
                       <td>
-                        <Button title="View project" fn={goToViewProject} />
+                        <Button title="View project" fn={gotoViewProject} />
                       </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
-                    {/* Data */}
-                    <tr>
-                      <td>
-                        <div className="flex justify-center items-center gap-3 ">
-                          <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                          <span className="block">USDT</span>
-                        </div>
-                      </td>
-                      <td className="">45 USD</td>
-                      <td className="">01:45:30</td>
-                      <td>0xght456ytn54j890lkijbh12</td>
-                      <td>
-                        <Button title="View project" fn={goToViewProject} />
-                      </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>
             </div>
-            <Pagination totalCount={20} />
+
+            {data && <Pagination totalCount={projectData?.totalCount} />}
           </div>
         </div>
       </section>

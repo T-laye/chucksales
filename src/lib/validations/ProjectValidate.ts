@@ -20,16 +20,16 @@ const project_validation = Yup.object().shape({
   percentageCirculation: Yup.string().required("required"),
   totalTokenCirculation: Yup.string().required("required"),
   extension: Yup.string().required("required"),
-  logo: Yup.mixed<FileType>()
-    .required("Please select an image")
-    .test("fileSize", "Must be less than 5mb", (value) => {
-      return value && value.size < 5 * 1024 * 1024;
-    })
-    .test("fileType", "Invalid file type", (value) => {
-      return (
-        value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type)
-      );
-    }),
+  // : Yup.mixed<FileType>()
+  //   .required("Please select an image")
+  //   .test("fileSize", "Must be less than 5mb", (value) => {
+  //     return value && value.size < 5 * 1024 * 1024;
+  //   })
+  //   .test("fileType", "Invalid file type", (value) => {
+  //     return (
+  //       value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type)
+  //     );
+  //   }),
 });
 
 export default project_validation;

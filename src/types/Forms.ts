@@ -13,7 +13,7 @@ export interface ContributeFormValues {
 export interface ProjectFormValues {
   name: string;
   description: string;
-  logo?: any;
+  file?: any;
   email: string;
   wallet: string;
   twitter: string;

@@ -22,18 +22,22 @@ const Page = () => {
   const axiosAuth = useAxiosAuth();
   const router = useRouter();
   const { mutate, isPending, isError, isSuccess, data } = useMutation({
-    mutationFn: (data: any) => axiosAuth.post("/projects/create", data),
-
+    mutationFn: (data: any) =>
+      axiosAuth.post("/projects/create", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }),
     onSuccess: (data) => {
       toast({ dispatch, message: "Successfully Created" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       router.back();
-      // console.log(data);
+      console.log(data);
     },
 
     onError: (error: any) => {
       toast({ dispatch, message: "Failed to Create" });
-      // console.log(error);
+      console.log(error);
     },
   });
 
@@ -41,7 +45,7 @@ const Page = () => {
     initialValues: {
       name: "",
       description: "",
-      logo: null,
+      file: undefined,
       email: "",
       wallet: "",
       twitter: "",
@@ -57,11 +61,11 @@ const Page = () => {
   });
 
   async function handleSubmit(values: ProjectFormValues): Promise<void> {
-    // console.log(values);
+    console.log(values);
     const {
       name,
       description,
-      logo,
+      file,
       email,
       wallet,
       twitter,
@@ -78,7 +82,8 @@ const Page = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("description", description);
-    formData.append("file", String(logo));
+    formData.append("file", file);
+    console.log(file, 'the file here')
     formData.append("walletAddress", wallet);
     formData.append("twitterLink", twitter);
     formData.append("discordLink", discord);
@@ -89,22 +94,29 @@ const Page = () => {
     formData.append("totalTokenCirculation", String(totalTokenCirculation));
     formData.append("extension", extension);
 
-    mutate(formData);
-    // try {
-    //   const res = await axiosAuth.post("/projects/create", formData);
-    //   if (res) {
-    //     console.log(formData);
-    //   }
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      console.log("FormData content:", formData);
+    console.log(mutate(formData));
+    // mutate({
+    //   name,
+    //   description,
+    //   file,
+    //   email,
+    //   walletAddress: wallet,
+    //   twitterLink: twitter,
+    //   discordLink: discord,
+    //   telegram,
+    //   website,
+    //   percentageCirculation,
+    //   totalTokenCirculation,
+    //   extension,
+    // });
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
+    console.log("first", file);
     if (file) {
+      console.log("if file", file);
       if (file.size > 1 * 1024 * 1024) {
         setImageError("Must be less than 5mb");
       } else if (
@@ -116,16 +128,17 @@ const Page = () => {
         const reader = new FileReader();
         reader.onload = () => {
           setPreview(reader.result as string);
-          formik.setFieldValue("logo", file);
+          formik.setFieldValue("file", file);
         };
+        console.log("Else state", file);
         reader.readAsDataURL(file);
       }
     } else {
       setPreview(null);
-      formik.setFieldValue("logo", null);
+      formik.setFieldValue("file", null);
     }
   };
-
+  // console.log("hello");
   return (
     <section className="container mx-auto px-4 md:px-8">
       <div className="mt-5 md:bg-[#1C1B2099] md:rounded-2xl md:p-10 w-full max-w-[590px] mx-auto">

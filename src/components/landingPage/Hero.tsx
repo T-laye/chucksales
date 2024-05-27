@@ -12,8 +12,8 @@ export default function Hero() {
     router.push("/launchApp");
   };
 
-  const goToSignIn = () => {
-    router.push("/signIn");
+  const goToDashboard = () => {
+    router.push("/dashboard");
   };
 
   return (
@@ -55,7 +55,7 @@ export default function Hero() {
               title="List my projects"
               css="w-full lg:w-[200px]   "
               primary={false}
-              fn={goToSignIn}
+              fn={goToDashboard}
             />
           </div>
         </div>

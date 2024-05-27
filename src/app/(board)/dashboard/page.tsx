@@ -24,7 +24,7 @@ const Page = () => {
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
-  const user = auth?.user?.user;
+  const user = auth?.user;
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
@@ -35,7 +35,7 @@ const Page = () => {
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  // console.log(projectData);
+  console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -71,7 +71,15 @@ const Page = () => {
       <tr key={p.id}>
         <td>
           <div className="flex justify-start items-center gap-3 ">
-            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
+            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
+              <Image
+                src={p.projectImageUrl || ""}
+                alt={p.name}
+                height={300}
+                width={300}
+                className="h-full w-full object-cover"
+              />
+            </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>
         </td>
@@ -196,7 +204,10 @@ const Page = () => {
                 )
               ) : (
                 <div className="border border-primaryTransparent rounded-lg py-2  ">
-                  <h3 className="p-5 pt-2"> Project (6)</h3>
+                  <h3 className="p-5 pt-2">
+                    {" "}
+                    Project ({projectData?.totalCount || 0})
+                  </h3>
                   <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
                     {
                       <table>
