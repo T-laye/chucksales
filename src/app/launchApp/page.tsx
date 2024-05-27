@@ -306,7 +306,7 @@ const Page = () => {
                 </table>
               </div>
             </div>
-              <Pagination />
+              <Pagination totalCount={20} />
           </div>
         </div>
       </section>
