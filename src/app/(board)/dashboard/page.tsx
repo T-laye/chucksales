@@ -33,10 +33,10 @@ const Page = () => {
       ),
   });
   const projectData = data?.data?.data;
-  const errorCode = error?.response?.status;
+  const errorCode = error?.message;
 
   if (isError) {
-    if (errorCode === 406) {
+    if (errorCode === "Request failed with status code 401") {
       router.replace("/signIn");
       toast({ dispatch, message: "Unauthorized Please Login" });
     } else {
@@ -44,7 +44,7 @@ const Page = () => {
     }
   }
 
-  // console.log();
+  console.log(errorCode);
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");
