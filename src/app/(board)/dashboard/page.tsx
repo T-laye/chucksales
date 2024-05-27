@@ -33,7 +33,7 @@ const Page = () => {
       ),
   });
   const projectData = data?.data?.data;
-  // const errorCode = error?.response?.status;
+  const errorCode = error?.response?.status;
 
   if (isError) {
     if (errorCode === 406) {
