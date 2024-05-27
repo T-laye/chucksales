@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/config";
 import Web3ModalProvider from "@/context";
+import ReactQueryProvider from "@/config/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Chucksales",
@@ -20,14 +21,14 @@ export default function RootLayout({
 }>) {
   const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
-    // <WagmiProviders>
     <Web3ModalProvider initialState={initialState}>
       <ReduxProvider>
-        <html lang="en">
-          <body>{children}</body>
-        </html>
+        <ReactQueryProvider>
+          <html lang="en">
+            <body>{children}</body>
+          </html>
+        </ReactQueryProvider>
       </ReduxProvider>
     </Web3ModalProvider>
-    // </WagmiProviders>
   );
 }

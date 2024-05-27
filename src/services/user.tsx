@@ -14,6 +14,7 @@ interface HandleSignUpProps {
   dispatch: Dispatch;
   router: any;
   values: AuthFormValues;
+  otpValues?: string;
 }
 
 export const handleSignUp = async ({
@@ -30,19 +31,19 @@ export const handleSignUp = async ({
       password: values.password,
     });
 
-    console.log(res);
+    // console.log(res);
     if (res.status === 201) {
-      const accessToken = res.data.data.accessToken;
-      const user = res.data?.data?.user;
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("user", JSON.stringify(user));
-      dispatch(setCredentials({ ...res.data }));
+      // const accessToken = res.data.data.accessToken;
+      // const user = res.data?.data?.user;
+      // sessionStorage.setItem("accessToken", accessToken);
+      // sessionStorage.setItem("user", JSON.stringify(user));
+      // dispatch(setCredentials({ ...res.data }));
       dispatch(loginSuccess());
       router.push("/signUp/verification");
-       toast({
-         dispatch,
-         message: "Successfully Created",
-       });
+      toast({
+        dispatch,
+        message: "Successfully Created",
+      });
     }
   } catch (error: any) {
     const statusCode = error.response.data.statusCode;
@@ -80,7 +81,7 @@ export const handleSignIn = async ({
       email: values.email,
       password: values.password,
     });
-    console.log(res.status);
+    // console.log(res.status);
     if (res.status === 201) {
       const accessToken = res.data?.data?.accessToken;
       const user = res.data?.data;
@@ -113,4 +114,37 @@ export const handleSignIn = async ({
     // console.log(error.response.data);
     // dispatch(loginError());
   }
+};
+
+export const handleOtp = async ({
+  axios,
+  dispatch,
+  router,
+  otpValues,
+}: HandleSignUpProps) => {
+  dispatch(loginStart());
+  try {
+    const res = await axios.post("/auth/verify", {
+      otp: otpValues,
+    });
+    // console.log(otpValues);
+    // console.log(res.status);
+    if (res.status === 201) {
+      const accessToken = res.data?.data?.accessToken;
+      const user = res.data?.data;
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("user", JSON.stringify(user));
+      dispatch(setCredentials({ ...res.data.data }));
+      dispatch(loginSuccess());
+      router.push("/dashboard");
+      const message = "Verification Successful";
+      toast({ dispatch, message });
+    }
+    // console.log(res);
+  } catch (error: any) {
+    // console.log(error.response.data);
+    toast({ dispatch, message: "Invalid Otp" });
+    // dispatch(loginError());
+  }
+  // console.log(otpValues);
 };

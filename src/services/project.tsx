@@ -1,95 +1,35 @@
-import {
-  loginError,
-  loginStart,
-  loginSuccess,
-  setCredentials,
-} from "@/redux/slices/authSlice";
-import { AuthFormValues } from "@/types/Forms";
-import { toast } from "@/utils/Toast";
+// /projects/create;
+
+import { ProjectFormValues } from "@/types/Forms";
 import { Dispatch } from "@reduxjs/toolkit";
 import { AxiosInstance } from "axios";
 
-interface HandleSignUpProps {
+interface CreateProjectProps {
   axios: AxiosInstance;
   dispatch: Dispatch;
   router: any;
-  values: AuthFormValues;
+  values: ProjectFormValues;
 }
 
-export const handleSignUp = async ({
+export const createProject = async ({
   axios,
   dispatch,
   router,
   values,
-}: HandleSignUpProps) => {
-  dispatch(loginStart());
+}: CreateProjectProps) => {
   try {
-    const res = await axios.post("/auth/signup", {
-      name: values.fullName,
-      email: values.email,
-      password: values.password,
+    const res = await axios.post("/projects/create", {
+      name: "",
+      description: "",
+      logo: null,
+      email: "",
+      wallet: "",
+      twitter: "",
+      discord: "",
+      telegram: "",
+      website: "",
+      percentageCirculation: 0,
+      totalTokenCirculation: 0,
     });
-
-    // console.log(res);
-
-    switch (res.data.data.statusCode) {
-      case 400:
-        dispatch(loginError());
-        // toast message res.data.data.message
-        break;
-      case 403:
-        // toast message
-        break;
-      default:
-        const accessToken = res.data.data.accessToken;
-        const user = res.data?.data?.user;
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("user", JSON.stringify(user));
-        dispatch(setCredentials({ ...res.data }));
-        dispatch(loginSuccess());
-        router.push("/signUp/verification");
-        break;
-    }
-  } catch (error) {
-    console.log(error);
-    dispatch(loginError());
-  }
-};
-
-export const handleSignIn = async ({
-  axios,
-  dispatch,
-  router,
-  values,
-}: HandleSignUpProps) => {
-  dispatch(loginStart());
-  try {
-    const res = await axios.post("/auth/login", {
-      email: values.email,
-      password: values.password,
-    });
-
-    console.log(res);
-
-    switch (res.data.data.statusCode) {
-      case 400:
-        dispatch(loginError());
-        // toast message res.data.data.message
-        break;
-      default:
-        const accessToken = res.data?.data?.accessToken;
-        const user = res.data?.data;
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("user", JSON.stringify(user));
-        dispatch(setCredentials({ ...res.data.data }));
-        dispatch(loginSuccess());
-        router.push("/dashboard");
-        break;
-    }
-    const message = res.data.data.message;
-    toast({ dispatch, message });
-  } catch (error) {
-    console.log(error);
-    dispatch(loginError());
-  }
+  } catch (error: any) {}
 };

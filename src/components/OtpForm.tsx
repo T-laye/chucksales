@@ -2,14 +2,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthFormValues } from "@/types/Forms";
+import { handleOtp } from "@/services/user";
+import axios from "@/config/axios";
 
 // OtpInput component
 const OtpInput: React.FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { pending } = useSelector((state: any) => state.auth);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const user = sessionStorage.getItem("user");
 
@@ -60,22 +64,27 @@ const OtpInput: React.FC = () => {
     ));
   };
 
-  const handleSubmit = () => {
-    const otpValues = otp.join("");
-    // console.log(otpValues);
+  // const handleSubmit = () => {
+  //   const otpValues = otp.join("");
+  //   // console.log(otpValues);
 
-    if (otpValues === "123456" && user) {
-      setLoading(true);
-      setError(false);
+  //   if (otpValues === "123456" && user) {
+  //     setLoading(true);
+  //     setError(false);
 
-      setTimeout(() => {
-        router.push("/dashboard");
-        setLoading(false);
-      }, 2000);
-    } else {
-      setError(true);
-    }
-  };
+  //     setTimeout(() => {
+  //       router.push("/dashboard");
+  //       setLoading(false);
+  //     }, 2000);
+  //   } else {
+  //     setError(true);
+  //   }
+  // };
+
+  function handleSubmit(values: AuthFormValues): any {
+    handleOtp({ axios, dispatch, router, values, otpValues: otp.join("") });
+    // console.log (otp.join(''))
+  }
 
   return (
     <div>
@@ -88,7 +97,7 @@ const OtpInput: React.FC = () => {
           title="Continue"
           css="w-full mt-5"
           fn={handleSubmit}
-          loading={loading}
+          loading={pending}
         />
       )}
     </div>

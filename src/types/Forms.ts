@@ -3,6 +3,7 @@ export interface AuthFormValues {
   email: string;
   password: string;
   cPassword?: string;
+  otp?: string;
 }
 export interface ContributeFormValues {
   contributeTo: `0x${string}`;
@@ -22,4 +23,5 @@ export interface ProjectFormValues {
   goLive?: boolean;
   percentageCirculation: number;
   totalTokenCirculation: number;
+  extension: string;
 }

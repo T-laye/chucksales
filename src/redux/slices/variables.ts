@@ -7,6 +7,9 @@ interface MyState {
   transactionHash?: string;
   transactionData?: any;
   transactionDataFetch?: boolean;
+  take?: number;
+  pageNumber?: number;
+  order?: string;
 }
 
 const initialState: MyState = {
@@ -14,6 +17,9 @@ const initialState: MyState = {
   showCongratsModal: false,
   transactionHash: "",
   transactionData: {},
+  take: 10,
+  pageNumber: 1,
+  order: "asc",
 };
 
 const variables = createSlice({
@@ -32,6 +38,15 @@ const variables = createSlice({
     handleTransactionData: (state, action) => {
       state.transactionData = action.payload;
     },
+    handleTake: (state, action) => {
+      state.take = action.payload;
+    },
+    handlePageNumber: (state, action) => {
+      state.pageNumber = action.payload;
+    },
+    handleOrder: (state, action) => {
+      state.order = action.payload;
+    },
   },
 });
 
@@ -40,6 +55,8 @@ export const {
   handleCongratsModal,
   handleHash,
   handleTransactionData,
-  
+  handleOrder,
+  handlePageNumber,
+  handleTake,
 } = variables.actions;
 export default variables.reducer;

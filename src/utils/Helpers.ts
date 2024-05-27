@@ -59,7 +59,3 @@ export const formatDate = (dateString: string): string => {
   }
 };
 
-// Example usage
-const dateString: string = "2024-05-21T10:00:00Z";
-const formattedDate: string = formatDate(dateString);
-console.log(formattedDate); // Output: "21 May 2024, 10:00"

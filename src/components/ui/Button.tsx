@@ -4,7 +4,7 @@ import BtnLoader from "./BtnLoader";
 interface ButtonProps {
   css?: string;
   title: string;
-  fn?: MouseEventHandler<HTMLButtonElement>;
+  fn?: any;
   nav?: boolean;
   loading?: boolean;
   primary?: boolean;

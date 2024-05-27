@@ -1,23 +1,45 @@
 "use client";
-import Button from "@/components/ui/Button";
-import project_validation from "@/lib/validations/ProjectValidate";
-import { AuthFormValues, ProjectFormValues } from "@/types/Forms";
-import { FormikErrors, FormikTouched, useFormik } from "formik";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-
+import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
+import * as Yup from "yup";
+import project_validation from "@/lib/validations/ProjectValidate";
+import { ProjectFormValues } from "@/types/Forms";
+import Image from "next/image";
+import Button from "@/components/ui/Button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createProject } from "@/services/project";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { toast } from "@/utils/Toast";
+import { useDispatch } from "react-redux";
 
 const Page = () => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [preview, setPreview] = useState(null);
+  const [imageError, setImageError] = useState("");
+  const [preview, setPreview] = useState<string | null>(null);
+  const axiosAuth = useAxiosAuth();
   const router = useRouter();
+  const { mutate, isPending, isError, isSuccess, data } = useMutation({
+    mutationFn: (data: any) => axiosAuth.post("/projects/crete", data),
+
+    onSuccess: (data) => {
+      toast({ dispatch, message: "Successfully Created" });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      console.log(data);
+    },
+
+    onError: () => {
+      toast({ dispatch, message: "Failed to Create" });
+    },
+  });
 
   const formik = useFormik<ProjectFormValues>({
     initialValues: {
       name: "",
       description: "",
-      // logo: "",
+      logo: null,
       email: "",
       wallet: "",
       twitter: "",
@@ -26,63 +48,98 @@ const Page = () => {
       website: "",
       percentageCirculation: 0,
       totalTokenCirculation: 0,
+      extension: ".",
     },
     validationSchema: project_validation,
     onSubmit: handleSubmit,
   });
 
-  function handleSubmit(values: ProjectFormValues): void {
-    console.log(values);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      router.back();
-    }, 3000);
+  async function handleSubmit(values: ProjectFormValues): Promise<void> {
+    // console.log(values);
+    const {
+      name,
+      description,
+      logo,
+      email,
+      wallet,
+      twitter,
+      discord,
+      telegram,
+      website,
+      percentageCirculation,
+      totalTokenCirculation,
+      extension,
+    } = values;
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("description", description);
+    formData.append("file", String(logo));
+    formData.append("walletAddress", wallet);
+    formData.append("twitterLink", twitter);
+    formData.append("discordLink", discord);
+    formData.append("telegram", telegram);
+    formData.append("website", website);
+    // Convert numeric values to strings before appending
+    formData.append("percentageCirculation", String(percentageCirculation));
+    formData.append("totalTokenCirculation", String(totalTokenCirculation));
+    formData.append("extension", extension);
+
+    mutate(formData);
+    // try {
+    //   const res = await axiosAuth.post("/projects/create", formData);
+    //   if (res) {
+    //     console.log(formData);
+    //   }
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
-  const handleImageChange = (e: any) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (file) {
-      const reader: any = new FileReader();
-      reader.onload = () => {
-        setPreview(reader.result);
-        console.log(typeof reader.result);
-        formik.setFieldValue("logo", reader.result);
-      };
-      reader.readAsDataURL(file);
+      if (file.size > 1 * 1024 * 1024) {
+        setImageError("Must be less than 5mb");
+      } else if (
+        !["image/jpeg", "image/jpg", "image/png"].includes(file.type)
+      ) {
+        setImageError("Invalid file format");
+      } else {
+        setImageError(""); // Clear any previous error
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreview(reader.result as string);
+          formik.setFieldValue("logo", file);
+        };
+        reader.readAsDataURL(file);
+      }
     } else {
       setPreview(null);
+      formik.setFieldValue("logo", null);
     }
   };
 
   return (
     <section className="container mx-auto px-4 md:px-8">
       <div className="mt-5 md:bg-[#1C1B2099] md:rounded-2xl md:p-10 w-full max-w-[590px] mx-auto">
-        <h2 className="font-bold md:text-center ">Add Project</h2>
+        <h2 className="font-bold md:text-center">Add Project</h2>
 
         <form className="mt-6" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col mb-4">
-            <label className="" htmlFor="name">
-              Project Name
-            </label>
-            <input
-              type="text"
-              //   className={getInputClassNames("name")}
-              {...formik.getFieldProps("name")}
-            />
+            <label htmlFor="name">Project Name</label>
+            <input type="text" {...formik.getFieldProps("name")} />
             {formik.touched.name && formik.errors.name && (
               <div className="form_errors">{formik.errors.name}</div>
             )}
           </div>
           <div className="flex flex-col mb-4">
-            <label className="" htmlFor="description">
-              Project Description
-            </label>
-            <textarea
-              //   className={getInputClassNames("description")}
-              {...formik.getFieldProps("description")}
-            />
+            <label htmlFor="description">Project Description</label>
+            <textarea {...formik.getFieldProps("description")} />
             {formik.touched.description && formik.errors.description && (
               <div className="form_errors">{formik.errors.description}</div>
             )}
@@ -90,9 +147,7 @@ const Page = () => {
 
           {/* Logo Upload */}
           <div className="mb-4">
-            <label className="" htmlFor="logo">
-              Projec Logo
-            </label>
+            <label htmlFor="logo">Project Logo</label>
             <label
               htmlFor="logo"
               className="block border border-dashed md:border-solid border-input overflow-hidden md:h-[156px] md:p-6 h-[154px] rounded-2xl mt-2 md:flex md:items-center gap-4"
@@ -127,8 +182,7 @@ const Page = () => {
                     </div>
                     <div className="md:hidden">
                       <p className="text-center">
-                        Recommended size: 350px x 350px. <br /> JPG, JPEG, PNG,
-                        SVG or GIF{" "}
+                        Recommended size: below 5mb. <br /> JPG, JPEG, PNG.
                       </p>
                     </div>
                   </div>
@@ -150,95 +204,90 @@ const Page = () => {
                 id="logo"
                 onChange={handleImageChange}
               />
-              <div className="hidden md:block ">
-                <p className=" text-lg">
-                  Recommended size: 350px x 350px. <br /> JPG, JPEG, PNG, SVG or
-                  GIF{" "}
+              <div className="hidden md:block">
+                <p className="text-lg">
+                  Recommended size: Below 5mb. <br /> JPG, JPEG, PNG.
                 </p>
               </div>
             </label>
-            {/* {formik.touched.logo && formik.errors.logo && (
-              <div className="form_errors">{formik.errors.logo}</div>
-            )} */}
+            {imageError && <div className="form_errors">{imageError}</div>}
           </div>
-          {/*  */}
-          <div className="md:grid md:grid-cols-2 md:gap-5 ">
+
+          {/* Other form fields */}
+          <div className="md:grid md:grid-cols-2 md:gap-5">
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="email">
-                Email Address
-              </label>
-              <input
-                type="email"
-                //   className={getInputClassNames("email")}
-                {...formik.getFieldProps("email")}
-              />
+              <label htmlFor="email">Email Address</label>
+              <input type="email" {...formik.getFieldProps("email")} />
               {formik.touched.email && formik.errors.email && (
                 <div className="form_errors">{formik.errors.email}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="wallet">
-                Wallet Address
-              </label>
-              <input
-                type="wallet"
-                //   className={getInputClassNames("wallet")}
-                {...formik.getFieldProps("wallet")}
-              />
+              <label htmlFor="wallet">Wallet Address</label>
+              <input type="text" {...formik.getFieldProps("wallet")} />
               {formik.touched.wallet && formik.errors.wallet && (
                 <div className="form_errors">{formik.errors.wallet}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="twitter">
-                Twitter Page Link
-              </label>
-              <input
-                type="twitter"
-                //   className={getInputClassNames("twitter")}
-                {...formik.getFieldProps("twitter")}
-              />
+              <label htmlFor="twitter">Twitter Page Link</label>
+              <input type="text" {...formik.getFieldProps("twitter")} />
               {formik.touched.twitter && formik.errors.twitter && (
                 <div className="form_errors">{formik.errors.twitter}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="discord">
-                Discord Server Link
-              </label>
-              <input
-                type="discord"
-                //   className={getInputClassNames("discord")}
-                {...formik.getFieldProps("discord")}
-              />
+              <label htmlFor="discord">Discord Server Link</label>
+              <input type="text" {...formik.getFieldProps("discord")} />
               {formik.touched.discord && formik.errors.discord && (
                 <div className="form_errors">{formik.errors.discord}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="telegram">
-                Telegram Group Link
-              </label>
-              <input
-                type="telegram"
-                //   className={getInputClassNames("telegram")}
-                {...formik.getFieldProps("telegram")}
-              />
+              <label htmlFor="telegram">Telegram Group Link</label>
+              <input type="text" {...formik.getFieldProps("telegram")} />
               {formik.touched.telegram && formik.errors.telegram && (
                 <div className="form_errors">{formik.errors.telegram}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="website">
-                Website Link
-              </label>
-              <input
-                type="website"
-                //   className={getInputClassNames("website")}
-                {...formik.getFieldProps("website")}
-              />
+              <label htmlFor="website">Website Link</label>
+              <input type="text" {...formik.getFieldProps("website")} />
               {formik.touched.website && formik.errors.website && (
                 <div className="form_errors">{formik.errors.website}</div>
+              )}
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="website">Percentage Circulation</label>
+              <input
+                type="number"
+                {...formik.getFieldProps("percentageCirculation")}
+              />
+              {formik.touched.percentageCirculation &&
+                formik.errors.percentageCirculation && (
+                  <div className="form_errors">
+                    {formik.errors.percentageCirculation}
+                  </div>
+                )}
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="website">Total Token Circulation</label>
+              <input
+                type="number"
+                {...formik.getFieldProps("totalTokenCirculation")}
+              />
+              {formik.touched.totalTokenCirculation &&
+                formik.errors.totalTokenCirculation && (
+                  <div className="form_errors">
+                    {formik.errors.totalTokenCirculation}
+                  </div>
+                )}
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="website">Extension</label>
+              <input type="text" {...formik.getFieldProps("extension")} />
+              {formik.touched.extension && formik.errors.extension && (
+                <div className="form_errors">{formik.errors.extension}</div>
               )}
             </div>
           </div>
@@ -247,7 +296,8 @@ const Page = () => {
             <Button
               title="Submit Project"
               css="w-full mt-4"
-              loading={loading}
+              loading={isPending}
+              type="submit"
             />
           </div>
         </form>
