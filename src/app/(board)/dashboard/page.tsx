@@ -33,17 +33,18 @@ const Page = () => {
       ),
   });
   const projectData = data?.data?.data;
-  const errorCode = error?.response?.status;
+  // const errorCode = error?.response?.status;
 
   if (isError) {
     if (errorCode === 406) {
       router.replace("/signIn");
+      toast({ dispatch, message: "Unauthorized Please Login" });
     } else {
       toast({ dispatch, message: "Something went wrong!!!" });
     }
   }
 
-  console.log();
+  // console.log();
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");
