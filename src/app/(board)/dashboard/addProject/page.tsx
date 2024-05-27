@@ -22,16 +22,18 @@ const Page = () => {
   const axiosAuth = useAxiosAuth();
   const router = useRouter();
   const { mutate, isPending, isError, isSuccess, data } = useMutation({
-    mutationFn: (data: any) => axiosAuth.post("/projects/crete", data),
+    mutationFn: (data: any) => axiosAuth.post("/projects/create", data),
 
     onSuccess: (data) => {
       toast({ dispatch, message: "Successfully Created" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      router.back();
       console.log(data);
     },
 
-    onError: () => {
+    onError: (error: any) => {
       toast({ dispatch, message: "Failed to Create" });
+      console.log(error);
     },
   });
 

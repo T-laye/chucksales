@@ -44,10 +44,14 @@ const Page = () => {
     }
   }
 
-  console.log(user);
+  // console.log(user);
 
   const gotoAddProject = () => {
     router.push("/dashboard/addProject");
+  };
+
+  const gotoViewProject = (id: string) => {
+    router.push(`/dashboard/${id}`);
   };
 
   const handleActiveTab = (tab: number) => {
@@ -74,7 +78,7 @@ const Page = () => {
         <td>{p.totalToken}</td>
         <td>{p.status}</td>
         <td>
-          <Button title="View project" />
+          <Button title="View project" fn={() => gotoViewProject(p.id)} />
         </td>
       </tr>
     ));
