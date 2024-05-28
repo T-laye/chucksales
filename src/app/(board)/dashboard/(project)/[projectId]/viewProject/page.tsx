@@ -109,14 +109,14 @@ const Page = () => {
         </div>
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden bg-customGray ">
-            {/* <Image
+            <Image
               src={projectData?.projectImageUrl}
               alt="cover photo"
               width={700}
               height={700}
               className="h-full w-full object-cover"
               loading="lazy"
-            /> */}
+            />
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold md:text-3xl mt-1">
