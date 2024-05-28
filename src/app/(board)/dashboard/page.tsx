@@ -39,7 +39,7 @@ const Page = () => {
   const errorCode = error?.message;
 
   console.log(error);
-  console.log(projectData);
+  // console.log(projectData?.extension);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -89,9 +89,12 @@ const Page = () => {
             <span className="block">{capitalize(p.name)}</span>
           </div>
         </td>
-        <td className="">{p.email}</td>
+        <td className="">{p.network}</td>
+        <td className="">{p.walletAddress}</td>
+        <td className=" ">{p.extension}</td>
         <td className="">{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
+        <td className="">{p.email}</td>
         <td className=" ">{p.status}</td>
         <td className="relative text-center flex justify-center h-full py-6">
           {" "}
@@ -248,9 +251,12 @@ const Page = () => {
                         <thead className="border-b border-primaryTransparent ">
                           <tr>
                             <td className="">Name</td>
-                            <td>Email</td>
+                            <td>Network</td>
+                            <td>Wallet Address</td>
+                            <td>Extension</td>
                             <td>Total Amount Generated</td>
                             <td>Total Token</td>
+                            <td>Email</td>
                             <td>Status</td>
                             <td>Action</td>
                           </tr>
