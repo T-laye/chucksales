@@ -8,19 +8,21 @@ import axios from "@/config/axios";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { AuthFormValues } from "@/types/Forms";
 import { capitalize } from "@/utils/Helpers";
+import { toast } from "@/utils/Toast";
 import { useQuery } from "@tanstack/react-query";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const axiosAuth = useAxiosAuth();
+  const dispatch = useDispatch();
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
@@ -36,6 +38,14 @@ const Page = () => {
   const errorCode = error?.message;
 
   console.log(projectData);
+  if (isError) {
+    if (errorCode === "Request failed with status code 401") {
+      router.replace("/signIn");
+      toast({ dispatch, message: "Unauthorized Please Login" });
+    } else {
+      toast({ dispatch, message: "Something went wrong!!!" });
+    }
+  }
 
   const formik = useFormik<AuthFormValues>({
     initialValues: {
@@ -74,7 +84,15 @@ const Page = () => {
       <tr key={p.id}>
         <td>
           <div className="flex justify-start items-center gap-3 ">
-            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
+            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
+              {/* <Image
+                src={p.projectImageUrl}
+                alt={p.name}
+                height={300}
+                width={300}
+                className="h-full w-full object-cover"
+              /> */}
+            </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>
         </td>
@@ -164,8 +182,14 @@ const Page = () => {
               </div>
             </div>
 
-            {isLoading ? (
+            {!data && isLoading ? (
               <Loading />
+            ) : data && !projectData?.totalCount ? (
+              <div className="my-16 flex flex-col items-center">
+                <h4 className="text-center md:text-xl mb-6">
+                  Oops you don&apos;t have any project
+                </h4>
+              </div>
             ) : (
               <div className="border border-primaryTransparent rounded-lg py-2  ">
                 <h3 className="p-5 pt-2">
@@ -205,7 +229,9 @@ const Page = () => {
                 </div>
               </div>
             )}
-            {data && <Pagination totalCount={projectData?.totalCount} />}
+            {projectData?.totalCount && (
+              <Pagination totalCount={projectData?.totalCount} />
+            )}
           </div>
         </div>
       </section>

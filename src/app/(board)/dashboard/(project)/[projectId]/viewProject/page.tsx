@@ -42,11 +42,11 @@ const Page = () => {
     queryKey: ["project", projectId],
     queryFn: () => axiosAuth.get(`/projects/user/${projectId}`),
   });
-  const projectData = project?.data?.data?.project;
+  const projectData = project?.data?.data;
   const ContibutorsData = project?.data?.data.contributors;
   const errorCode = projectError?.message;
 
-  console.log(ContibutorsData);
+  console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -108,15 +108,15 @@ const Page = () => {
           />
         </div>
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
-          <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden ">
-            <Image
+          <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden bg-customGray ">
+            {/* <Image
               src={projectData?.projectImageUrl}
               alt="cover photo"
               width={700}
               height={700}
               className="h-full w-full object-cover"
               loading="lazy"
-            />
+            /> */}
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold md:text-3xl mt-1">
@@ -243,6 +243,7 @@ const Page = () => {
           isPending={isPending}
           isSuccess={isSuccess}
           sendTransaction={sendTransaction}
+          wallet={projectData?.walletAddress}
         />
       )}
       {showCongratsModal && <CongratsModal isConfirming={isConfirming} />}

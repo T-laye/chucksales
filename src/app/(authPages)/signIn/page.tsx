@@ -102,7 +102,7 @@ const Page: React.FC = () => {
         </div>
       </form>
 
-      <div className="flex items-center mt-4 mb-2">
+      {/* <div className="flex items-center mt-4 mb-2">
         <div className="h-[1px] flex-1  bg-white"></div>
         <div className="mx-4 text-xs md:text-base">or</div>
         <div className="h-[1px] flex-1  bg-white"></div>
@@ -115,7 +115,7 @@ const Page: React.FC = () => {
           <FcGoogle size={20} />{" "}
           <span className="inline-block">Continue with Google</span>
         </button>
-      </div>
+      </div> */}
 
       <div className="mt-6">
         <p className="text-center text-xs md:text-base">

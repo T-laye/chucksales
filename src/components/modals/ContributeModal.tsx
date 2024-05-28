@@ -26,6 +26,7 @@ interface ContributeModalProps {
   hash: any;
   isPending: boolean;
   isConfirming: boolean;
+  wallet: string;
 }
 
 const ContributeModal: React.FC<ContributeModalProps> = ({
@@ -37,6 +38,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   sendTransaction,
   hash,
   isPending,
+  wallet,
 }) => {
   const dispatch = useDispatch();
 
@@ -73,7 +75,6 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         contractAddress,
         from,
         status,
-        to,
         transactionHash,
         transactionIndex,
         blockNumber,
@@ -93,7 +94,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
           contractAddress,
           from,
           status,
-          to,
+          to: wallet,
           transactionHash,
           transactionIndex,
           blockNumber: convertToNumber(blockNumber),
@@ -103,7 +104,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         })
       );
     }
-  }, [data, dispatch, hash, isConfirmed, isSuccess]);
+  }, [data, dispatch, hash, isConfirmed, isSuccess, wallet]);
 
   const getInputClassNames = (
     fieldName: keyof ContributeFormValues
@@ -132,7 +133,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               <label className="" htmlFor="contributeTo">
                 You&apos;re Contributing to
               </label>
-              <input
+              {/* <input
                 // readOnly
                 type="contributeTo"
                 className={getInputClassNames("contributeTo")}
@@ -140,7 +141,8 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               />
               {formik.touched.contributeTo && formik.errors.contributeTo && (
                 <div className="form_errors">{formik.errors.contributeTo}</div>
-              )}
+              )} */}
+              <div className="text-xl">{wallet}</div>
             </div>
             <div className="flex flex-col mb-6">
               <label className="" htmlFor="amount">

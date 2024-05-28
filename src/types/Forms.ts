@@ -20,6 +20,7 @@ export interface ProjectFormValues {
   discord: string;
   telegram: string;
   website: string;
+  network: string;
   goLive?: boolean;
   percentageCirculation: number;
   totalTokenCirculation: number;

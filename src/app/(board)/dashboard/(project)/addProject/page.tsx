@@ -51,6 +51,7 @@ const Page = () => {
       twitter: "",
       discord: "",
       telegram: "",
+      network: "",
       website: "",
       percentageCirculation: 0,
       totalTokenCirculation: 0,
@@ -75,6 +76,7 @@ const Page = () => {
       percentageCirculation,
       totalTokenCirculation,
       extension,
+      network,
     } = values;
 
     const formData = new FormData();
@@ -83,19 +85,20 @@ const Page = () => {
     formData.append("email", email);
     formData.append("description", description);
     formData.append("file", file);
-    console.log(file, 'the file here')
+    console.log(file, "the file here");
     formData.append("walletAddress", wallet);
     formData.append("twitterLink", twitter);
     formData.append("discordLink", discord);
     formData.append("telegram", telegram);
     formData.append("website", website);
+    formData.append("network", network);
     // Convert numeric values to strings before appending
     formData.append("percentageCirculation", String(percentageCirculation));
     formData.append("totalTokenCirculation", String(totalTokenCirculation));
     formData.append("extension", extension);
 
-      console.log("FormData content:", formData);
-    console.log(mutate(formData));
+    // console.log("FormData content:", formData);
+    mutate(formData);
     // mutate({
     //   name,
     //   description,
@@ -114,9 +117,9 @@ const Page = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log("first", file);
+    // console.log("first", file);
     if (file) {
-      console.log("if file", file);
+      // console.log("if file", file);
       if (file.size > 1 * 1024 * 1024) {
         setImageError("Must be less than 5mb");
       } else if (
@@ -130,7 +133,7 @@ const Page = () => {
           setPreview(reader.result as string);
           formik.setFieldValue("file", file);
         };
-        console.log("Else state", file);
+        // console.log("Else state", file);
         reader.readAsDataURL(file);
       }
     } else {
@@ -256,6 +259,13 @@ const Page = () => {
               <input type="text" {...formik.getFieldProps("discord")} />
               {formik.touched.discord && formik.errors.discord && (
                 <div className="form_errors">{formik.errors.discord}</div>
+              )}
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="network">Network</label>
+              <input type="text" {...formik.getFieldProps("network")} />
+              {formik.touched.network && formik.errors.network && (
+                <div className="form_errors">{formik.errors.network}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">

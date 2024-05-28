@@ -13,6 +13,7 @@ const project_validation = Yup.object().shape({
   description: Yup.string().required("required"),
   email: Yup.string().email("Invalid email address").required("required"),
   wallet: Yup.string().required("required"),
+  network: Yup.string().required("required"),
   twitter: Yup.string().required("required"),
   discord: Yup.string().required("required"),
   telegram: Yup.string().required("required"),

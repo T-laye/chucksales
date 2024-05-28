@@ -9,21 +9,24 @@ import { toast } from "@/utils/Toast";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SlOptions } from "react-icons/sl";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useAccount } from "wagmi";
+import Link from "next/link";
 
 const Page = () => {
   const { address, isConnected } = useAccount();
   const [activeTab, setActiveTab] = useState(0);
+  const [showOptionId, setShowOptionId] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const axiosAuth = useAxiosAuth();
-    const { auth } = useSelector((state: any) => state.auth);
-    const { order, take, pageNumber } = useSelector(
-      (state: any) => state.variables
-    );
+  const { auth } = useSelector((state: any) => state.auth);
+  const { order, take, pageNumber } = useSelector(
+    (state: any) => state.variables
+  );
   const user = auth?.user;
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
@@ -35,7 +38,8 @@ const Page = () => {
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  // console.log(projectData);
+  console.log(error);
+  console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -72,13 +76,15 @@ const Page = () => {
         <td>
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
-              <Image
-                src={p.projectImageUrl || ""}
-                alt={p.name}
-                height={300}
-                width={300}
-                className="h-full w-full object-cover"
-              />
+              {/* {p?.projectImageUrl && (
+                <Image
+                  src={p?.projectImageUrl}
+                  alt={p.name}
+                  height={300}
+                  width={300}
+                  className="h-full w-full object-cover"
+                />
+              )} */}
             </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>
@@ -86,9 +92,39 @@ const Page = () => {
         <td className="">{p.email}</td>
         <td className="">{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
-        <td>{p.status}</td>
-        <td>
-          <Button title="View project" fn={() => gotoViewProject(p.id)} />
+        <td className=" ">{p.status}</td>
+        <td className="relative text-center flex justify-center h-full py-6">
+          {" "}
+          <SlOptions
+            size={20}
+            onClick={() => setShowOptionId(showOptionId === p.id ? null : p.id)}
+            className="cursor-pointer"
+          />
+          {showOptionId === p.id && (
+            <div
+              onClick={() => setShowOptionId(false)}
+              className="absolute flex flex-col rounded-xl right-14 top-12 z-50 overflow-hidden bg-customGray shadow-sm"
+            >
+              <Link
+                className="hover:bg-primary px-4 py-1 duration-150 "
+                href={`/dashboard/${p.id}/editProject`}
+              >
+                Edit
+              </Link>
+              <Link
+                className="hover:bg-primary px-4 py-1 duration-150"
+                href={`/dashboard/${p.id}/viewProject`}
+              >
+                Preview
+              </Link>
+              <Link
+                className="hover:bg-primary px-4 py-1 duration-150"
+                href="#"
+              >
+                Delete
+              </Link>
+            </div>
+          )}
         </td>
       </tr>
     ));
@@ -187,21 +223,19 @@ const Page = () => {
                 </div>
               </div>
 
-              {!data ? (
-                isLoading ? (
-                  <Loading />
-                ) : (
-                  <div className="my-16 flex flex-col items-center">
-                    <h4 className="text-center md:text-xl mb-6">
-                      Oops you don&apos;t have any project
-                    </h4>
-                    <Button
-                      title="Add project"
-                      css="w-full md:w-[145px]"
-                      fn={gotoAddProject}
-                    />
-                  </div>
-                )
+              {!data && isLoading ? (
+                <Loading />
+              ) : data && !projectData?.totalCount ? (
+                <div className="my-16 flex flex-col items-center">
+                  <h4 className="text-center md:text-xl mb-6">
+                    Oops you don&apos;t have any project
+                  </h4>
+                  <Button
+                    title="Add project"
+                    css="w-full md:w-[145px]"
+                    fn={gotoAddProject}
+                  />
+                </div>
               ) : (
                 <div className="border border-primaryTransparent rounded-lg py-2  ">
                   <h3 className="p-5 pt-2">
@@ -247,7 +281,9 @@ const Page = () => {
               )}
             </div>
           </div>
-          {data && <Pagination totalCount={projectData?.totalCount} />}
+          {projectData?.totalCount && (
+            <Pagination totalCount={projectData?.totalCount} />
+          )}
         </section>
       </section>
     </>
