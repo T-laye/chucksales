@@ -57,8 +57,8 @@ const Page = () => {
 
   const projectData = project?.data?.data;
 
-  console.log(projectData?.projectImageUrl);
-  console.log(projectData);
+  // console.log(projectData?.projectImageUrl);
+  // console.log(projectData);
 
   const formik = useFormik<ProjectFormValues>({
     initialValues: {
@@ -235,13 +235,13 @@ const Page = () => {
                     </div>
                   ) : (
                     <div className="h-full w-full overflow-hidden">
-                      {/* <Image
+                      <Image
                         src={preview}
                         alt="preview"
                         height={500}
                         width={500}
                         className="h-full w-full object-cover"
-                      /> */}
+                      />
                     </div>
                   )}
                 </div>

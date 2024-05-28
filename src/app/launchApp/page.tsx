@@ -85,13 +85,13 @@ const Page = () => {
         <td>
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
-              {/* <Image
+              <Image
                 src={p.projectImageUrl}
                 alt={p.name}
                 height={300}
                 width={300}
                 className="h-full w-full object-cover"
-              /> */}
+              />
             </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>

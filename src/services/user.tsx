@@ -94,7 +94,7 @@ export const handleSignIn = async ({
       toast({ dispatch, message });
     }
   } catch (error: any) {
-    const statusCode = error.response.data.statusCode;
+    const statusCode = error?.response?.data?.statusCode;
     dispatch(loginError());
 
     console.log(error);
