@@ -41,7 +41,7 @@ const Page = () => {
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
-      axios.get(
+      axiosAuth.get(
         `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
