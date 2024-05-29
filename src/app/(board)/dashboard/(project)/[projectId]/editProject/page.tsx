@@ -44,9 +44,9 @@ const Page = () => {
         router.replace("/signIn");
         toast({ dispatch, message: "Unauthenticated Please Login" });
       } else {
-        toast({ dispatch, message: "Failed to Create" });
+        toast({ dispatch, message: "Failed to Update" });
       }
-      // console.log(error.message);
+      console.log(error.message);
     },
   });
 

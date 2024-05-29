@@ -95,11 +95,14 @@ const Page = () => {
             </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>
-        </td>
-        <td className="">{p.email}</td>
+        </td>{" "}
+        <td className="">{p.network}</td>
+        <td className="">{p.wallet}</td>
+        <td className=" ">{p.extension}</td>
         <td className="">{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
-        <td>{p.status}</td>
+        <td className="">{p.email}</td>
+        <td className=" ">{p.status}</td>
         <td>
           <Button title="View project" fn={() => gotoViewProject(p.id)} />
         </td>
@@ -200,10 +203,14 @@ const Page = () => {
                   <table>
                     <thead className="border-b border-primaryTransparent ">
                       <tr>
-                        <td>Name</td>
-                        <td>Amount raised</td>
-                        <td>Time left</td>
-                        <td>Wallet address</td>
+                        <td className="">Name</td>
+                        <td>Network</td>
+                        <td>Wallet Address</td>
+                        <td>Extension</td>
+                        <td>Total Amount Generated</td>
+                        <td>Total Token</td>
+                        <td>Email</td>
+                        <td>Status</td>
                         <td>Action</td>
                       </tr>
                     </thead>
