@@ -186,7 +186,7 @@ const Page = () => {
             {!ContibutorsData?.data ? (
               <div className="my-16 flex flex-col items-center">
                 <h4 className="text-center md:text-xl mb-6">
-                  Oops you don&apos;t have any Contributions
+                  There are no Contributions for this project currently.
                 </h4>
                 {/* <Button
                   title="Add project"
