@@ -236,7 +236,7 @@ const Page = () => {
                 </div>
               </div>
             )}
-            {projectData?.totalCount && (
+            {projectData?.projects?.data?.length > 0 && (
               <Pagination totalCount={projectData?.totalCount} />
             )}
           </div>
