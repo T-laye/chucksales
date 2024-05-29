@@ -43,7 +43,7 @@ const Page = () => {
       } else {
         toast({ dispatch, message: "Failed to Create" });
       }
-      console.log(error.message);
+      console.log(error);
     },
   });
 
@@ -156,14 +156,25 @@ const Page = () => {
         <form className="mt-6" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col mb-4">
             <label htmlFor="name">Project Name</label>
-            <input type="text" maxLength={15} {...formik.getFieldProps("name")} />
+            <input
+              type="text"
+              minLength={3}
+              placeholder="min of 3 characters"
+              maxLength={15}
+              {...formik.getFieldProps("name")}
+            />
             {formik.touched.name && formik.errors.name && (
               <div className="form_errors">{formik.errors.name}</div>
             )}
           </div>
           <div className="flex flex-col mb-4">
             <label htmlFor="description">Project Description</label>
-            <textarea maxLength={300} {...formik.getFieldProps("description")} />
+            <textarea
+              maxLength={300}
+              placeholder="min of 10 characters, max of 300"
+              minLength={10}
+              {...formik.getFieldProps("description")}
+            />
             {formik.touched.description && formik.errors.description && (
               <div className="form_errors">{formik.errors.description}</div>
             )}

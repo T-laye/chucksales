@@ -5,11 +5,15 @@ import { useSelector } from "react-redux";
 export default function useAxiosAuth() {
   const { auth } = useSelector((state: any) => state.auth);
 
+  const accessToken = sessionStorage.getItem("accessToken");
+
+  // console.log(accessToken);
+
   useEffect(() => {
     const requestIntercept = axiosAuth.interceptors.request.use(
       (config) => {
         if (!config.headers["Authorization"]) {
-          config.headers["Authorization"] = `Bearer ${auth?.accessToken}`;
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
         return config;
       },
@@ -19,7 +23,7 @@ export default function useAxiosAuth() {
     return () => {
       axiosAuth.interceptors.request.eject(requestIntercept);
     };
-  }, [auth]);
+  }, [accessToken]);
 
   return axiosAuth;
 }
