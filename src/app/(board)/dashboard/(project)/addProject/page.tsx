@@ -156,14 +156,14 @@ const Page = () => {
         <form className="mt-6" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col mb-4">
             <label htmlFor="name">Project Name</label>
-            <input type="text" {...formik.getFieldProps("name")} />
+            <input type="text" maxLength={15} {...formik.getFieldProps("name")} />
             {formik.touched.name && formik.errors.name && (
               <div className="form_errors">{formik.errors.name}</div>
             )}
           </div>
           <div className="flex flex-col mb-4">
             <label htmlFor="description">Project Description</label>
-            <textarea {...formik.getFieldProps("description")} />
+            <textarea maxLength={300} {...formik.getFieldProps("description")} />
             {formik.touched.description && formik.errors.description && (
               <div className="form_errors">{formik.errors.description}</div>
             )}

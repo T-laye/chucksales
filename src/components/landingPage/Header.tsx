@@ -13,6 +13,9 @@ export default function Header() {
   const router = useRouter();
   const { open, close } = useWeb3Modal();
   const [isLoading, setIsLoading] = useState(false);
+  const user = sessionStorage.getItem("user");
+
+  // console.log(user);
 
   const handleNav = () => {
     setshowNav(!showNav);
@@ -44,6 +47,7 @@ export default function Header() {
                 <NavLink title="Rewards" url="/rewards" />
                 <NavLink title="FAQs" url="/#faq" />
                 <NavLink title="Documentation" url="/documentation" />
+                {user && <NavLink title="Dashboard" url="/dashboard" />}
               </ul>
             </div>
           </nav>
