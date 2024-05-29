@@ -39,6 +39,7 @@ export default function Header() {
                 />
               </div>
               <ul className="px-2 flex flex-col gap-6 lg:flex-row">
+                <NavLink title="Home" url="/" />
                 <NavLink title="How it works" url="/#howItWorks" />
                 <NavLink title="Rewards" url="/rewards" />
                 <NavLink title="FAQs" url="/#faq" />

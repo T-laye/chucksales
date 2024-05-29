@@ -24,6 +24,16 @@ const Page = () => {
   const dispatch = useDispatch();
   const axiosAuth = useAxiosAuth();
   const { auth } = useSelector((state: any) => state.auth);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleSelectChange = (event: any) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+
+    if (selectedValue) {
+      router.push(selectedValue);
+    }
+  };
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
@@ -96,9 +106,32 @@ const Page = () => {
         <td>{p.totalToken}</td>
         <td className="">{p.email}</td>
         <td className=" ">{p.status}</td>
-        <td className="relative text-center flex justify-center h-full py-6">
-          {" "}
-          <SlOptions
+        <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
+          <select
+            className="bg-dark text-center focus:outline-none"
+            value={selectedOption}
+            onChange={handleSelectChange}
+          >
+            <option className="bg-dark text-center" value="">
+              Actions
+            </option>
+            <option
+              className="bg-dark"
+              value={`/dashboard/${p.id}/editProject`}
+            >
+              Edit
+            </option>
+            <option
+              className="bg-dark"
+              value={`/dashboard/${p.id}/viewProject`}
+            >
+              Preview
+            </option>
+            <option className="bg-dark" value="#">
+              Delete
+            </option>
+          </select>{" "}
+          {/* <SlOptions
             size={20}
             onClick={() => setShowOptionId(showOptionId === p.id ? null : p.id)}
             className="cursor-pointer"
@@ -106,7 +139,7 @@ const Page = () => {
           {showOptionId === p.id && (
             <div
               onClick={() => setShowOptionId(false)}
-              className="absolute flex flex-col rounded-xl right-14 top-12 z-50 overflow-hidden bg-customGray shadow-sm"
+              className="absolute flex flex-col rounded-xl right-12 top-10 z-50 overflow-hidden bg-customGray shadow-sm"
             >
               <Link
                 className="hover:bg-primary px-4 py-1 duration-150 "
@@ -127,7 +160,7 @@ const Page = () => {
                 Delete
               </Link>
             </div>
-          )}
+          )} */}
         </td>
       </tr>
     ));
@@ -245,7 +278,7 @@ const Page = () => {
                     {" "}
                     Project ({projectData?.totalCount || 0})
                   </h3>
-                  <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
+                  <div className="border-t  border-primaryTransparent py-2  overflow-x-auto">
                     {
                       <table>
                         <thead className="border-b border-primaryTransparent ">

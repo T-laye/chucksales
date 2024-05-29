@@ -12,6 +12,7 @@ import { createProject } from "@/services/project";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
+import axios from "@/config/axios";
 
 const Page = () => {
   const queryClient = useQueryClient();
@@ -36,8 +37,13 @@ const Page = () => {
     },
 
     onError: (error: any) => {
-      toast({ dispatch, message: "Failed to Create" });
-      console.log(error);
+      if (error?.message === "Request failed with status code 401") {
+        router.replace("/signIn");
+        toast({ dispatch, message: "Unauthenticated Please Login" });
+      } else {
+        toast({ dispatch, message: "Failed to Create" });
+      }
+      console.log(error.message);
     },
   });
 
@@ -62,7 +68,7 @@ const Page = () => {
   });
 
   async function handleSubmit(values: ProjectFormValues): Promise<void> {
-    console.log(values);
+    // console.log(values);
     const {
       name,
       description,
@@ -85,7 +91,7 @@ const Page = () => {
     formData.append("email", email);
     formData.append("description", description);
     formData.append("file", file);
-    console.log(file, "the file here");
+    // console.log(file, "the file here");
     formData.append("walletAddress", wallet);
     formData.append("twitterLink", twitter);
     formData.append("discordLink", discord);
