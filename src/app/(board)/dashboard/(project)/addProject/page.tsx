@@ -33,7 +33,7 @@ const Page = () => {
       toast({ dispatch, message: "Successfully Created" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       router.back();
-      console.log(data);
+      // console.log(data);
     },
 
     onError: (error: any) => {
@@ -43,7 +43,7 @@ const Page = () => {
       } else {
         toast({ dispatch, message: "Failed to Create" });
       }
-      console.log(error);
+      // console.log(error);
     },
   });
 
@@ -105,20 +105,7 @@ const Page = () => {
 
     // console.log("FormData content:", formData);
     mutate(formData);
-    // mutate({
-    //   name,
-    //   description,
-    //   file,
-    //   email,
-    //   walletAddress: wallet,
-    //   twitterLink: twitter,
-    //   discordLink: discord,
-    //   telegram,
-    //   website,
-    //   percentageCirculation,
-    //   totalTokenCirculation,
-    //   extension,
-    // });
+ 
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -52,7 +52,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
     initialValues: {
       contributeTo: `0x${0}`,
       amount: "",
-      coin: "",
+      email: "",
     },
     validate: contribution_validate,
     onSubmit: handleSubmit,
@@ -130,7 +130,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
 
           <form onSubmit={formik.handleSubmit}>
             <div className="flex flex-col mb-4">
-              <label className="" htmlFor="contributeTo">
+              <label className="text-sm" htmlFor="contributeTo">
                 You&apos;re Contributing to
               </label>
               {/* <input
@@ -142,7 +142,20 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               {formik.touched.contributeTo && formik.errors.contributeTo && (
                 <div className="form_errors">{formik.errors.contributeTo}</div>
               )} */}
-              <div className="text-xl">{wallet}</div>
+              <div className="text-base break-words whitespace-normal">{wallet}</div>
+            </div>
+            <div className="flex flex-col mb-6">
+              <label className="" htmlFor="email">
+                Email
+              </label>
+              <input
+                type="email"
+                className={getInputClassNames("email")}
+                {...formik.getFieldProps("email")}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div className="form_errors">{formik.errors.email}</div>
+              )}
             </div>
             <div className="flex flex-col mb-6">
               <label className="" htmlFor="amount">

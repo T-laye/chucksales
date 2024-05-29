@@ -1,14 +1,16 @@
 export interface AuthFormValues {
   fullName?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   cPassword?: string;
+  oldPassword?: string;
   otp?: string;
+  file?: any;
 }
 export interface ContributeFormValues {
   contributeTo: `0x${string}`;
   amount: string;
-  coin: string;
+  email: string;
 }
 export interface ProjectFormValues {
   name: string;

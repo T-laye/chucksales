@@ -66,7 +66,7 @@ const Page = () => {
   const projectData = project?.data?.data;
 
   // console.log(projectData?.projectImageUrl);
-  // console.log(projectData);
+  console.log(projectData);
 
   const formik = useFormik<ProjectFormValues>({
     initialValues: {
@@ -182,7 +182,7 @@ const Page = () => {
         </div>
       ) : (
         <div className="mt-5 md:bg-[#1C1B2099] md:rounded-2xl md:p-10 w-full max-w-[590px] mx-auto">
-          <h2 className="font-bold md:text-center">Add Project</h2>
+          <h2 className="font-bold md:text-center">Edit Project</h2>
 
           <form className="mt-6" onSubmit={formik.handleSubmit}>
             <div className="flex flex-col mb-4">

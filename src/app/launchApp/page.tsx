@@ -38,6 +38,7 @@ const Page = () => {
   const errorCode = error?.message;
 
   console.log(projectData);
+
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
       router.replace("/signIn");
@@ -95,14 +96,15 @@ const Page = () => {
             </div>
             <span className="block">{capitalize(p.name)}</span>
           </div>
-        </td>{" "}
-        <td className="">{p.network}</td>
-        <td className="">{p.wallet}</td>
-        <td className=" ">{p.extension}</td>
-        <td className="">{p.totalAmountGenerate}</td>
+        </td>
+        <td>{p.network}</td>
+        <td>{p.walletAddress}</td>
+        <td>{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
-        <td className="">{p.email}</td>
-        <td className=" ">{p.status}</td>
+        <td>{p.totalTokenCirculation}</td>
+        <td>{p.percentageCirculation}%</td>
+        <td>{p.extension}</td>
+        <td>{p.email}</td>
         <td>
           <Button title="View project" fn={() => gotoViewProject(p.id)} />
         </td>
@@ -206,11 +208,13 @@ const Page = () => {
                         <td className="">Name</td>
                         <td>Network</td>
                         <td>Wallet Address</td>
-                        <td>Extension</td>
                         <td>Total Amount Generated</td>
                         <td>Total Token</td>
+                        <td>Total Circulation</td>
+                        <td>Percentage Circulation</td>
+                        <td>Extension</td>
                         <td>Email</td>
-                        <td>Status</td>
+                        {/* <td>Status</td> */}
                         <td>Action</td>
                       </tr>
                     </thead>

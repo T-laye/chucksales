@@ -23,7 +23,7 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const axiosAuth = useAxiosAuth();
-  const { auth } = useSelector((state: any) => state.auth);
+  // const { auth } = useSelector((state: any) => state.auth);
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectChange = (event: any) => {
@@ -34,10 +34,17 @@ const Page = () => {
       router.push(selectedValue);
     }
   };
+
+  const { data: userData } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () => axiosAuth.get(`/auth/dev/profile`),
+  });
+  const user = userData?.data?.data;
+
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
-  const user = auth?.user;
+  // const user = auth?.user;
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
@@ -48,8 +55,8 @@ const Page = () => {
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  // console.log(error);
-  // console.log(projectData?.extension);
+  // console.log(user);
+  console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -101,9 +108,11 @@ const Page = () => {
         </td>
         <td className="">{p.network}</td>
         <td className="">{p.walletAddress}</td>
-        <td className=" ">{p.extension}</td>
         <td className="">{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
+        <td>{p.totalTokenCirculation}</td>
+        <td>{p.percentageCirculation}%</td>
+        <td className=" ">{p.extension}</td>
         <td className="">{p.email}</td>
         <td className=" ">{p.status}</td>
         <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
@@ -180,15 +189,17 @@ const Page = () => {
           />
         </div>
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
-          <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full border-2 border-dark overflow-hidden ">
-            <Image
-              src="/images/profile_pic.png"
-              alt="cover photo"
-              width={700}
-              height={700}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+          <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full border-2 border-dark bg-customGray overflow-hidden ">
+            {user?.profileImageUrl && (
+              <Image
+                src={user?.profileImageUrl}
+                alt="cover photo"
+                width={700}
+                height={700}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            )}
           </div>
           <div className=" md:flex justify-between items-end w-full">
             <div className="flex flex-col items-center md:items-start">
@@ -286,9 +297,11 @@ const Page = () => {
                             <td className="">Name</td>
                             <td>Network</td>
                             <td>Wallet Address</td>
-                            <td>Extension</td>
                             <td>Total Amount Generated</td>
                             <td>Total Token</td>
+                            <td>Total Circulation</td>
+                            <td>Percentage Circulation</td>
+                            <td>Extension</td>
                             <td>Email</td>
                             <td>Status</td>
                             <td>Action</td>

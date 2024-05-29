@@ -5,6 +5,7 @@ interface ErrorsState {
   email?: string;
   password?: string;
   cPassword?: string;
+  oldPassword?: string;
 }
 
 export function signUp_validate(values: AuthFormValues): ErrorsState {
@@ -61,10 +62,53 @@ export function signIn_validate(values: AuthFormValues): ErrorsState {
 
   if (!values.password) {
     errors.password = "Required";
-  } else if (values.password.length < 6) {
+  } else if (values.password.length < 8) {
     errors.password = "Must be at least 6 characters";
   } else if (values.password.includes(" ")) {
     errors.password = "Invalid Password";
+  }
+
+  return errors;
+}
+
+export function update_validate(values: AuthFormValues): ErrorsState {
+  const errors: ErrorsState = {};
+
+  // if (values.password && !values.oldPassword) {
+  //   errors.oldPassword = "Required";
+  // }
+  //  else
+    if (values.oldPassword && values.oldPassword.length < 8) {
+    errors.oldPassword = "Must be at least 8 characters";
+  } else if (values.oldPassword && values.oldPassword.includes(" ")) {
+    errors.oldPassword = "Invalid old Password";
+  } else if (values.oldPassword && !/[A-Z]/.test(values.oldPassword)) {
+    errors.oldPassword = "Must contain at least one uppercase letter";
+  } else if (values.oldPassword && !/[a-z]/.test(values.oldPassword)) {
+    errors.oldPassword = "Must contain at least one lowercase letter";
+  } else if (values.oldPassword && !/[0-9]/.test(values.oldPassword)) {
+    errors.oldPassword = "Must contain at least one number";
+  } else if (
+    values.oldPassword &&
+    !/[!@#$%^&*(),.?":{}|<>]/.test(values.oldPassword)
+  ) {
+    errors.oldPassword = "Must contain at least one special character";
+  }
+
+  if (values.password) {
+    if (values.password.length < 8) {
+      errors.password = "Must be at least 8 characters";
+    } else if (values.password.includes(" ")) {
+      errors.password = "Invalid Password";
+    } else if (!/[A-Z]/.test(values.password)) {
+      errors.password = "Must contain at least one uppercase letter";
+    } else if (!/[a-z]/.test(values.password)) {
+      errors.password = "Must contain at least one lowercase letter";
+    } else if (!/[0-9]/.test(values.password)) {
+      errors.password = "Must contain at least one number";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(values.password)) {
+      errors.password = "Must contain at least one special character";
+    }
   }
 
   return errors;

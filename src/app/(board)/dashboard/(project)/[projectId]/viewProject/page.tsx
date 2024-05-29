@@ -14,6 +14,7 @@ import { toast } from "@/utils/Toast";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -130,46 +131,63 @@ const Page = () => {
               </p>
               <div className=" flex gap-x-7 gap-y-3 items-center my-6 flex-wrap justify-center md:justify-start">
                 <div className="flex items-center gap-4">
-                  <div className="min-h-5 min-w-5 h-5 w-5 rounded-full bg-dark">
-                    {" "}
-                    <Image
-                      src="/icons/x_logo.svg"
-                      alt="x_logo"
-                      width={700}
-                      height={700}
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div>{projectData?.twitter}</div>
+                  {projectData?.twitter && (
+                    <Link
+                      href={projectData?.twitter}
+                      className="block min-h-7 min-w-7 h-7 w-7 rounded-full bg-dark hover:scale-110 duration-150"
+                      target="_blank"
+                    >
+                      {" "}
+                      <Image
+                        src="/icons/x_logo.svg"
+                        alt="x_logo"
+                        width={700}
+                        height={700}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    </Link>
+                  )}
+                  {/* <div>{projectData?.twitter}</div> */}
                 </div>
                 <div className=" flex items-center gap-4 ">
-                  <div className="min-h-5 min-w-5 h-5 w-5 rounded-full bg-dark">
-                    {" "}
-                    <Image
-                      src="/icons/discord_logo.svg"
-                      alt="discord_logo"
-                      width={700}
-                      height={700}
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div>{projectData?.discord}</div>
+                  {projectData?.discord && (
+                    <Link
+                      href={projectData?.discord}
+                      className="block min-h-7 min-w-7 h-7 w-7 rounded-full bg-dark hover:scale-110 duration-150"
+                      target="_blank"
+                    >
+                      <Image
+                        src="/icons/discord_logo.svg"
+                        alt="discord_logo"
+                        width={700}
+                        height={700}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    </Link>
+                  )}
+                  {/* <div>{projectData?.discord}</div> */}
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="min-h-5 min-w-5 h-5 w-5 rounded-full bg-dark">
-                    {" "}
-                    <Image
-                      src="/icons/telegram_logo.svg"
-                      alt="telegram_logo"
-                      width={700}
-                      height={700}
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div>{projectData?.telegram}</div>
+                  {projectData?.telegram && (
+                    <Link
+                      target="_blank"
+                      href={projectData?.telegram}
+                      className="block min-h-7 min-w-7 h-7 w-7 rounded-full bg-dark hover:scale-110 duration-150"
+                    >
+                      {" "}
+                      <Image
+                        src="/icons/telegram_logo.svg"
+                        alt="telegram_logo"
+                        width={700}
+                        height={700}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    </Link>
+                  )}
+                  {/* <div>{projectData?.telegram}</div> */}
                 </div>
               </div>
             </div>
