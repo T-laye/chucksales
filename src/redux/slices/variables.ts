@@ -10,6 +10,7 @@ interface MyState {
   take?: number;
   pageNumber?: number;
   order?: string;
+  search?: string;
 }
 
 const initialState: MyState = {
@@ -20,6 +21,7 @@ const initialState: MyState = {
   take: 10,
   pageNumber: 1,
   order: "asc",
+  search: "",
 };
 
 const variables = createSlice({
@@ -47,6 +49,9 @@ const variables = createSlice({
     handleOrder: (state, action) => {
       state.order = action.payload;
     },
+    handleSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
@@ -58,5 +63,6 @@ export const {
   handleOrder,
   handlePageNumber,
   handleTake,
+  handleSearch,
 } = variables.actions;
 export default variables.reducer;

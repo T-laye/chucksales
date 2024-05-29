@@ -28,7 +28,7 @@ export default function Header() {
       toast({ dispatch, message: "Successfully Logged out" });
       sessionStorage.setItem("accessToken", "");
       sessionStorage.setItem("user", "");
-      console.log(data);
+      // console.log(data);
     },
     onError: (error: any) => {
       toast({ dispatch, message: "Something went wrong" });

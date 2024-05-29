@@ -15,6 +15,7 @@ import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useAccount } from "wagmi";
 import Link from "next/link";
+import { handleSearch } from "@/redux/slices/variables";
 
 const Page = () => {
   const { address, isConnected } = useAccount();
@@ -41,7 +42,7 @@ const Page = () => {
   });
   const user = userData?.data?.data;
 
-  const { order, take, pageNumber } = useSelector(
+  const { order, take, pageNumber, search } = useSelector(
     (state: any) => state.variables
   );
   // const user = auth?.user;
@@ -52,11 +53,26 @@ const Page = () => {
         `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
-  const projectData = data?.data?.data;
-  const errorCode = error?.message;
 
-  // console.log(user);
-  console.log(projectData);
+  const {
+    data: searchedData,
+    isLoading: searching,
+    error: searchError,
+    isError: isSearchError,
+  } = useQuery({
+    queryKey: ["searchedProjects", search],
+    queryFn: () => axios.get(`/projects/search/${search}?userId=${user?.id}`),
+  });
+  const projectData = search
+    ? searchedData?.data?.data?.data
+    : data?.data?.data?.projects?.data;
+  const projectCount = search
+    ? searchedData?.data?.data?.count
+    : data?.data?.data?.totalCount;
+
+  const errorCode = search ? searchError?.message : error?.message;
+
+  // console.log(projectCount);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -81,6 +97,12 @@ const Page = () => {
     setActiveTab(tab);
   };
 
+  const handleChange = (e: any) => {
+    const term = e.target.value;
+
+    dispatch(handleSearch(term));
+  };
+
   const tabStyle = (tab: number) => {
     return `${
       activeTab === tab ? "bg-customGray " : ""
@@ -88,7 +110,7 @@ const Page = () => {
   };
 
   const renderProjects = () => {
-    return projectData?.projects?.data?.map((p: any) => (
+    return projectData?.map((p: any) => (
       <tr key={p.id}>
         <td>
           <div className="flex justify-start items-center gap-3 ">
@@ -256,6 +278,7 @@ const Page = () => {
                     <input
                       type="text"
                       placeholder="Search"
+                      onChange={handleChange}
                       className=" border-primaryTransparent placeholder:text-sm pl-10 mt-0"
                     />
                     <BiSearch size={24} className="absolute top-3 left-3" />
@@ -272,23 +295,20 @@ const Page = () => {
 
               {!data && isLoading ? (
                 <Loading />
-              ) : data && !projectData?.totalCount ? (
+              ) : data && !projectCount ? (
                 <div className="my-16 flex flex-col items-center">
                   <h4 className="text-center md:text-xl mb-6">
-                    Oops you don&apos;t have any project
+                    {search ? 'No project found': "Oops you don't have any project"}
                   </h4>
-                  <Button
+                 {!search && <Button
                     title="Add project"
                     css="w-full md:w-[145px]"
                     fn={gotoAddProject}
-                  />
+                  />}
                 </div>
               ) : (
                 <div className="border border-primaryTransparent rounded-lg py-2  ">
-                  <h3 className="p-5 pt-2">
-                    {" "}
-                    Project ({projectData?.totalCount || 0})
-                  </h3>
+                  <h3 className="p-5 pt-2"> Project ({projectCount || 0})</h3>
                   <div className="border-t  border-primaryTransparent py-2  overflow-x-auto">
                     {
                       <table>
@@ -333,9 +353,7 @@ const Page = () => {
               )}
             </div>
           </div>
-          {projectData?.projects?.data?.length > 0 && (
-            <Pagination totalCount={projectData?.totalCount} />
-          )}
+          {projectData?.length > 0 && <Pagination totalCount={projectCount} />}
         </section>
       </section>
     </>

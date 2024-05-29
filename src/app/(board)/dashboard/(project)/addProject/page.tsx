@@ -31,7 +31,9 @@ const Page = () => {
       }),
     onSuccess: (data) => {
       toast({ dispatch, message: "Successfully Created" });
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({
+        queryKey: ["projects", "generalProjects"],
+      });
       router.back();
       // console.log(data);
     },
@@ -105,7 +107,6 @@ const Page = () => {
 
     // console.log("FormData content:", formData);
     mutate(formData);
- 
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Loading from "@/components/ui/Loading";
 import axios from "@/config/axios";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { handleSearch } from "@/redux/slices/variables";
 import { AuthFormValues } from "@/types/Forms";
 import { capitalize } from "@/utils/Helpers";
 import { toast } from "@/utils/Toast";
@@ -23,21 +24,37 @@ const Page = () => {
   const [activeTab, setActiveTab] = useState(0);
   const axiosAuth = useAxiosAuth();
   const dispatch = useDispatch();
-  const { order, take, pageNumber } = useSelector(
+  const { order, take, pageNumber, search } = useSelector(
     (state: any) => state.variables
   );
   // const user = auth?.user?.user;
   const { data, isLoading, error, isError } = useQuery({
-    queryKey: ["projects", order, pageNumber, take],
+    queryKey: ["generalProjects", order, pageNumber, take],
     queryFn: () =>
       axios.get(
         `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
-  const projectData = data?.data?.data;
-  const errorCode = error?.message;
+  const {
+    data: searchedData,
+    isLoading: searching,
+    error: searchError,
+    isError: isSearchError,
+  } = useQuery({
+    queryKey: ["searchedProjects", search],
+    queryFn: () => axios.get(`/projects/search/${search}`),
+  });
 
-  console.log(projectData);
+  const projectData = search
+    ? searchedData?.data?.data?.data
+    : data?.data?.data?.projects?.data;
+  const projectCount = search
+    ? searchedData?.data?.data?.count
+    : data?.data?.data?.totalCount;
+
+  const errorCode = search ? searchError?.message : error?.message;
+
+  // console.log(projectCount);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -74,6 +91,12 @@ const Page = () => {
     setActiveTab(tab);
   };
 
+  const handleChange = (e: any) => {
+    const term = e.target.value;
+
+    dispatch(handleSearch(term));
+  };
+
   const tabStyle = (tab: number) => {
     return `${
       activeTab === tab ? "bg-customGray " : ""
@@ -81,7 +104,7 @@ const Page = () => {
   };
 
   const renderProjects = () => {
-    return projectData?.projects?.data?.map((p: any) => (
+    return projectData?.map((p: any) => (
       <tr key={p.id}>
         <td>
           <div className="flex justify-start items-center gap-3 ">
@@ -98,7 +121,7 @@ const Page = () => {
           </div>
         </td>
         <td>{p.network}</td>
-        <td>{p.walletAddress}</td>
+        <td>{p.wallet}</td>
         <td>{p.totalAmountGenerate}</td>
         <td>{p.totalToken}</td>
         <td>{p.totalTokenCirculation}</td>
@@ -125,27 +148,27 @@ const Page = () => {
           />
         </div>
         <div className="section-container ">
-          <div className=" md:flex md:justify-between">
+          <div className=" md:flex md:justify-between md:pl-4">
             <div className="mt-10 md:mt-0 md:flex-1 md:flex md:flex-col justify-center items-start">
               <h2 className="font-sfBold w-3/4 mx-auto md:text-3xl lg:text-4xl 2xl:text-6xl text-center md:mx-0 md:text-start">
                 Enhance Liquidity Effortlessly with L2 Network Integration
               </h2>
               <p className="text-sm mt-3 mx-auto text-center w-4/5 md:text-base md:mt-4 md:mx-0 md:text-start">
                 Unlock Seamless Liquidity Boosts with our L2
-                Integration Solution
+                Integration Solution.
               </p>
 
-              <div className="mt-6 ">
+              {/* <div className="mt-6 ">
                 <Button
                   title="Let's go!"
                   css="w-full md:w-[285px]"
                   loading={loading}
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className="flex-1">
-              <div className="w-10/12 max-w-[525px] 2xl:max-w-[600px] md:w-full md:p-6 mx-auto mt-10 md:mt-0">
+              <div className="w-10/12 max-w-[525px] 2xl:max-w-[600px] md:wfull md:p-6 mx-auto mt-10 md:mt-0">
                 <Image
                   src="/images/block_chain.png"
                   alt="X Logo"
@@ -182,6 +205,7 @@ const Page = () => {
                   type="text"
                   placeholder="Search"
                   className="border-primaryTransparent placeholder:text-sm pl-10 mt-0"
+                  onChange={handleChange}
                 />
                 <BiSearch size={24} className="absolute top-3 left-3" />
               </div>
@@ -189,7 +213,7 @@ const Page = () => {
 
             {!data && isLoading ? (
               <Loading />
-            ) : data && !projectData?.totalCount ? (
+            ) : data && !projectCount ? (
               <div className="my-16 flex flex-col items-center">
                 <h4 className="text-center md:text-xl mb-6">
                   Oops you don&apos;t have any project
@@ -197,10 +221,7 @@ const Page = () => {
               </div>
             ) : (
               <div className="border border-primaryTransparent rounded-lg py-2  ">
-                <h3 className="p-5 pt-2">
-                  {" "}
-                  Project ({projectData?.totalCount || 0})
-                </h3>
+                <h3 className="p-5 pt-2"> Project ({projectCount || 0})</h3>
                 <div className="border-t  border-primaryTransparent py-2 overflow-x-auto">
                   <table>
                     <thead className="border-b border-primaryTransparent ">
@@ -240,9 +261,7 @@ const Page = () => {
                 </div>
               </div>
             )}
-            {projectData?.projects?.data?.length > 0 && (
-              <Pagination totalCount={projectData?.totalCount} />
-            )}
+            {projectData?.length > 0 && <Pagination totalCount={projectCount} />}
           </div>
         </div>
       </section>
