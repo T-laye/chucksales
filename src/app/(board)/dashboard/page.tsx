@@ -41,14 +41,14 @@ const Page = () => {
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
-      axiosAuth.get(
+      axios.get(
         `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
   const projectData = data?.data?.data;
   const errorCode = error?.message;
 
-  console.log(error);
+  // console.log(error);
   // console.log(projectData?.extension);
 
   if (isError) {

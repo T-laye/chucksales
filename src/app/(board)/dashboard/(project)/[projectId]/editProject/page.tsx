@@ -14,6 +14,7 @@ import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
 import { projectId } from "@/config";
 import Loading from "@/components/ui/Loading";
+import axios from "@/config/axios";
 
 const Page = () => {
   const { projectId } = useParams();
@@ -35,12 +36,17 @@ const Page = () => {
       toast({ dispatch, message: "Successfully Updated" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       router.back();
-      console.log(data);
+      // console.log(data);
     },
 
     onError: (error: any) => {
-      toast({ dispatch, message: "Failed to Update" });
-      console.log(error);
+      if (error?.message === "Request failed with status code 401") {
+        router.replace("/signIn");
+        toast({ dispatch, message: "Unauthenticated Please Login" });
+      } else {
+        toast({ dispatch, message: "Failed to Create" });
+      }
+      // console.log(error.message);
     },
   });
 
