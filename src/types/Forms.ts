@@ -8,7 +8,7 @@ export interface AuthFormValues {
   file?: any;
 }
 export interface ContributeFormValues {
-  contributeTo: `0x${string}`;
+  // contributeTo: `0x${string}`;
   amount: string;
   email: string;
 }

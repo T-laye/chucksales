@@ -57,9 +57,9 @@ export default project_validation;
 
 // Define ErrorsState interface
 interface ErrorsState {
-  contributeTo?: string;
+  // contributeTo?: string;
   amount?: string;
-  coin?: string;
+  email?: string;
 }
 
 // Define the contribution_validate function
@@ -68,10 +68,10 @@ export function contribution_validate(
 ): ErrorsState {
   const errors: ErrorsState = {};
 
-  if (!values.contributeTo) {
-    errors.contributeTo = "required";
-  } else if (!values.contributeTo.startsWith("0x")) {
-    errors.contributeTo = "Invalid wallet id";
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
   }
   if (!values.amount) {
     errors.amount = "required";

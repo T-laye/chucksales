@@ -16,6 +16,9 @@ import { parseEther } from "viem";
 import { contribution_validate } from "@/lib/validations/ProjectValidate";
 import { convertToNumber } from "@/utils/Helpers";
 import BtnLoader from "../ui/BtnLoader";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "@/utils/Toast";
 
 interface ContributeModalProps {
   showCongratsModal: any;
@@ -27,6 +30,7 @@ interface ContributeModalProps {
   isPending: boolean;
   isConfirming: boolean;
   wallet: string;
+  projectId: string;
 }
 
 const ContributeModal: React.FC<ContributeModalProps> = ({
@@ -39,10 +43,34 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   hash,
   isPending,
   wallet,
+  projectId,
 }) => {
   const dispatch = useDispatch();
+  const axiosAuth = useAxiosAuth();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-  //  0xaa60472bbdd22b20f7f5fb0c373b56076e570dc1751e108d75678725037da4fc
+  const { mutate } = useMutation({
+    mutationFn: (data: any) => axiosAuth.post("/projects/transaction", data),
+    onSuccess: (data) => {
+      toast({ dispatch, message: "Transatcion Successful" });
+      dispatch(handleContributeModal(false));
+      dispatch(handleCongratsModal(true));
+      console.log(data);
+    },
+
+    onError: (error: any) => {
+      if (error?.message === "Request failed with status code 401") {
+        router.replace("/signIn");
+        toast({ dispatch, message: "Unauthenticated Please Login" });
+      } else if (error?.message === "Request failed with status code 500") {
+        toast({ dispatch, message: "Server Error" });
+      } else {
+        toast({ dispatch, message: "Something went wrong" });
+      }
+      console.log(error);
+    },
+  });
 
   const handleCloseModal = () => {
     dispatch(handleContributeModal(false));
@@ -50,61 +78,71 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
 
   const formik = useFormik<ContributeFormValues>({
     initialValues: {
-      contributeTo: `0x${0}`,
+      // contributeTo: wallet,
       amount: "",
       email: "",
     },
     validate: contribution_validate,
     onSubmit: handleSubmit,
   });
-
+  // console.log(projectId)
   async function handleSubmit(values: ContributeFormValues) {
-    const to = values.contributeTo;
+    const to = wallet;
     const value = values.amount;
     sendTransaction({ to, value: parseEther(value) });
   }
 
+  console.log(formik.values.amount, formik.values?.email, projectId, hash);
   useEffect(() => {
-    // if (isSuccess && !isConfirmed) {
-    //   dispatch(handleTransactionDataFetch(true));
-    // }
-    if (isConfirmed && hash && data) {
-      const {
-        blockHash,
-        chainId,
-        contractAddress,
-        from,
-        status,
-        transactionHash,
-        transactionIndex,
-        blockNumber,
-        cumulativeGasUsed,
-        effectiveGasPrice,
-        gasUsed,
-      } = data;
-      dispatch(handleContributeModal(false));
-      // handleTransactionDataFetch(false);
-      dispatch(handleCongratsModal(true));
-      // dispatch(handleTransactionSuccess(isSuccess));
-      dispatch(handleHash(hash));
-      dispatch(
-        handleTransactionData({
-          blockHash,
-          chainId,
-          contractAddress,
-          from,
-          status,
-          to: wallet,
-          transactionHash,
-          transactionIndex,
-          blockNumber: convertToNumber(blockNumber),
-          cumulativeGasUsed: convertToNumber(cumulativeGasUsed),
-          effectiveGasPrice: convertToNumber(effectiveGasPrice),
-          gasUsed: convertToNumber(gasUsed),
-        })
-      );
+    if (hash) {
+      mutate({
+        token: formik.values.amount,
+        projectId,
+        email: formik.values?.email,
+        hash,
+      });
+      console.log(hash, "in if statement");
     }
-  }, [data, dispatch, hash, isConfirmed, isSuccess, wallet]);
+    // console.log(hash, "outside if statement");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash]);
+
+  // useEffect(() => {
+  //   if (isConfirmed && hash && data) {
+  //     const {
+  //       blockHash,
+  //       chainId,
+  //       contractAddress,
+  //       from,
+  //       status,
+  //       transactionHash,
+  //       transactionIndex,
+  //       blockNumber,
+  //       cumulativeGasUsed,
+  //       effectiveGasPrice,
+  //       gasUsed,
+  //     } = data;
+  //     dispatch(handleContributeModal(false));
+  //     dispatch(handleCongratsModal(true));
+  //     dispatch(handleHash(hash));
+  //     dispatch(
+  //       handleTransactionData({
+  //         blockHash,
+  //         chainId,
+  //         contractAddress,
+  //         from,
+  //         status,
+  //         to: wallet,
+  //         transactionHash,
+  //         transactionIndex,
+  //         blockNumber: convertToNumber(blockNumber),
+  //         cumulativeGasUsed: convertToNumber(cumulativeGasUsed),
+  //         effectiveGasPrice: convertToNumber(effectiveGasPrice),
+  //         gasUsed: convertToNumber(gasUsed),
+  //       })
+  //     );
+  //   }
+  // }, [data, dispatch, hash, isConfirmed, isSuccess, wallet]);
 
   const getInputClassNames = (
     fieldName: keyof ContributeFormValues
@@ -142,7 +180,9 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               {formik.touched.contributeTo && formik.errors.contributeTo && (
                 <div className="form_errors">{formik.errors.contributeTo}</div>
               )} */}
-              <div className="text-base break-words whitespace-normal">{wallet}</div>
+              <div className="text-base break-words whitespace-normal">
+                {wallet}
+              </div>
             </div>
             <div className="flex flex-col mb-6">
               <label className="" htmlFor="email">
@@ -159,7 +199,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
             </div>
             <div className="flex flex-col mb-6">
               <label className="" htmlFor="amount">
-                Amount
+                Token
               </label>
               <input
                 type="text"
@@ -170,25 +210,6 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
                 <div className="form_errors">{formik.errors.amount}</div>
               )}
             </div>
-
-            {/* <div className="text-xs md:text-base my-8 flex flex-col gap-2">
-            <div className="flex justify-between">
-              <div>Account Balance</div>
-              <div>0.0002%</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Gas fee (est.)</div>
-              <div>2 USDT</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Transfer time</div>
-              <div>11:59GMT+1</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Transaction Hash</div>
-              <div>{hash && <div>Transaction Hash: {hash}</div>}</div>
-            </div>
-          </div> */}
             <div>
               <Button
                 title="Contribute"

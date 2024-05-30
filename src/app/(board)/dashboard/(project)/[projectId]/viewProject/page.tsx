@@ -191,11 +191,11 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            <Button
+            {/* <Button
               title={isConnected ? "Contribute" : "Connect & Contribute"}
               css="w-full md:w-fit"
               fn={handleOpenContributeModal}
-            />
+            /> */}
           </div>
         </div>
 
@@ -262,6 +262,7 @@ const Page = () => {
           isSuccess={isSuccess}
           sendTransaction={sendTransaction}
           wallet={projectData?.walletAddress}
+          projectId=''
         />
       )}
       {showCongratsModal && <CongratsModal isConfirming={isConfirming} />}

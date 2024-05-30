@@ -72,7 +72,7 @@ const Page = () => {
 
   const errorCode = search ? searchError?.message : error?.message;
 
-  // console.log(projectCount);
+  // console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -298,13 +298,17 @@ const Page = () => {
               ) : data && !projectCount ? (
                 <div className="my-16 flex flex-col items-center">
                   <h4 className="text-center md:text-xl mb-6">
-                    {search ? 'No project found': "Oops you don't have any project"}
+                    {search
+                      ? "No project found"
+                      : "Oops you don't have any project"}
                   </h4>
-                 {!search && <Button
-                    title="Add project"
-                    css="w-full md:w-[145px]"
-                    fn={gotoAddProject}
-                  />}
+                  {!search && (
+                    <Button
+                      title="Add project"
+                      css="w-full md:w-[145px]"
+                      fn={gotoAddProject}
+                    />
+                  )}
                 </div>
               ) : (
                 <div className="border border-primaryTransparent rounded-lg py-2  ">
