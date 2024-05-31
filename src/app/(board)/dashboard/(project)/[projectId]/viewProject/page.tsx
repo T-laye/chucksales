@@ -262,10 +262,15 @@ const Page = () => {
           isSuccess={isSuccess}
           sendTransaction={sendTransaction}
           wallet={projectData?.walletAddress}
-          projectId=''
+          projectId=""
         />
       )}
-      {showCongratsModal && <CongratsModal isConfirming={isConfirming} />}
+      {showCongratsModal && (
+        <CongratsModal
+          isConfirming={isConfirming}
+          projectName={projectData?.name}
+        />
+      )}
     </>
   );
 };

@@ -36,7 +36,7 @@ const Page = () => {
       toast({ dispatch, message: "Successfully Updated" });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       router.back();
-      // console.log(data);
+      console.log(data);
     },
 
     onError: (error: any) => {

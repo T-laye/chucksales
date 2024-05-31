@@ -47,7 +47,7 @@ const Page = () => {
   const ContibutorsData = project?.data?.data.contributors;
   const errorCode = projectError?.message;
 
-  // console.log(projectData);
+  console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -74,7 +74,7 @@ const Page = () => {
   } = useWaitForTransactionReceipt({
     hash,
   });
-  const { address, connector, isConnected } = useAccount();
+  const { address, connector, isConnected, isConnecting } = useAccount();
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
 
@@ -112,7 +112,7 @@ const Page = () => {
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden bg-customGray">
             <Image
               src={projectData?.projectImageUrl}
-              alt={projectData?.name || 'image'}
+              alt={projectData?.name || "image"}
               width={700}
               height={700}
               className="h-full w-full object-cover"
@@ -195,6 +195,7 @@ const Page = () => {
               title={isConnected ? "Contribute" : "Connect & Contribute"}
               css="w-full md:w-fit"
               fn={handleOpenContributeModal}
+              loading={isConnecting}
             />
           </div>
         </div>
@@ -265,7 +266,12 @@ const Page = () => {
           projectId={projectData?.id}
         />
       )}
-      {showCongratsModal && <CongratsModal isConfirming={isConfirming} />}
+      {showCongratsModal && (
+        <CongratsModal
+          isConfirming={isConfirming}
+          projectName={projectData?.name}
+        />
+      )}
     </>
   );
 };

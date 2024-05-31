@@ -54,6 +54,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
     mutationFn: (data: any) => axiosAuth.post("/projects/transaction", data),
     onSuccess: (data) => {
       toast({ dispatch, message: "Transatcion Successful" });
+      dispatch(handleHash(hash));
       dispatch(handleContributeModal(false));
       dispatch(handleCongratsModal(true));
       console.log(data);
@@ -69,6 +70,9 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         toast({ dispatch, message: "Something went wrong" });
       }
       console.log(error);
+      toast({ dispatch, message: "Something went wrong" });
+      dispatch(handleContributeModal(false));
+      dispatch(handleCongratsModal(false));
     },
   });
 
@@ -92,7 +96,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
     sendTransaction({ to, value: parseEther(value) });
   }
 
-  console.log(formik.values.amount, formik.values?.email, projectId, hash);
+  // console.log(formik.values.amount, formik.values?.email, projectId, hash);
   useEffect(() => {
     if (hash) {
       mutate({
@@ -104,7 +108,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
       console.log(hash, "in if statement");
     }
     // console.log(hash, "outside if statement");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash]);
 
   // useEffect(() => {
@@ -201,11 +205,14 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               <label className="" htmlFor="amount">
                 Token
               </label>
-              <input
-                type="text"
-                className={getInputClassNames("amount")}
-                {...formik.getFieldProps("amount")}
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  className={`${getInputClassNames("amount")}  pr-12`}
+                  {...formik.getFieldProps("amount")}
+                />
+                <div className="absolute top-4 right-2 text-lg">ETH</div>
+              </div>
               {formik.touched.amount && formik.errors.amount && (
                 <div className="form_errors">{formik.errors.amount}</div>
               )}

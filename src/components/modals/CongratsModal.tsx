@@ -8,12 +8,17 @@ import { useRouter } from "next/navigation";
 import { handleCongratsModal, handleHash } from "@/redux/slices/variables";
 import { useDispatch, useSelector } from "react-redux";
 import BtnLoader from "../ui/BtnLoader";
+import { capitalize } from "@/utils/Helpers";
 
 interface CongratsModalProps {
   isConfirming: boolean;
+  projectName: string;
 }
 
-const CongratsModal: React.FC<CongratsModalProps> = ({ isConfirming }) => {
+const CongratsModal: React.FC<CongratsModalProps> = ({
+  isConfirming,
+  projectName,
+}) => {
   const dispatch = useDispatch();
   // const router = useRouter();
   const { transactionHash } = useSelector((state: any) => state.variables);
@@ -30,7 +35,7 @@ const CongratsModal: React.FC<CongratsModalProps> = ({ isConfirming }) => {
   return (
     <div className="flex justify-center items-center px-4 md:px-8 fixed bg-[#05070CCC] backdrop-blur-sm top-0 bottom-0 left-0 right-0 ">
       <>
-        {!isConfirming ? (
+        {isConfirming ? (
           <div className="flex flex-col justify-center items-center max-w-[506px] w-full rounded-2xl min-h-[281px] bg-[#131318] p-6">
             <div className="">
               <svg
@@ -65,7 +70,7 @@ const CongratsModal: React.FC<CongratsModalProps> = ({ isConfirming }) => {
             </div>
             <h2 className="text-center font-bold mt-6">Congratulations</h2>
             <p className="text-center mt-3 mb-5">
-              You have successfully contributed to Ethereum Shitcoin
+              You have successfully contributed to {capitalize(projectName)}
             </p>
             <Button
               title="Proceed"
