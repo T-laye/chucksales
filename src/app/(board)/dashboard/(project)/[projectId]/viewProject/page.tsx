@@ -295,7 +295,7 @@ const Page = () => {
       )}
       {showCongratsModal && (
         <CongratsModal
-          isConfirming={isConfirming}
+          isConfirming={isSuccess}
           projectName={projectData?.name}
           walletAddress={projectData?.walletAddress}
         />
