@@ -9,7 +9,7 @@ import {
   handleCongratsModal,
   handleContributeModal,
 } from "@/redux/slices/variables";
-import { capitalize } from "@/utils/Helpers";
+import { capitalize, formatDate } from "@/utils/Helpers";
 import { toast } from "@/utils/Toast";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
@@ -43,20 +43,34 @@ const Page = () => {
     queryKey: ["project", projectId],
     queryFn: () => axiosAuth.get(`/projects/user/${projectId}`),
   });
+
+  const {
+    data: contributors,
+    isLoading: loadingContributors,
+    error: contributorError,
+    isError: contributorIsError,
+  } = useQuery({
+    queryKey: ["contributors"],
+    queryFn: () =>
+      axiosAuth.get(
+        `/projects/user/contributors/${projectId}?order=${order}&pageNumber=${pageNumber}&take=${take}`
+      ),
+  });
+
   const projectData = project?.data?.data;
-  const ContibutorsData = project?.data?.data.contributors;
+  const contibutorsData = contributors?.data?.data?.contributors;
   const errorCode = projectError?.message;
 
-  // console.log(projectData);
+  console.log(contibutorsData, contributorError);
 
-  if (isError) {
-    if (errorCode === "Request failed with status code 401") {
-      router.replace("/signIn");
-      // toast({ dispatch, message: "Unauthorized Please Login" });
-    } else {
-      // toast({ dispatch, message: "Something went wrong!!!" });
-    }
-  }
+  // if (isError) {
+  //   if (errorCode === "Request failed with status code 401") {
+  //     router.replace("/signIn");
+  //     // toast({ dispatch, message: "Unauthorized Please Login" });
+  //   } else {
+  //     // toast({ dispatch, message: "Something went wrong!!!" });
+  //   }
+  // }
 
   const { open, close } = useWeb3Modal();
   const {
@@ -92,6 +106,18 @@ const Page = () => {
   const handleOpenCongratsModal = () => {
     dispatch(handleCongratsModal(true));
     dispatch(handleContributeModal(false));
+  };
+
+  const renderContributors = () => {
+    return contibutorsData?.data?.map((c: any) => (
+      <tr key={c.id}>
+        <td className="text-start">{c?.token}</td>
+        <td className="">{c.walletAddress}</td>
+        <td className="">{c?.fAmount}</td>
+        <td>{c?.quota}</td>
+        <td>{formatDate(c?.createdAt)}</td>
+      </tr>
+    ));
   };
 
   return (
@@ -201,7 +227,7 @@ const Page = () => {
 
         <section className="mt-8">
           <div className="container mx-auto px-4 lg:px-8">
-            {!ContibutorsData?.data ? (
+            {!contibutorsData?.data ? (
               <div className="my-16 flex flex-col items-center">
                 <h4 className="text-center md:text-xl mb-6">
                   Oops you don&apos;t have any Contributions
@@ -220,16 +246,16 @@ const Page = () => {
                     <table>
                       <thead className="border-b border-primaryTransparent ">
                         <tr>
-                          <td>Contributor</td>
-                          <td>Token Contributed</td>
+                          <td>Token Recieved</td>
+                          <td>Contributor Wallet Address</td>
                           <td>Amount</td>
-                          <td>Percentage recieved</td>
-                          <td>Time</td>
+                          <td>Quota</td>
+                          <td>Date</td>
                         </tr>
                       </thead>
                       <tbody>
-                        {/* Data */}
-                        <tr>
+                        {renderContributors()}
+                        {/* <tr>
                           <td className="">0xght456ytn54 j890lkijbh12</td>
                           <td>
                             <div className="flex justify-center items-center gap-3 ">
@@ -240,12 +266,14 @@ const Page = () => {
                           <td>45ETH/5,000 USD</td>
                           <td>20%</td>
                           <td className="">2mins ago</td>
-                        </tr>
+                        </tr> */}
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <Pagination totalCount={2} />
+                {contibutorsData?.data?.length > 0 && (
+                  <Pagination totalCount={contibutorsData?.meta?.count} />
+                )}
               </div>
             )}
           </div>
@@ -269,6 +297,7 @@ const Page = () => {
         <CongratsModal
           isConfirming={isConfirming}
           projectName={projectData?.name}
+          walletAddress={projectData?.walletAddress}
         />
       )}
     </>

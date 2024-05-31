@@ -31,12 +31,12 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
       </p>
       <IoIosArrowBack
         size={20}
-        className="cursor-pointer"
+        className="cursor-pointer hover:text-primary"
         onClick={handlePrevPage}
       />
       <IoIosArrowForward
         size={20}
-        className="cursor-pointer"
+        className="cursor-pointer hover:text-primary"
         onClick={handleNextPage}
       />
     </div>

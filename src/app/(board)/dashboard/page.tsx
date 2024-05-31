@@ -162,36 +162,6 @@ const Page = () => {
               Delete
             </option>
           </select>{" "}
-          {/* <SlOptions
-            size={20}
-            onClick={() => setShowOptionId(showOptionId === p.id ? null : p.id)}
-            className="cursor-pointer"
-          />
-          {showOptionId === p.id && (
-            <div
-              onClick={() => setShowOptionId(false)}
-              className="absolute flex flex-col rounded-xl right-12 top-10 z-50 overflow-hidden bg-customGray shadow-sm"
-            >
-              <Link
-                className="hover:bg-primary px-4 py-1 duration-150 "
-                href={`/dashboard/${p.id}/editProject`}
-              >
-                Edit
-              </Link>
-              <Link
-                className="hover:bg-primary px-4 py-1 duration-150"
-                href={`/dashboard/${p.id}/viewProject`}
-              >
-                Preview
-              </Link>
-              <Link
-                className="hover:bg-primary px-4 py-1 duration-150"
-                href="#"
-              >
-                Delete
-              </Link>
-            </div>
-          )} */}
         </td>
       </tr>
     ));

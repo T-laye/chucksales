@@ -11,8 +11,8 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 const metadata = {
   name: "Web3Modal",
-  description: "Web3Modal Chucksales",
-  url: "https://www.chucksales.com", // origin must match your domain & subdomain
+  description: "Web3Modal Example",
+  url: "https://web3Modal.com", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 

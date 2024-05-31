@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { State, WagmiProvider } from "wagmi";
 
 // Setup queryClient
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 if (!projectId) throw new Error("Project ID is not defined");
 
@@ -29,6 +29,17 @@ export default function Web3ModalProvider({
   children: ReactNode;
   initialState?: State;
 }) {
+
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false, // configure as per your needs
+          },
+        },
+      })
+  );
   return (
     <WagmiProvider config={config }  initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

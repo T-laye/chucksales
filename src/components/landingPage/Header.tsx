@@ -11,13 +11,16 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
+import { useAccount, useDisconnect } from "wagmi";
 
 export default function Header() {
   const [showNav, setshowNav] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
-  const { open, close } = useWeb3Modal();
+  // const { open, close } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
   const [isLoading, setIsLoading] = useState(false);
   const user = sessionStorage.getItem("user");
   const axiosAuth = useAxiosAuth();
@@ -86,12 +89,25 @@ export default function Header() {
             </div>
           </nav>
         </div>
-        <div className="flex w-full justify-end mr-0 sm:hidden ">
-          <w3m-button />
+        <div className="flex w-full justify-end gap-2 sm:hidden ">
+          {/* <w3m-button /> */}
+          {isConnected ? (
+            <Button title="Disconnect" fn={disconnect} />
+          ) : (
+            <Button title="Connect" fn={() => router.push("/connectWallet")} />
+          )}
         </div>
         <div className="flex items-center gap-3 xl:gap-5">
           <div className="hidden sm:block ">
-            <w3m-button />
+            {/* <w3m-button /> */}
+            {isConnected ? (
+              <Button title="Disconnect" fn={disconnect} />
+            ) : (
+              <Button
+                title="Connect"
+                fn={() => router.push("/connectWallet")}
+              />
+            )}
           </div>
           <HiOutlineMenuAlt3
             onClick={handleNav}

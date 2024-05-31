@@ -13,11 +13,13 @@ import { capitalize } from "@/utils/Helpers";
 interface CongratsModalProps {
   isConfirming: boolean;
   projectName: string;
+  walletAddress: string;
 }
 
 const CongratsModal: React.FC<CongratsModalProps> = ({
   isConfirming,
   projectName,
+  walletAddress,
 }) => {
   const dispatch = useDispatch();
   // const router = useRouter();
@@ -70,7 +72,8 @@ const CongratsModal: React.FC<CongratsModalProps> = ({
             </div>
             <h2 className="text-center font-bold mt-6">Congratulations</h2>
             <p className="text-center mt-3 mb-5">
-              You have successfully contributed to {capitalize(projectName)}
+              You have successfully contributed to {capitalize(projectName)}{" "}
+              having wallet address : {walletAddress}
             </p>
             <Button
               title="Proceed"
