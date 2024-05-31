@@ -18,7 +18,7 @@ const Page = () => {
   const { isConnected } = useAccount();
   const router = useRouter();
 
-  // console.log(reset);
+  console.log(connectors);
 
   useEffect(() => {
     if (isConnected) {
@@ -27,32 +27,27 @@ const Page = () => {
   }, [isConnected]);
 
   const renderConnectors = () => {
-    return connectors.map((connector) => (
-      // <button
-      //   className="flex "
-      //   key={connector.uid}
-      //   onClick={() => connect({ connector })}
-      // >
-      //   {connector.name}
-      // </button>
-      <div
-        key={connector.uid}
-        onClick={() => connect({ connector })}
-        className="h-16 gap-3 px-3 py-[10px] flex items-center hover:bg-primaryTransparent duration-150 cursor-pointer"
-      >
-        <div className="h-11 w-11 rounded-lg overflow-hidden">
-          <Image
-            // src={`/images/${connector.type}.png`}
-            src={connector?.icon ?? `/images/${connector.type}.png`}
-            alt="wallet"
-            height={400}
-            width={400}
-            className="h-full w-full object-fill"
-          />
+    return connectors
+      ?.filter((c: any) => !["walletConnect", "injected"].includes(c?.id))
+      .map((connector) => (
+        <div
+          key={connector.uid}
+          onClick={() => connect({ connector })}
+          className="h-16 gap-3 px-3 py-[10px] flex items-center hover:bg-primaryTransparent duration-150 cursor-pointer"
+        >
+          <div className="h-11 w-11 rounded-lg overflow-hidden">
+            <Image
+              // src={`/images/${connector.type}.png`}
+              src={connector?.icon ?? `/images/${connector.type}.png`}
+              alt="wallet"
+              height={400}
+              width={400}
+              className="h-full w-full object-fill"
+            />
+          </div>
+          <div className="text-sm font-sfBold">{connector.name}</div>
         </div>
-        <div className="text-sm font-sfBold">{connector.name}</div>
-      </div>
-    ));
+      ));
   };
 
   return (
