@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import About from "@/components/landingPage/About";
 import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
@@ -9,9 +9,9 @@ import Faq from "@/components/landingPage/Faq";
 import { useBalance } from "wagmi";
 
 export default function Home() {
-  const { data } = useBalance();
+  // const { data, status } = useBalance();
 
-  console.log(data);
+  // console.log(data, status, "hello");
   return (
     <>
       <Header />

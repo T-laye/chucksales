@@ -61,7 +61,7 @@ const Page = () => {
   const contibutorsData = contributors?.data?.data?.contributors;
   const errorCode = projectError?.message;
 
-  console.log(contibutorsData, contributorError);
+  // console.log(contibutorsData, contributorError);
 
   // if (isError) {
   //   if (errorCode === "Request failed with status code 401") {
