@@ -101,7 +101,7 @@ export default function Header() {
           <div className="hidden sm:block ">
             {/* <w3m-button /> */}
             {isConnected ? (
-              <Button title="Disconnect" fn={disconnect} />
+              <Button title="Disconnect" fn={disconnect} primary={false} />
             ) : (
               <Button
                 title="Connect"

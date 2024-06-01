@@ -18,7 +18,7 @@ const Page = () => {
   const { isConnected } = useAccount();
   const router = useRouter();
 
-  console.log(connectors);
+  // console.log(connectors);
 
   useEffect(() => {
     if (isConnected) {
