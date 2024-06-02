@@ -35,10 +35,7 @@ const Page = () => {
     (state: any) => state.variables
   );
   // console.log(params);
-  const {
-    data: project,
-    error: projectError,
-  } = useQuery({
+  const { data: project, error: projectError } = useQuery({
     queryKey: ["project", projectId],
     queryFn: () => axiosAuth.get(`/projects/user/${projectId}`),
   });
@@ -71,7 +68,6 @@ const Page = () => {
   //     toast({ dispatch, message: "Something went wrong!!!" });
   //   }
   // }
-
   const { open, close } = useWeb3Modal();
   const {
     data: hash,
@@ -81,13 +77,13 @@ const Page = () => {
     isSuccess,
   } = useSendTransaction();
 
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-    data,
-  } = useWaitForTransactionReceipt({
-    hash,
-  });
+  // const {
+  //   isLoading: isConfirming,
+  //   isSuccess: isConfirmed,
+  //   data,
+  // } = useWaitForTransactionReceipt({
+  //   hash,
+  // });
   const { address, connector, isConnected, isConnecting } = useAccount();
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
@@ -108,17 +104,17 @@ const Page = () => {
     dispatch(handleContributeModal(false));
   };
 
-    const renderContributors = () => {
-      return contibutorsData?.data?.map((c: any) => (
-        <tr key={c.id}>
-          <td className="text-start">{c?.token}</td>
-          <td className="">{c.walletAddress}</td>
-          <td className="">{c?.fAmount}</td>
-          <td>{c?.quota}</td>
-          <td>{formatDate(c?.createdAt)}</td>
-        </tr>
-      ));
-    };
+  const renderContributors = () => {
+    return contibutorsData?.data?.map((c: any) => (
+      <tr key={c.id}>
+        <td className="text-start">{c?.token}</td>
+        <td className="">{c.walletAddress}</td>
+        <td className="">{c?.fAmount}</td>
+        <td>{c?.quota}</td>
+        <td>{formatDate(c?.createdAt)}</td>
+      </tr>
+    ));
+  };
 
   return (
     <>
@@ -273,10 +269,7 @@ const Page = () => {
       {showContributeModal && (
         <ContributeModal
           showCongratsModal={handleOpenCongratsModal}
-          isConfirming={isConfirming}
-          data={data}
           hash={hash}
-          isConfirmed={isConfirmed}
           isPending={isPending}
           isSuccess={isSuccess}
           sendTransaction={sendTransaction}
@@ -286,7 +279,8 @@ const Page = () => {
       )}
       {showCongratsModal && (
         <CongratsModal
-          isConfirming={isConfirming}
+          isPending={isPending}
+          isSuccess={isSuccess}
           projectName={projectData?.name}
           walletAddress={projectData?.walletAddress}
         />

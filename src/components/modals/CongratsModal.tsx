@@ -11,13 +11,15 @@ import BtnLoader from "../ui/BtnLoader";
 import { capitalize } from "@/utils/Helpers";
 
 interface CongratsModalProps {
-  isConfirming: boolean;
+  isPending: boolean;
+  isSuccess: boolean;
   projectName: string;
   walletAddress: string;
 }
 
 const CongratsModal: React.FC<CongratsModalProps> = ({
-  isConfirming,
+  isPending,
+  isSuccess,
   projectName,
   walletAddress,
 }) => {
@@ -26,7 +28,7 @@ const CongratsModal: React.FC<CongratsModalProps> = ({
   const { transactionHash } = useSelector((state: any) => state.variables);
 
   // const { transactionDataFetch, transactionSuccessful } = useSelector((state: any) => state.variables);
-  console.log(transactionHash);
+  // console.log(transactionHash);
 
   const proceed = () => {
     dispatch(handleCongratsModal(false));
@@ -37,7 +39,7 @@ const CongratsModal: React.FC<CongratsModalProps> = ({
   return (
     <div className="flex justify-center items-center px-4 md:px-8 fixed bg-[#05070CCC] backdrop-blur-sm top-0 bottom-0 left-0 right-0 ">
       <>
-        {isConfirming ? (
+        {isSuccess && !isPending ? (
           <div className="flex flex-col justify-center items-center max-w-[506px] w-full rounded-2xl min-h-[281px] bg-[#131318] p-6">
             <div className="">
               <svg

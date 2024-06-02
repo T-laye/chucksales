@@ -24,6 +24,7 @@ const Page = () => {
     if (isConnected) {
       router.back();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
 
   const renderConnectors = () => {

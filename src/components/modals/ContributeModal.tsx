@@ -22,23 +22,17 @@ import { toast } from "@/utils/Toast";
 
 interface ContributeModalProps {
   showCongratsModal: any;
-  data: any;
   isSuccess: boolean;
-  isConfirmed: boolean;
   sendTransaction: any;
   hash: any;
   isPending: boolean;
-  isConfirming: boolean;
   wallet: string;
   projectId: string;
 }
 
 const ContributeModal: React.FC<ContributeModalProps> = ({
   showCongratsModal,
-  data,
   isSuccess,
-  isConfirmed,
-  isConfirming,
   sendTransaction,
   hash,
   isPending,
@@ -57,7 +51,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
       dispatch(handleHash(hash));
       dispatch(handleContributeModal(false));
       dispatch(handleCongratsModal(true));
-      console.log(data);
+      // console.log(data);
     },
 
     onError: (error: any) => {
@@ -69,7 +63,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
       } else {
         toast({ dispatch, message: "Something went wrong" });
       }
-      console.log(error);
+      // console.log(error);
       toast({ dispatch, message: "Something went wrong" });
       dispatch(handleContributeModal(false));
       dispatch(handleCongratsModal(false));
@@ -105,48 +99,11 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         email: formik.values?.email,
         hash,
       });
-      console.log(hash, "in if statement");
+      // console.log(hash, "in if statement");
     }
     // console.log(hash, "outside if statement");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash]);
-
-  // useEffect(() => {
-  //   if (isConfirmed && hash && data) {
-  //     const {
-  //       blockHash,
-  //       chainId,
-  //       contractAddress,
-  //       from,
-  //       status,
-  //       transactionHash,
-  //       transactionIndex,
-  //       blockNumber,
-  //       cumulativeGasUsed,
-  //       effectiveGasPrice,
-  //       gasUsed,
-  //     } = data;
-  //     dispatch(handleContributeModal(false));
-  //     dispatch(handleCongratsModal(true));
-  //     dispatch(handleHash(hash));
-  //     dispatch(
-  //       handleTransactionData({
-  //         blockHash,
-  //         chainId,
-  //         contractAddress,
-  //         from,
-  //         status,
-  //         to: wallet,
-  //         transactionHash,
-  //         transactionIndex,
-  //         blockNumber: convertToNumber(blockNumber),
-  //         cumulativeGasUsed: convertToNumber(cumulativeGasUsed),
-  //         effectiveGasPrice: convertToNumber(effectiveGasPrice),
-  //         gasUsed: convertToNumber(gasUsed),
-  //       })
-  //     );
-  //   }
-  // }, [data, dispatch, hash, isConfirmed, isSuccess, wallet]);
 
   const getInputClassNames = (
     fieldName: keyof ContributeFormValues
@@ -160,22 +117,22 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
   };
   return (
     <div className="flex justify-center items-center px-4 md:px-8 fixed bg-[#05070CCC] backdrop-blur-sm top-0 bottom-0 left-0 right-0 ">
-      {!isConfirming ? (
-        <div className="max-w-[506px] w-full rounded-2xl min-h-[428px] bg-[#131318] pt-3 px-3 pb-6 md:px-6 md:pb-8 md:pt-6">
-          <div className="flex justify-end">
-            <MdOutlineCancel
-              className="text-lg md:text-3xl text-[#ffffff60]"
-              onClick={handleCloseModal}
-            />
-          </div>
-          <h3 className="text-primary text-center mb-8">Contribute</h3>
+      {/* {!isSuccess ? ( */}
+      <div className="max-w-[506px] w-full rounded-2xl min-h-[428px] bg-[#131318] pt-3 px-3 pb-6 md:px-6 md:pb-8 md:pt-6">
+        <div className="flex justify-end">
+          <MdOutlineCancel
+            className="text-lg md:text-3xl text-[#ffffff60]"
+            onClick={handleCloseModal}
+          />
+        </div>
+        <h3 className="text-primary text-center mb-8">Contribute</h3>
 
-          <form onSubmit={formik.handleSubmit}>
-            <div className="flex flex-col mb-4">
-              <label className="text-sm" htmlFor="contributeTo">
-                You&apos;re Contributing to
-              </label>
-              {/* <input
+        <form onSubmit={formik.handleSubmit}>
+          <div className="flex flex-col mb-4">
+            <label className="text-sm" htmlFor="contributeTo">
+              You&apos;re Contributing to
+            </label>
+            {/* <input
                 // readOnly
                 type="contributeTo"
                 className={getInputClassNames("contributeTo")}
@@ -184,54 +141,54 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
               {formik.touched.contributeTo && formik.errors.contributeTo && (
                 <div className="form_errors">{formik.errors.contributeTo}</div>
               )} */}
-              <div className="text-base break-words whitespace-normal">
-                {wallet}
-              </div>
+            <div className="text-base break-words whitespace-normal">
+              {wallet}
             </div>
-            <div className="flex flex-col mb-6">
-              <label className="" htmlFor="email">
-                Email
-              </label>
+          </div>
+          <div className="flex flex-col mb-6">
+            <label className="" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              className={getInputClassNames("email")}
+              {...formik.getFieldProps("email")}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className="form_errors">{formik.errors.email}</div>
+            )}
+          </div>
+          <div className="flex flex-col mb-6">
+            <label className="" htmlFor="amount">
+              Token
+            </label>
+            <div className="relative">
               <input
-                type="email"
-                className={getInputClassNames("email")}
-                {...formik.getFieldProps("email")}
+                type="text"
+                className={`${getInputClassNames("amount")}  pr-12`}
+                {...formik.getFieldProps("amount")}
               />
-              {formik.touched.email && formik.errors.email && (
-                <div className="form_errors">{formik.errors.email}</div>
-              )}
+              <div className="absolute top-4 right-2 text-lg">ETH</div>
             </div>
-            <div className="flex flex-col mb-6">
-              <label className="" htmlFor="amount">
-                Token
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  className={`${getInputClassNames("amount")}  pr-12`}
-                  {...formik.getFieldProps("amount")}
-                />
-                <div className="absolute top-4 right-2 text-lg">ETH</div>
-              </div>
-              {formik.touched.amount && formik.errors.amount && (
-                <div className="form_errors">{formik.errors.amount}</div>
-              )}
-            </div>
-            <div>
-              <Button
-                title="Contribute"
-                css="w-full"
-                loading={isPending}
-                type="submit"
-              />
-            </div>
-          </form>
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center max-w-[506px] w-full rounded-2xl min-h-[281px] bg-[#131318] p-6">
-          <BtnLoader size={100} css="text-primary" />
-        </div>
-      )}
+            {formik.touched.amount && formik.errors.amount && (
+              <div className="form_errors">{formik.errors.amount}</div>
+            )}
+          </div>
+          <div>
+            <Button
+              title="Contribute"
+              css="w-full"
+              loading={isPending}
+              type="submit"
+            />
+          </div>
+        </form>
+      </div>
+      {/* ) : (
+       <div className="flex flex-col justify-center items-center max-w-[506px] w-full rounded-2xl min-h-[281px] bg-[#131318] p-6">
+           <BtnLoader size={100} css="text-primary" />
+         </div>
+       )} */}
     </div>
   );
 };
