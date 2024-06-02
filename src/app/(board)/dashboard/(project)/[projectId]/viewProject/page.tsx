@@ -279,10 +279,10 @@ const Page = () => {
           </div>
         </section>
       </section>
-      {showContributeModal && (
+      {/* {showContributeModal && (
         <ContributeModal
           showCongratsModal={handleOpenCongratsModal}
-          isConfirming={isConfirming}
+          
           data={data}
           hash={hash}
           isConfirmed={isConfirmed}
@@ -295,11 +295,11 @@ const Page = () => {
       )}
       {showCongratsModal && (
         <CongratsModal
-          isConfirming={isSuccess}
+          
           projectName={projectData?.name}
           walletAddress={projectData?.walletAddress}
         />
-      )}
+      )} */}
     </>
   );
 };
