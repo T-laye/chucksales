@@ -73,21 +73,21 @@ const Page = () => {
   // }
 
   const { open, close } = useWeb3Modal();
-  const {
-    data: hash,
-    sendTransaction,
-    isPending,
-    error,
-    isSuccess,
-  } = useSendTransaction();
+  // const {
+  //   data: hash,
+  //   sendTransaction,
+  //   isPending,
+  //   error,
+  //   isSuccess,
+  // } = useSendTransaction();
 
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-    data,
-  } = useWaitForTransactionReceipt({
-    hash,
-  });
+  // const {
+  //   isLoading: isConfirming,
+  //   isSuccess: isConfirmed,
+  //   data,
+  // } = useWaitForTransactionReceipt({
+  //   hash,
+  // });
   const { address, connector, isConnected } = useAccount();
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
