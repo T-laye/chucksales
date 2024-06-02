@@ -61,7 +61,8 @@ const Page = () => {
     isError: isSearchError,
   } = useQuery({
     queryKey: ["searchedProjects", search],
-    queryFn: () => axios.get(`/projects/search/${search}?userId=${user?.id}`),
+    queryFn: () =>
+      search && axios.get(`/projects/search/${search}?userId=${user?.id}`),
   });
   const projectData = search
     ? searchedData?.data?.data?.data

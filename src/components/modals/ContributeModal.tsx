@@ -51,7 +51,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
       dispatch(handleHash(hash));
       dispatch(handleContributeModal(false));
       dispatch(handleCongratsModal(true));
-      // console.log(data);
+      // console.log(hash);
     },
 
     onError: (error: any) => {
@@ -99,7 +99,7 @@ const ContributeModal: React.FC<ContributeModalProps> = ({
         email: formik.values?.email,
         hash,
       });
-      // console.log(hash, "in if statement");
+      console.log(hash, "This is the hash");
     }
     // console.log(hash, "outside if statement");
     // eslint-disable-next-line react-hooks/exhaustive-deps

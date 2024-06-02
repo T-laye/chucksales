@@ -35,6 +35,7 @@ const Page = () => {
         `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
+
   const {
     data: searchedData,
     isLoading: searching,
@@ -42,7 +43,7 @@ const Page = () => {
     isError: isSearchError,
   } = useQuery({
     queryKey: ["searchedProjects", search],
-    queryFn: () => axios.get(`/projects/search/${search}`),
+    queryFn: () => search && axios.get(`/projects/search/${search}`),
   });
 
   const projectData = search
@@ -54,7 +55,7 @@ const Page = () => {
 
   const errorCode = search ? searchError?.message : error?.message;
 
-  // console.log(projectCount);
+  // console.log(projectData);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -261,7 +262,9 @@ const Page = () => {
                 </div>
               </div>
             )}
-            {projectData?.length > 0 && <Pagination totalCount={projectCount} />}
+            {projectData?.length > 0 && (
+              <Pagination totalCount={projectCount} />
+            )}
           </div>
         </div>
       </section>

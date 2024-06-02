@@ -24,6 +24,7 @@ import {
   useAccount,
   useSendTransaction,
   useWaitForTransactionReceipt,
+  useChains,
 } from "wagmi";
 
 const Page = () => {
@@ -34,7 +35,13 @@ const Page = () => {
   const { order, take, pageNumber } = useSelector(
     (state: any) => state.variables
   );
-  // console.log(params);
+
+  const { data } = useWaitForTransactionReceipt({
+    hash: "0x74ce58aeb5423702fd4a999b2d73ecec0d9aeb0961e58184fae427f5c3012b90",
+  });
+
+  // console.log(data)
+
   const { data: project, error: projectError } = useQuery({
     queryKey: ["project", projectId],
     queryFn: () => axiosAuth.get(`/projects/user/${projectId}`),
@@ -57,17 +64,7 @@ const Page = () => {
   const contibutorsData = contributors?.data?.data?.contributors;
   const errorCode = projectError?.message;
 
-  // console.log(contibutorsData);
-  // console.log(projectData);
-
-  // if (isError) {
-  //   if (errorCode === "Request failed with status code 401") {
-  //     router.replace("/signIn");
-  //     toast({ dispatch, message: "Unauthorized Please Login" });
-  //   } else {
-  //     toast({ dispatch, message: "Something went wrong!!!" });
-  //   }
-  // }
+  
   const { open, close } = useWeb3Modal();
   const {
     data: hash,
