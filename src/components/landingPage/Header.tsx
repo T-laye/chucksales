@@ -100,6 +100,7 @@ export default function Header() {
           <ConnectKitButton
             customTheme={{
               "--ck-connectbutton-background": "#688CEC",
+              "--ck-connectbutton-color": "#fff",
             }}
           />
           {/* <Button title="Connect" fn={open} /> */}
@@ -110,6 +111,7 @@ export default function Header() {
             <ConnectKitButton
               customTheme={{
                 "--ck-connectbutton-background": "#688CEC",
+                "--ck-connectbutton-color": "#fff",
               }}
             />
             {/* {isConnected ? (
