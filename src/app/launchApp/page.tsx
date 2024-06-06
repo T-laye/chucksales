@@ -158,6 +158,13 @@ const Page = () => {
                 Unlock Seamless Liquidity Boosts with our L2
                 Integration Solution.
               </p>
+              <p className="text-base mt-3 font-semibold text-primary mx-auto text-center w-4/5 md:text-base md:mt-4 md:mx-0 md:text-start">
+                Enabled Networks :{" "}
+                <span className="text-white font-sfMEd text-lg ">
+                  {" "}
+                  Mainnet, Base, Arbitrum, Optimism
+                </span>
+              </p>
 
               {/* <div className="mt-6 ">
                 <Button
