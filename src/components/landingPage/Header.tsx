@@ -12,6 +12,7 @@ import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
 import { useAccount, useDisconnect } from "wagmi";
+import { ConnectKitButton } from "connectkit";
 
 export default function Header() {  
   const [showNav, setshowNav] = useState(false);
@@ -91,24 +92,34 @@ export default function Header() {
         </div>
         <div className="flex w-full justify-end gap-2 sm:hidden ">
           {/* <w3m-button /> */}
-          {isConnected ? (
+          {/* {isConnected ? (
             <Button title="Disconnect" fn={disconnect} />
           ) : (
             <Button title="Connect" fn={() => router.push("/connectWallet")} />
-          )}
+          )} */}
+          <ConnectKitButton
+            customTheme={{
+              "--ck-connectbutton-background": "#688CEC",
+            }}
+          />
           {/* <Button title="Connect" fn={open} /> */}
         </div>
         <div className="flex items-center gap-3 xl:gap-5">
           <div className="hidden sm:block ">
             {/* <w3m-button /> */}
-            {isConnected ? (
+            <ConnectKitButton
+              customTheme={{
+                "--ck-connectbutton-background": "#688CEC",
+              }}
+            />
+            {/* {isConnected ? (
               <Button title="Disconnect" fn={disconnect} primary={false} />
             ) : (
               <Button
                 title="Connect"
                 fn={() => router.push("/connectWallet")}
               />
-            )}
+            )} */}
             {/* <Button title="Connect" fn={open} /> */}
           </div>
           <HiOutlineMenuAlt3

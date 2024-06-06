@@ -8,6 +8,7 @@ import { config } from "@/config";
 import Web3ModalProvider from "@/context";
 import ReactQueryProvider from "@/config/ReactQueryProvider";
 import NextTopLoader from "nextjs-toploader";
+import { Web3Provider } from "@/config/Web3Provider";
 
 export const metadata: Metadata = {
   title: "Chucksales",
@@ -25,6 +26,7 @@ export default function RootLayout({
     <Web3ModalProvider initialState={initialState}>
       <ReduxProvider>
         <ReactQueryProvider>
+        <Web3Provider>
           <html lang="en">
             <body>
               <NextTopLoader
@@ -42,6 +44,7 @@ export default function RootLayout({
               {children}
             </body>
           </html>
+        </Web3Provider>
         </ReactQueryProvider>
       </ReduxProvider>
     </Web3ModalProvider>
