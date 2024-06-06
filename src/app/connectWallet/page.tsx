@@ -18,18 +18,18 @@ const Page = () => {
   const { isConnected } = useAccount();
   const router = useRouter();
 
-  // console.log(connectors);
+  console.log(connectors);
 
   useEffect(() => {
     if (isConnected) {
       router.back();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
 
   const renderConnectors = () => {
     return connectors
-      ?.filter((c: any) => !["walletConnect", "injected"].includes(c?.id))
+      ?.filter((c: any) => !["injected"].includes(c?.id))
       .map((connector) => (
         <div
           key={connector.uid}
