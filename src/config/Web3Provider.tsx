@@ -4,7 +4,7 @@ import { mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
-const config = createConfig<any>(
+const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
     chains: [mainnet],
