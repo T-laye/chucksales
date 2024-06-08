@@ -17,7 +17,7 @@ const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
 // Define the validation schema
 const project_validation = Yup.object().shape({
   name: Yup.string()
-    .min(5, "Name must be at least 5 characters")
+    .min(3, "Name must be at least 3 characters")
     .max(300, "Name must be less than 300 characters")
     .required("Name is required"),
   description: Yup.string()

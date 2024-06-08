@@ -64,7 +64,6 @@ const Page = () => {
   const contibutorsData = contributors?.data?.data?.contributors;
   const errorCode = projectError?.message;
 
-  
   const { open, close } = useWeb3Modal();
   const {
     data: hash,
@@ -85,7 +84,7 @@ const Page = () => {
   const { showContributeModal, showCongratsModal, transactionData } =
     useSelector((state: any) => state.variables);
 
-  // console.log(transactionData);
+  console.log(contibutorsData);
 
   const handleOpenContributeModal = () => {
     if (!isConnected) {
@@ -108,7 +107,7 @@ const Page = () => {
         <td className="">{c.walletAddress}</td>
         <td className="">{c?.fAmount}</td>
         <td>{c?.quota}</td>
-        <td>{formatDate(c?.createdAt)}</td>
+        <td>{c?.createdAt && formatDate(c?.createdAt)}</td>
       </tr>
     ));
   };

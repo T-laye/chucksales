@@ -115,7 +115,7 @@ const Page = () => {
         <td className="">{c.walletAddress}</td>
         <td className="">{c?.fAmount}</td>
         <td>{c?.quota}</td>
-        <td>{formatDate(c?.createdAt)}</td>
+        <td>{c?.createdAt && formatDate(c?.createdAt)}</td>
       </tr>
     ));
   };

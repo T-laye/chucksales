@@ -61,8 +61,11 @@ const Page = () => {
     isError: isSearchError,
   } = useQuery({
     queryKey: ["searchedProjects", search],
-    queryFn: () =>
-      search && axios.get(`/projects/search/${search}?userId=${user?.id}`),
+    queryFn: () => {
+      if (search) {
+        return axios.get(`/projects/search/${search}`);
+      }
+    },
   });
   const projectData = search
     ? searchedData?.data?.data?.data
@@ -73,7 +76,7 @@ const Page = () => {
 
   const errorCode = search ? searchError?.message : error?.message;
 
-  // console.log(projectData);
+  // console.log(searchedData?.data?.data);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {

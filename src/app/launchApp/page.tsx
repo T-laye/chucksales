@@ -43,7 +43,11 @@ const Page = () => {
     isError: isSearchError,
   } = useQuery({
     queryKey: ["searchedProjects", search],
-    queryFn: () => search && axios.get(`/projects/search/${search}`),
+    queryFn: () => {
+      if (search) {
+        return axios.get(`/projects/search/${search}`);
+      }
+    },
   });
 
   const projectData = search
@@ -55,7 +59,7 @@ const Page = () => {
 
   const errorCode = search ? searchError?.message : error?.message;
 
-  // console.log(projectData);
+  // console.log(searchedData?.data?.data);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
@@ -123,10 +127,10 @@ const Page = () => {
         </td>
         <td>{p.network}</td>
         <td>{p.wallet}</td>
-        <td>{p.totalAmountGenerate}</td>
-        <td>{p.totalToken}</td>
-        <td>{p.totalTokenCirculation}</td>
-        <td>{p.percentageCirculation}%</td>
+        <td>{p.totalAmountGenerated || 0}</td>
+        <td>{p.totalToken || 0}</td>
+        <td>{p.totalTokenCirculation || 0}</td>
+        <td>{p.percentageCirculation || 0}%</td>
         <td>{p.extension}</td>
         <td>{p.email}</td>
         <td>
