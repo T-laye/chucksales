@@ -51,15 +51,15 @@ const Page = () => {
   });
 
   const projectData = search
-    ? searchedData?.data?.data?.data
+    ? searchedData?.data?.data
     : data?.data?.data?.projects?.data;
   const projectCount = search
-    ? searchedData?.data?.data?.count
+    ? searchedData?.data?.count
     : data?.data?.data?.totalCount;
 
   const errorCode = search ? searchError?.message : error?.message;
 
-  // console.log(searchedData?.data?.data);
+  console.log(searchedData?.data);
 
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
