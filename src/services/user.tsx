@@ -81,7 +81,7 @@ export const handleSignIn = async ({
       email: values.email,
       password: values.password,
     });
-    // console.log(res.status);
+    console.log(res)
     if (res.status === 201) {
       const accessToken = res.data?.data?.accessToken;
       const user = res.data?.data;

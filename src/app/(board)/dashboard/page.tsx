@@ -81,6 +81,7 @@ const Page = () => {
   if (isError) {
     if (errorCode === "Request failed with status code 401") {
       router.replace("/signIn");
+      console.log(error);
       toast({ dispatch, message: "Unauthorized Please Login" });
     } else {
       toast({ dispatch, message: "Something went wrong!!!" });

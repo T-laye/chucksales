@@ -7,14 +7,14 @@ import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 
-export default function Header() {  
+export default function Header() {
   const [showNav, setshowNav] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -25,13 +25,16 @@ export default function Header() {
   const [isLoading, setIsLoading] = useState(false);
   const user = sessionStorage.getItem("user");
   const axiosAuth = useAxiosAuth();
+  const queryClient = useQueryClient();
 
   const { mutate, isPending, isSuccess, data } = useMutation({
     mutationFn: (data: any) => axiosAuth.post("/auth/logout"),
     onSuccess: (data) => {
+      sessionStorage.clear();
+      queryClient.clear();
       toast({ dispatch, message: "Successfully Logged out" });
-      sessionStorage.setItem("accessToken", "");
-      sessionStorage.setItem("user", "");
+      // sessionStorage.setItem("accessToken", "");
+      // sessionStorage.setItem("user", "");
       // console.log(data);
     },
     onError: (error: any) => {
