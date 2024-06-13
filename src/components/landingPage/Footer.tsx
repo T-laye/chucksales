@@ -20,26 +20,26 @@ const Footer = () => {
             >
               Relay
             </Link> */}
-            <Link
+            {/* <Link
               className="hover:text-primary duration-150 inline-bock"
               href=""
             >
               Developers
-            </Link>
+            </Link> */}
             <Link
               className="hover:text-primary duration-150 inline-bock"
               href="/documentation"
             >
               Docs
             </Link>
-          </div>
-          <div className="flex flex-col gap-2 md:gap-6">
             <Link
               className="hover:text-primary duration-150 inline-bock"
               href="https://superbridge.app/base "
             >
               Swap
             </Link>
+          </div>
+          <div className="flex flex-col gap-2 md:gap-6">
             {/* <Link
               className="hover:text-primary duration-150 inline-bock"
               href=""
@@ -48,7 +48,7 @@ const Footer = () => {
             </Link> */}
             <Link
               className="hover:text-primary duration-150 inline-bock"
-              href=""
+              href="mailto:support@chucksales.com"
             >
               Support
             </Link>

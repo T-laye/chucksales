@@ -6,7 +6,7 @@ import axios from "@/config/axios";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { capitalize, formatDate } from "@/utils/Helpers";
 import { toast } from "@/utils/Toast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SlOptions } from "react-icons/sl";
@@ -26,7 +26,8 @@ const Page = () => {
   const axiosAuth = useAxiosAuth();
   // const { auth } = useSelector((state: any) => state.auth);
   const [selectedOption, setSelectedOption] = useState("");
-
+  const queryClient = useQueryClient();
+  console.log(queryClient);
   const handleSelectChange = (event: any) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);

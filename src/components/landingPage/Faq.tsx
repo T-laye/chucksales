@@ -14,20 +14,20 @@ const Faq = () => {
 
         <div className="overflow-hidden rounded-2xl mt-10 md:mt-14 max-w-[786px] mx-auto">
           <FaqList
-            question="What is Chucksale?"
-            answer="Chucksale is a groundbreaking platform that simplifies the process of participating in cryptocurrency presales. Leveraging the Ethereum Layer 2 (L2) network, Chucksale offers users a seamless and transparent experience, revolutionizing the world of presale events in the cryptocurrency space."
+            question="What is Chucksales?"
+            answer="Chucksales is a groundbreaking platform that simplifies the process of participating in cryptocurrency presales. Leveraging the Ethereum Layer 2 (L2) network, Chucksales offers users a seamless and transparent experience, revolutionizing the world of presale events in the cryptocurrency space."
           />
 
           <FaqList
-            question="How does Chucksale work?"
+            question="How does Chucksales work?"
             answer={
               <>
-                <p>Chucksale operates through a straightforward process:</p>
+                <p>Chucksales operates through a straightforward process:</p>
                 <br />
                 <ol className="">
                   <li>
                     1. Connect Wallet: Users connect their Ethereum wallets to
-                    the Chucksale platform to interact with smart contracts and
+                    the Chucksales platform to interact with smart contracts and
                     participate in presale events.
                   </li>
                   <br />
@@ -52,8 +52,8 @@ const Faq = () => {
           />
 
           <FaqList
-            question="Is Chucksale secure?"
-            answer="Yes, Chucksale is built on blockchain technology, specifically the Ethereum Layer 2 network, which inherently provides security features. Additionally, Chucksale prioritizes transparency and fairness throughout its operations to ensure a secure and reliable platform for users participating in presale events."
+            question="Is Chucksales secure?"
+            answer="Yes, Chucksales is built on blockchain technology, specifically the Ethereum Layer 2 network, which inherently provides security features. Additionally, Chucksales prioritizes transparency and fairness throughout its operations to ensure a secure and reliable platform for users participating in presale events."
             border={false}
           />
         </div>

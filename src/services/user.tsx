@@ -81,7 +81,7 @@ export const handleSignIn = async ({
       email: values.email,
       password: values.password,
     });
-    console.log(res)
+    // console.log(res)
     if (res.status === 201) {
       const accessToken = res.data?.data?.accessToken;
       const user = res.data?.data;
@@ -97,7 +97,7 @@ export const handleSignIn = async ({
     const statusCode = error?.response?.data?.statusCode;
     dispatch(loginError());
 
-    console.log(error);
+    // console.log(error);
     if (statusCode === 400 || statusCode === 404) {
       toast({
         dispatch,

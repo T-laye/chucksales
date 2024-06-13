@@ -13,6 +13,7 @@ import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { toast } from "@/utils/Toast";
 import { useDispatch } from "react-redux";
 import axios from "@/config/axios";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const Page = () => {
   const queryClient = useQueryClient();
@@ -139,6 +140,7 @@ const Page = () => {
   return (
     <section className="container mx-auto px-4 md:px-8">
       <div className="mt-5 md:bg-[#1C1B2099] md:rounded-2xl md:p-10 w-full max-w-[590px] mx-auto">
+        <IoArrowBackSharp size={24} onClick={() => router.back()} className="cursor-pointer" />
         <h2 className="font-bold md:text-center">Add Project</h2>
 
         <form className="mt-6" onSubmit={formik.handleSubmit}>

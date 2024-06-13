@@ -79,6 +79,7 @@ textarea {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
+  /* background-color: #1100ff91; */
 }
 
 /* Track (the area behind the thumb) */

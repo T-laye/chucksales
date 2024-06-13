@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button";
 import Logo from "@/components/ui/Logo";
 import { useFormik, FormikErrors, FormikTouched } from "formik";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AuthFormValues } from "@/types/Forms";
 import { useRouter } from "next/navigation";
@@ -13,12 +13,19 @@ import { signIn_validate } from "@/lib/validations/authValidate";
 import { handleSignIn } from "@/services/user";
 import axios from "@/config/axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Page: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { pending } = useSelector((state: any) => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  console.log(queryClient);
+  useEffect(() => {
+    sessionStorage.clear();
+    queryClient.clear();
+  }, [queryClient]);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
