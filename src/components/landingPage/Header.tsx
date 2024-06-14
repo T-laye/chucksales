@@ -33,6 +33,7 @@ export default function Header() {
       sessionStorage.clear();
       queryClient.clear();
       toast({ dispatch, message: "Successfully Logged out" });
+      router.push("/signIn");
       // sessionStorage.setItem("accessToken", "");
       // sessionStorage.setItem("user", "");
       // console.log(data);

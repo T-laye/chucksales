@@ -89,7 +89,10 @@ export const handleSignIn = async ({
       sessionStorage.setItem("user", JSON.stringify(user));
       dispatch(setCredentials({ ...res.data.data }));
       dispatch(loginSuccess());
-      router.push("/dashboard");
+
+      const route = user?.role === "admin" ? "/chuckmin" : "/dashboard";
+
+      router.push(route);
       const message = "Login Successful";
       toast({ dispatch, message });
     }

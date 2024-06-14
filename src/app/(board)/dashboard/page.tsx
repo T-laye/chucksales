@@ -27,7 +27,7 @@ const Page = () => {
   // const { auth } = useSelector((state: any) => state.auth);
   const [selectedOption, setSelectedOption] = useState("");
   const queryClient = useQueryClient();
-  console.log(queryClient);
+  // console.log(queryClient);
   const handleSelectChange = (event: any) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);

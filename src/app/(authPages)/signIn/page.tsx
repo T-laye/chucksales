@@ -21,7 +21,7 @@ const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  console.log(queryClient);
+  // console.log(queryClient);
   useEffect(() => {
     sessionStorage.clear();
     queryClient.clear();
