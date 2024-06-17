@@ -27,12 +27,12 @@ const page = () => {
           fill={true}
         />
       </section>
-      <section className="min-h-[381px] bg-bue-400 mb-12 flex gap-5 flex-wrap items-center ">
-        <div className="  overflow-auto lg:w-2/3 pb-8 px-4 border-[3px] border-[#303A5C] py-3 rounded-xl">
+      <section className="min-h-[381px] bg-bue-400 mb-12 flex gap-5 flex-wrap lg:flex-nowrap items-center justify-center">
+        <div className="  overflow-auto lg:w-full xl:w-2/3 pb-8 px-4 border-[3px] border-[#303A5C] py-3 rounded-xl">
           <div>
             <h2 className="text-4xl">Funding Report</h2>
           </div>
-          <div className="lg:min-h-[400px] min-w-[500px]  ">
+          <div className="lg:min-h-[300px] min-w-[500px]  ">
             <BarChart />
           </div>
           <div className="mt-4">
