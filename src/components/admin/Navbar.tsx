@@ -46,7 +46,7 @@ export const Navbar = () => {
   return (
     <div
       className={`  ${
-        adminNav ? "translate-y-0" : "-translate-y-full"
+        adminNav ? "translate-y-0" : "-translate-y-full lg:translate-y-0"
       } fixed duration-150 bg-dark top-0 left-0 right-0 py-10 px-5 lg:min-w-[240px] lg:px-5 lg:py-14 lg:flex lg:flex-col lg:gap-16 lg:static z-[1000]`}
     >
       <div className="mb-10 lg:mb-0 flex lg:block justify-between">
