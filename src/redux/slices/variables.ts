@@ -11,6 +11,7 @@ interface MyState {
   pageNumber?: number;
   order?: string;
   search?: string;
+  adminNav: boolean;
 }
 
 const initialState: MyState = {
@@ -22,6 +23,7 @@ const initialState: MyState = {
   pageNumber: 1,
   order: "asc",
   search: "",
+  adminNav: false,
 };
 
 const variables = createSlice({
@@ -52,6 +54,9 @@ const variables = createSlice({
     handleSearch: (state, action) => {
       state.search = action.payload;
     },
+    handleAdminNav: (state, action) => {
+      state.adminNav = action.payload;
+    },
   },
 });
 
@@ -64,5 +69,6 @@ export const {
   handlePageNumber,
   handleTake,
   handleSearch,
+  handleAdminNav,
 } = variables.actions;
 export default variables.reducer;

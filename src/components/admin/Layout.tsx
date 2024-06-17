@@ -12,7 +12,7 @@ export const Layout: React.FC<layoutProps> = ({ children }) => {
       <Navbar />
       <div className="w-full ">
         <Header />
-        <div className="bg-red-400  lg:h-[90vh] h-full px-10 py-6 overflow-auto">
+        <div className="  lg:h-[90vh] h-full lg:px-10 lg:py-6 px-4 pt-20 overflow-auto">
           {children}
         </div>
       </div>

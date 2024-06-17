@@ -12,12 +12,10 @@ interface layoutProps {
 const layout: React.FC<layoutProps> = ({ children }) => {
   return (
     <AuthProvider>
-      <>
-        <Layout>
-          <div className="">{children}</div>
-          <Toast />
-        </Layout>
-      </>
+      <Layout>
+        <div className="">{children}</div>
+        <Toast />
+      </Layout>
     </AuthProvider>
   );
 };

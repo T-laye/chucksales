@@ -1,20 +1,31 @@
 "use client";
-import Link from "next/link";
 import React from "react";
-import { DashIcon } from "../icons/DashIcon";
-import { usePathname } from "next/navigation";
+import { ContributorsIcon } from "../icons/ContributorsIcon";
 
-interface navItemProps {
+interface StatsCardProps {
   title?: string;
   stat?: string;
   icon?: any;
+  fill?: boolean;
 }
 
-export const NavItem: React.FC<navItemProps> = ({ stat, title, icon }) => {
+export const StatsCard: React.FC<StatsCardProps> = ({
+  stat,
+  title,
+  icon,
+  fill = false,
+}) => {
   return (
-    <div>
+    <div
+      className={` ${
+        fill ? "bg-primary text-[#FFFFFFB2]" : "text-primary"
+      } flex justify-between p-5 rounded-lg border-2 border-primary w-full h-[88px] min-w-[200px] max-w-[265px]`}
+    >
+      <div className=" ">
+        <div className="text-2xl font-sfBold ">{stat}</div>
+        <div className="text-sm  ">{title}</div>
+      </div>
       <div>{icon}</div>
-      <div className="lg:text-xl ">{title}</div>
     </div>
   );
 };
