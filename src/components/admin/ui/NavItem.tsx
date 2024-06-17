@@ -3,6 +3,8 @@ import Link from "next/link";
 import React from "react";
 import { DashIcon } from "../icons/DashIcon";
 import { usePathname } from "next/navigation";
+import { handleAdminNav } from "@/redux/slices/variables";
+import { useDispatch } from "react-redux";
 
 interface navItemProps {
   title?: string;
@@ -12,10 +14,16 @@ interface navItemProps {
 
 export const NavItem: React.FC<navItemProps> = ({ title, link, icon }) => {
   const pathname = usePathname();
+  const dispatch = useDispatch();
+
+  const closeAdminNav = () => {
+    dispatch(handleAdminNav(false));
+  };
 
   return (
     <Link href={link || ""} className="">
       <li
+        onClick={closeAdminNav}
         className={` ${
           pathname === link ? "bg-primary text-white" : "text-[#FFFFFFB2]"
         }  flex items-center gap-6  p-[10px] w-fit rounded-lg`}
