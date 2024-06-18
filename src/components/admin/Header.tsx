@@ -46,7 +46,8 @@ export const Header = () => {
 
   return (
     <div className="fixed lg:static bg-dark w-full lg:h-[10vh] lg:px-10 lg:py-6 px-4 py-4 flex items-center justify-between">
-      <div>
+      <div className="lg:block hidden"></div>
+      <div className="lg:hidden">
         {" "}
         <Logo />
       </div>

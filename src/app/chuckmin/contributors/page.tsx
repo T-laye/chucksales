@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Pagination";
-import { DevelopersIcon } from "@/components/admin/icons/DevelopersIcon";
+import { UserIcon } from "@/components/admin/icons/UserIcon";
 import { StatsCard } from "@/components/admin/ui/StatsCard";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -19,35 +19,18 @@ const Page = () => {
   };
   return (
     <div className="pb-20">
-      <h2 className="text-primary text-3xl font-sfBold mb-7">Developers</h2>
+      <h2 className="text-primary text-3xl font-sfBold mb-7">Contributors</h2>
       <section className="flex gap-5 mb-12 overflow-auto pb-5">
         <StatsCard
           stat="25"
-          title="Developers"
+          title="Contributors"
           icon={
             <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
-              <DevelopersIcon />
+              <UserIcon />
             </div>
           }
         />
-        <StatsCard
-          stat="20"
-          title="Active"
-          icon={
-            <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
-              <DevelopersIcon />
-            </div>
-          }
-        />
-        <StatsCard
-          stat="5"
-          title="Disabled"
-          icon={
-            <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
-              <DevelopersIcon />
-            </div>
-          }
-        />
+       
       </section>
 
       <div className="border border-primaryTransparent rounded-lg  mt-10 ">

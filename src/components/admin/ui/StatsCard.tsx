@@ -19,7 +19,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
     <div
       className={` ${
         fill ? "bg-primary text-[#FFFFFFB2]" : "text-primary"
-      } flex justify-between p-5 rounded-lg border-2 border-primary w-full h-[88px] min-w-[200px] max-w-[265px]`}
+      } flex justify-between items-center p-5 rounded-lg border-2 border-primary w-full h-[88px] min-w-[200px] max-w-[265px]`}
     >
       <div className=" ">
         <div className="text-2xl font-sfBold ">{stat}</div>
