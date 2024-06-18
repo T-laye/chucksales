@@ -43,8 +43,6 @@ export const Navbar = () => {
     dispatch(handleAdminNav(false));
   };
 
-
-
   return (
     <div
       className={`  ${
@@ -72,10 +70,14 @@ export const Navbar = () => {
             title="Developers"
             icon={<DevelopersIcon />}
           />
-          <NavItem link="/chuckmin/contributors" title="Contributors" icon={<UserIcon />} />
           <NavItem
-            link="/chuckmin/settings"
-            title="Settings"
+            link="/chuckmin/contributors"
+            title="Contributors"
+            icon={<UserIcon />}
+          />
+          <NavItem
+            link="/chuckmin/account"
+            title="Account"
             icon={<SettingsIcon />}
           />
         </ul>
