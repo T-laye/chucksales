@@ -9,10 +9,11 @@ import { useDispatch } from "react-redux";
 interface navItemProps {
   title?: string;
   link?: string;
+  active?: any;
   icon?: any;
 }
 
-export const NavItem: React.FC<navItemProps> = ({ title, link, icon }) => {
+export const NavItem: React.FC<navItemProps> = ({ title, link, icon, active }) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -25,7 +26,9 @@ export const NavItem: React.FC<navItemProps> = ({ title, link, icon }) => {
       <li
         onClick={closeAdminNav}
         className={` ${
-          pathname === link ? "bg-primary text-white" : "text-[#FFFFFFB2]"
+          pathname.includes(active)
+            ? "bg-primary text-white"
+            : "text-[#FFFFFFB2]"
         }  flex items-center gap-6  p-[10px] w-fit rounded-lg`}
       >
         <div>{icon}</div>

@@ -69,7 +69,7 @@ export const Header = () => {
         <div className="text-[#FFFFFFB2]">
           <div className="text-lg">{user?.name && capitalize(user?.name)}</div>
           <div className="text-sm">
-            {user?.email && capitalize(user?.email)}
+            {user?.email && user?.email?.toLowerCase()}
           </div>
         </div>
       </div>

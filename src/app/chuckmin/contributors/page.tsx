@@ -2,12 +2,30 @@
 import Pagination from "@/components/Pagination";
 import { UserIcon } from "@/components/admin/icons/UserIcon";
 import { StatsCard } from "@/components/admin/ui/StatsCard";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const router = useRouter();
+  const axiosAuth = useAxiosAuth();
+
+  const { data } = useQuery({
+    queryKey: ["count"],
+    queryFn: () => axiosAuth.get(`/projects/admin/manage/count`),
+  });
+
+  const count = data?.data?.data;
+  const { data: contributorsData, error } = useQuery({
+    queryKey: ["contributors"],
+    queryFn: () => axiosAuth.get(`/projects/admin/manage/contributors`),
+  });
+
+  const contributors = contributorsData?.data;
+  // console.log(contributors);
+  // console.log(error);
 
   const handleSelectChange = (event: any) => {
     const selectedValue = event.target.value;
@@ -17,12 +35,13 @@ const Page = () => {
       router.push(selectedValue);
     }
   };
+
   return (
     <div className="pb-20">
       <h2 className="text-primary text-3xl font-sfBold mb-7">Contributors</h2>
       <section className="flex gap-5 mb-12 overflow-auto pb-5">
         <StatsCard
-          stat="25"
+          stat={count?.contributors}
           title="Contributors"
           icon={
             <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
@@ -30,7 +49,6 @@ const Page = () => {
             </div>
           }
         />
-       
       </section>
 
       <div className="border border-primaryTransparent rounded-lg  mt-10 ">

@@ -4,7 +4,7 @@ import { ContributorsIcon } from "../icons/ContributorsIcon";
 
 interface StatsCardProps {
   title?: string;
-  stat?: string;
+  stat?: any;
   icon?: any;
   fill?: boolean;
 }

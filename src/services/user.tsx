@@ -90,7 +90,7 @@ export const handleSignIn = async ({
       dispatch(setCredentials({ ...res.data.data }));
       dispatch(loginSuccess());
 
-      const route = user?.role === "admin" ? "/chuckmin" : "/dashboard";
+      const route = user?.role === "admin" ? "/chuckmin/dashboard" : "/dashboard";
 
       router.push(route);
       const message = "Login Successful";

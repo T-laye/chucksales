@@ -1,16 +1,25 @@
 "use client";
 import Pagination from "@/components/Pagination";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { capitalize } from "@/utils/Helpers";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
+  const axiosAuth = useAxiosAuth();
   const router = useRouter();
   const handleActiveTab = (tab: number) => {
     setActiveTab(tab);
   };
 
+  const { order, take, pageNumber, search } = useSelector(
+    (state: any) => state.variables
+  );
   const handleSelectChange = (event: any) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
@@ -20,10 +29,81 @@ const Page = () => {
     }
   };
 
+  const { data, isLoading, error, isError } = useQuery({
+    queryKey: ["projects", order, pageNumber, take],
+    queryFn: () =>
+      axiosAuth.get(
+        `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
+      ),
+  });
+  const projectData = data?.data?.data?.projects?.data;
+  const projectCount =  data?.data?.data?.totalCount;
+
+
+  // console.log(projectData);
+
   const tabStyle = (tab: number) => {
     return `${
       activeTab === tab ? "text-primary border-b border-primary " : ""
     } whitespace-nowrap px-1 pb-4 duration-150 cursor-pointer  h-[28px] flex justify-center items-center text-sm sm:text-base md:text-xl`;
+  };
+
+  const renderProjects = () => {
+    return projectData?.map((p: any) => (
+      <tr key={p.id}>
+        <td>
+          <div className="flex justify-start items-center gap-3 ">
+            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
+              {p?.projectImageUrl && (
+                <Image
+                  src={p?.projectImageUrl}
+                  alt={p.name}
+                  height={300}
+                  width={300}
+                  className="h-full w-full object-cover"
+                />
+              )}
+            </div>
+            <span className="block">{capitalize(p.name)}</span>
+          </div>
+        </td>
+        <td className="">{p.network}</td>
+        <td className="">{p.walletAddress}</td>
+        <td className="">{p.totalAmountGenerate}</td>
+        <td>{p.totalToken}</td>
+        <td>{p.totalTokenCirculation}</td>
+        <td>{p.percentageCirculation}%</td>
+        <td className=" ">{p.extension}</td>
+        <td className="">{p.email}</td>
+        <td className=" ">{p.status}</td>
+        <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
+          <select
+            className="bg-dark text-center focus:outline-none"
+            value={selectedOption}
+            onChange={handleSelectChange}
+          >
+            <option className="bg-dark text-center" value="">
+              Actions
+            </option>
+            {/* <option
+              className="bg-dark"
+              value={`/dashboard/${p.id}/editProject`}
+            >
+              Edit
+            </option> */}
+            <option
+              className="bg-dark"
+              value={`/chuckmin/projects/${p.id}/preview`}
+            >
+              Preview
+            </option>
+            {/* <option className="bg-dark" value="#">
+              Delete
+            </option> */}
+          </select>{" "}
+        </td>
+      </tr>
+    ));
   };
 
   return (
@@ -45,158 +125,33 @@ const Page = () => {
           Cancelled
         </div>
       </div>
-      <div className="border border-primaryTransparent rounded-lg  mt-10 ">
-        {/* <h3 className="p-5 pt-2"> Project ({projectCount || 0})</h3> */}
-        <div className="py-2  overflow-x-auto">
-          {
-            <table>
-              <thead className="border-b border-primaryTransparent ">
-                <tr>
-                  <td className="">Name</td>
-                  <td>Network</td>
-                  <td>Wallet Address</td>
-                  <td>Total Amount Generated</td>
-                  <td>Total Token</td>
-                  {/* <td>Total Circulation</td>
-                  <td>Percentage Circulation</td>
-                  <td>Extension</td>
-                  <td>Email</td> */}
-                  <td>Status</td>
-                  <td>Action</td>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Data */}
-                <tr>
-                  <td>
-                    <div className="flex justify-center items-center gap-3 ">
-                      <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                      <span className="block">USDT</span>
-                    </div>
-                  </td>
-                  <td className="">45 USD</td>
-                  <td className="">01:45:30</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>loading...</td>
-                  <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
-                    <select
-                      className="bg-dark text-center focus:outline-none"
-                      value={selectedOption}
-                      onChange={handleSelectChange}
-                    >
-                      <option className="bg-dark text-center" value="">
-                        Actions
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/editProject`}
-                      >
-                        Edit
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/viewProject`}
-                      >
-                        Preview
-                      </option>
-                      <option className="bg-dark" value="#">
-                        Delete
-                      </option>
-                    </select>{" "}
-                  </td>
-                </tr>
-                {/* Data */}
-                <tr>
-                  <td>
-                    <div className="flex justify-center items-center gap-3 ">
-                      <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                      <span className="block">USDT</span>
-                    </div>
-                  </td>
-                  <td className="">45 USD</td>
-                  <td className="">01:45:30</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>loading...</td>
-                  <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
-                    <select
-                      className="bg-dark text-center focus:outline-none"
-                      value={selectedOption}
-                      onChange={handleSelectChange}
-                    >
-                      <option className="bg-dark text-center" value="">
-                        Actions
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/editProject`}
-                      >
-                        Edit
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/viewProject`}
-                      >
-                        Preview
-                      </option>
-                      <option className="bg-dark" value="#">
-                        Delete
-                      </option>
-                    </select>{" "}
-                  </td>
-                </tr>
-                {/* Data */}
-                <tr>
-                  <td>
-                    <div className="flex justify-center items-center gap-3 ">
-                      <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white"></div>
-                      <span className="block">USDT</span>
-                    </div>
-                  </td>
-                  <td className="">45 USD</td>
-                  <td className="">01:45:30</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>0xght456ytn54j890lkijbh12</td>
-                  <td>loading...</td>
-                  <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
-                    <select
-                      className="bg-dark text-center focus:outline-none"
-                      value={selectedOption}
-                      onChange={handleSelectChange}
-                    >
-                      <option className="bg-dark text-center" value="">
-                        Actions
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/editProject`}
-                      >
-                        Edit
-                      </option>
-                      <option
-                        className="bg-dark"
-                        // value={`/dashboard/${p.id}/viewProject`}
-                      >
-                        Preview
-                      </option>
-                      <option className="bg-dark" value="#">
-                        Delete
-                      </option>
-                    </select>{" "}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          }
+      <div className="">
+        <div className="border border-primaryTransparent rounded-lg  mt-10 overflow-auto ">
+          <div className="py-2  ">
+            {
+              <table className="">
+                <thead className="border-b border-primaryTransparent ">
+                  <tr>
+                    <td className="">Name</td>
+                    <td>Network</td>
+                    <td>Wallet Address</td>
+                    <td>Total Amount Generated</td>
+                    <td>Total Token</td>
+                    <td>Total Circulation</td>
+                    <td>Percentage Circulation</td>
+                    <td>Extension</td>
+                    <td>Email</td>
+                    <td>Status</td>
+                    <td>Action</td>
+                  </tr>
+                </thead>
+                <tbody>{renderProjects()}</tbody>
+              </table>
+            }
+          </div>
         </div>
       </div>
-      {/* {projectData?.length > 0 &&  */}
-      <Pagination
-        totalCount={13}
-        // totalCount={projectCount}
-      />
-      {/* } */}
+      {projectData?.length > 0 && <Pagination totalCount={projectCount} />}
     </div>
   );
 };

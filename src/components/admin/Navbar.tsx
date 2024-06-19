@@ -59,23 +59,32 @@ export const Navbar = () => {
       </div>
       <nav className="flex flex-col h-full justify-between">
         <ul className="lg:flex flex-col lg:gap-4 gap-6 ">
-          <NavItem link="/chuckmin" title="Dashboard" icon={<DashIcon />} />
           <NavItem
+            active="/chuckmin/dashboard"
+            link="/chuckmin/dashboard"
+            title="Dashboard"
+            icon={<DashIcon />}
+          />
+          <NavItem
+            active="/chuckmin/projects"
             link="/chuckmin/projects"
             title="Projects"
             icon={<ProjectIcon />}
           />
           <NavItem
+            active="/chuckmin/developers"
             link="/chuckmin/developers"
             title="Developers"
             icon={<DevelopersIcon />}
           />
           <NavItem
+            active="/chuckmin/contributors"
             link="/chuckmin/contributors"
             title="Contributors"
             icon={<UserIcon />}
           />
           <NavItem
+            active="/chuckmin/account"
             link="/chuckmin/account"
             title="Account"
             icon={<SettingsIcon />}

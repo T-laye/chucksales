@@ -13,7 +13,7 @@ const layout: React.FC<layoutProps> = ({ children }) => {
   return (
     <AuthProvider>
       <Layout>
-        <div className="">{children}</div>
+        <div className="overflow-auto">{children}</div>
         <Toast />
       </Layout>
     </AuthProvider>

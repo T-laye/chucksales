@@ -2,12 +2,23 @@
 import Pagination from "@/components/Pagination";
 import { DevelopersIcon } from "@/components/admin/icons/DevelopersIcon";
 import { StatsCard } from "@/components/admin/ui/StatsCard";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const router = useRouter();
+
+  const axiosAuth = useAxiosAuth();
+
+  const { data, error } = useQuery({
+    queryKey: ["count"],
+    queryFn: () => axiosAuth.get(`/projects/admin/manage/count`),
+  });
+
+  const count = data?.data?.data;
 
   const handleSelectChange = (event: any) => {
     const selectedValue = event.target.value;
@@ -22,7 +33,7 @@ const Page = () => {
       <h2 className="text-primary text-3xl font-sfBold mb-7">Developers</h2>
       <section className="flex gap-5 mb-12 overflow-auto pb-5">
         <StatsCard
-          stat="25"
+          stat={count?.developers}
           title="Developers"
           icon={
             <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
@@ -31,7 +42,7 @@ const Page = () => {
           }
         />
         <StatsCard
-          stat="20"
+          // stat="20"
           title="Active"
           icon={
             <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
@@ -40,7 +51,7 @@ const Page = () => {
           }
         />
         <StatsCard
-          stat="5"
+          // stat="5"
           title="Disabled"
           icon={
             <div className="h-[60px] w-[60px] rounded-full flex justify-center items-center bg-primary">
