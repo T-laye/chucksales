@@ -2,7 +2,14 @@
 import { createConfig, Transport } from "@wagmi/core";
 // import { WagmiProvider, createConfig, http } from "wagmi";
 import { WagmiProvider, http } from "wagmi";
-import { base, mainnet, arbitrum, optimism, sepolia } from "wagmi/chains";
+import {
+  base,
+  mainnet,
+  arbitrum,
+  optimism,
+  sepolia,
+  lineaSepolia,
+} from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
@@ -18,14 +25,16 @@ interface StorageItemMap {
 const config = createConfig<any, StorageItemMap>(
   getDefaultConfig({
     // Your dApps chains
-    chains: [mainnet, base, arbitrum, optimism],
+    chains: [mainnet, base, arbitrum, optimism, sepolia, lineaSepolia],
     transports: {
       // RPC URL for each chain
       [mainnet.id]: http(),
-    //   [sepolia.id]: http(),
+      //   [sepolia.id]: http(),
       [base.id]: http(),
       [arbitrum.id]: http(),
       [optimism.id]: http(),
+      [sepolia.id]: http(),
+      [lineaSepolia.id]: http(),
     },
 
     // Required API Keys
