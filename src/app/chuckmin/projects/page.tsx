@@ -33,14 +33,13 @@ const Page = () => {
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
       axiosAuth.get(
-        `/projects/user?order=${order}&pageNumber=${pageNumber}&take=${take}`
+        `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
       ),
   });
   const projectData = data?.data?.data?.projects?.data;
-  const projectCount =  data?.data?.data?.totalCount;
+  const projectCount = data?.data?.data?.totalCount;
 
-
-  // console.log(projectData);
+  console.log(projectData);
 
   const tabStyle = (tab: number) => {
     return `${
@@ -68,13 +67,14 @@ const Page = () => {
           </div>
         </td>
         <td className="">{p.network}</td>
-        <td className="">{p.walletAddress}</td>
-        <td className="">{p.totalAmountGenerate}</td>
+        <td className="">{p.wallet}</td>
+        <td className="">{p.formattedTotalAmount}</td>
         <td>{p.totalToken}</td>
         <td>{p.totalTokenCirculation}</td>
         <td>{p.percentageCirculation}%</td>
         <td className=" ">{p.extension}</td>
         <td className="">{p.email}</td>
+        <td className="">{p.createdDate}</td>
         <td className=" ">{p.status}</td>
         <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
           <select
@@ -141,6 +141,7 @@ const Page = () => {
                     <td>Percentage Circulation</td>
                     <td>Extension</td>
                     <td>Email</td>
+                    <td>Created At</td>
                     <td>Status</td>
                     <td>Action</td>
                   </tr>

@@ -72,37 +72,6 @@ const Page = () => {
   //   }
   // }
 
-  const { open, close } = useWeb3Modal();
-  // const {
-  //   data: hash,
-  //   sendTransaction,
-  //   isPending,
-  //   error,
-  //   isSuccess,
-  // } = useSendTransaction();
-
-  // const {
-  //   isLoading: isConfirming,
-  //   isSuccess: isConfirmed,
-  //   data,
-  // } = useWaitForTransactionReceipt({
-  //   hash,
-  // });
-  const { address, connector, isConnected } = useAccount();
-  const { showContributeModal, showCongratsModal, transactionData } =
-    useSelector((state: any) => state.variables);
-
-  // console.log(transactionData);
-
-  const handleOpenContributeModal = () => {
-    if (!isConnected) {
-      open();
-    } else {
-      dispatch(handleContributeModal(true));
-      // dispatch(handleCongratsModal(false));
-    }
-  };
-
   const handleOpenCongratsModal = () => {
     dispatch(handleCongratsModal(true));
     dispatch(handleContributeModal(false));
@@ -135,14 +104,16 @@ const Page = () => {
         </div>
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden bg-customGray ">
-            <Image
-              src={projectData?.projectImageUrl}
-              alt="cover photo"
-              width={700}
-              height={700}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+            {projectData?.projectImageUrl && (
+              <Image
+                src={projectData?.projectImageUrl}
+                alt="cover photo"
+                width={700}
+                height={700}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            )}
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold md:text-3xl mt-1">
