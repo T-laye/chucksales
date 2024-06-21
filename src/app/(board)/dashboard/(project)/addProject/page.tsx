@@ -56,6 +56,7 @@ const Page = () => {
       description: "",
       file: undefined,
       email: "",
+      date: "",
       wallet: "",
       twitter: "",
       discord: "",
@@ -77,6 +78,7 @@ const Page = () => {
       description,
       file,
       email,
+      date,
       wallet,
       twitter,
       discord,
@@ -95,6 +97,7 @@ const Page = () => {
     formData.append("description", description);
     formData.append("file", file);
     // console.log(file, "the file here");
+    formData.append("duration", date);
     formData.append("walletAddress", wallet);
     formData.append("twitterLink", twitter);
     formData.append("discordLink", discord);
@@ -109,6 +112,8 @@ const Page = () => {
     // console.log("FormData content:", formData);
     mutate(formData);
   }
+
+  console.log(formik.values.date);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -140,7 +145,11 @@ const Page = () => {
   return (
     <section className="container mx-auto px-4 md:px-8">
       <div className="mt-5 md:bg-[#1C1B2099] md:rounded-2xl md:p-10 w-full max-w-[590px] mx-auto">
-        <IoArrowBackSharp size={24} onClick={() => router.back()} className="cursor-pointer" />
+        <IoArrowBackSharp
+          size={24}
+          onClick={() => router.back()}
+          className="cursor-pointer"
+        />
         <h2 className="font-bold md:text-center">Add Project</h2>
 
         <form className="mt-6" onSubmit={formik.handleSubmit}>
@@ -245,6 +254,13 @@ const Page = () => {
               <input type="email" {...formik.getFieldProps("email")} />
               {formik.touched.email && formik.errors.email && (
                 <div className="form_errors">{formik.errors.email}</div>
+              )}
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="wallet">End Date</label>
+              <input type="date" {...formik.getFieldProps("date")} />
+              {formik.touched.date && formik.errors.date && (
+                <div className="form_errors">{formik.errors.date}</div>
               )}
             </div>
             <div className="flex flex-col mb-4">

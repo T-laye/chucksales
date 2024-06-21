@@ -71,7 +71,7 @@ const Page = () => {
           <div className="flex justify-between items-center">
             <h2 className="text-4xl">Funding Report</h2>
             <div>
-              <input type="date" name="" id="" />
+              {/* <input type="date" name="" id="" /> */}
             </div>
           </div>
           <div className="lg:min-h-[300px] min-w-[500px]  ">

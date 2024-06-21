@@ -7,7 +7,6 @@ interface FileType {
   type: string;
 }
 
-
 // Regex to validate a URL
 const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*\/?$/;
 
@@ -27,6 +26,7 @@ const project_validation = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
+  date: Yup.string().required("End date is required"),
   wallet: Yup.string()
     .matches(ethereumAddressRegex, "Invalid Ethereum address")
     .required("Wallet address is required"),

@@ -12,6 +12,7 @@ interface MyState {
   order?: string;
   search?: string;
   adminNav: boolean;
+  defaultDate: string;
 }
 
 const initialState: MyState = {
@@ -24,6 +25,7 @@ const initialState: MyState = {
   order: "asc",
   search: "",
   adminNav: false,
+  defaultDate: "",
 };
 
 const variables = createSlice({
@@ -57,6 +59,9 @@ const variables = createSlice({
     handleAdminNav: (state, action) => {
       state.adminNav = action.payload;
     },
+    handleDate: (state, action) => {
+      state.defaultDate = action.payload;
+    },
   },
 });
 
@@ -70,5 +75,6 @@ export const {
   handleTake,
   handleSearch,
   handleAdminNav,
+  handleDate,
 } = variables.actions;
 export default variables.reducer;

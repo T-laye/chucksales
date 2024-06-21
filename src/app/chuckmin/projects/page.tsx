@@ -1,16 +1,21 @@
 "use client";
 import Pagination from "@/components/Pagination";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
-import { capitalize } from "@/utils/Helpers";
-import { useQuery } from "@tanstack/react-query";
+import { capitalize, formatDate } from "@/utils/Helpers";
+import { toast } from "@/utils/Toast";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [key: string]: string;
+  }>({});
   const axiosAuth = useAxiosAuth();
   const router = useRouter();
   const handleActiveTab = (tab: number) => {
@@ -20,12 +25,24 @@ const Page = () => {
   const { order, take, pageNumber, search } = useSelector(
     (state: any) => state.variables
   );
-  const handleSelectChange = (event: any) => {
+  const handleSelectChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    id: string
+  ) => {
     const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
+    setSelectedOptions((prevState) => ({
+      ...prevState,
+      [id]: selectedValue,
+    }));
 
-    if (selectedValue) {
+    if (selectedValue.startsWith("/")) {
       router.push(selectedValue);
+    } else if (selectedValue === "approve") {
+      handleApproveProject(id, "live", false);
+      // console.log(id);
+    } else if (selectedValue === "disable") {
+      handleApproveProject(id, "disabled", false);
+      // console.log(id);
     }
   };
 
@@ -33,13 +50,45 @@ const Page = () => {
     queryKey: ["projects", order, pageNumber, take],
     queryFn: () =>
       axiosAuth.get(
-        `/projects/general?order=${order}&pageNumber=${pageNumber}&take=${take}`
+        `/projects/general?order=desc&pageNumber=${pageNumber}&take=${take}`
       ),
   });
   const projectData = data?.data?.data?.projects?.data;
   const projectCount = data?.data?.data?.totalCount;
 
-  console.log(projectData);
+  // console.log(projectData);
+
+  const {
+    mutate,
+    isPending,
+    data: approvedData,
+  } = useMutation({
+    mutationFn: (data: { id: string; status: string; deleteP: boolean }) =>
+      axiosAuth.patch(
+        `/projects/admin/manage/status?projectId=${data.id}&status=${data.status}&delete=${data.deleteP}`
+      ),
+    onSuccess: (data) => {
+      toast({ dispatch, message: "Successful" });
+      queryClient.invalidateQueries({
+        queryKey: ["projects", "generalProjects"],
+      });
+      // console.log(data); // Optional logging for debugging
+    },
+    onError: (error: any) => {
+      if (error?.response?.status === 401) {
+        toast({ dispatch, message: "Unauthenticated. Please Login." });
+      } else {
+        toast({ dispatch, message: "Failed to Approve Project." });
+      }
+      console.log(error); // Optional logging for debugging
+    },
+  });
+
+  function handleApproveProject(id: string, status: string, deleteP: boolean) {
+    mutate({ id, status, deleteP });
+  }
+
+  // console.log(approvedData);
 
   const tabStyle = (tab: number) => {
     return `${
@@ -74,33 +123,34 @@ const Page = () => {
         <td>{p.percentageCirculation}%</td>
         <td className=" ">{p.extension}</td>
         <td className="">{p.email}</td>
-        <td className="">{p.createdDate}</td>
+        <td className="">{formatDate(p.createdDate)}</td>
         <td className=" ">{p.status}</td>
         <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
           <select
-            className="bg-dark text-center focus:outline-none"
-            value={selectedOption}
-            onChange={handleSelectChange}
+            key={p.id}
+            className="bg-dark text-center focus:outline-none cursor-pointer"
+            value={selectedOptions[p.id] || ""}
+            onChange={(event) => handleSelectChange(event, p.id)}
           >
             <option className="bg-dark text-center" value="">
               Actions
             </option>
-            {/* <option
-              className="bg-dark"
-              value={`/dashboard/${p.id}/editProject`}
-            >
-              Edit
-            </option> */}
             <option
               className="bg-dark"
               value={`/chuckmin/projects/${p.id}/preview`}
             >
               Preview
             </option>
-            {/* <option className="bg-dark" value="#">
-              Delete
-            </option> */}
-          </select>{" "}
+            {p.status === "disabled" ? (
+              <option className="bg-dark" value="approve">
+                Approve
+              </option>
+            ) : (
+              <option className="bg-dark" value="disable">
+                Disable
+              </option>
+            )}
+          </select>
         </td>
       </tr>
     ));

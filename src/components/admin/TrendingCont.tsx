@@ -12,7 +12,7 @@ const TrendingCont = () => {
     queryFn: () => axiosAuth.get(`/projects/admin/manage/trending`),
   });
 
-//   console.log(data);
+  // console.log(data);
 //   console.log(error);
 
   return (

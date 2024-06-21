@@ -17,6 +17,7 @@ export interface ProjectFormValues {
   description: string;
   file?: any;
   email: string;
+  date: string;
   wallet: string;
   twitter: string;
   discord: string;

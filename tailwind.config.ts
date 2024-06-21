@@ -24,6 +24,7 @@ const config: Config = {
         transparent: "#221F3599",
         input: "#ECECEC99",
         error: "#df0000",
+        success: "#00C620",
       },
     },
   },

@@ -37,6 +37,11 @@ const config = createConfig<any, StorageItemMap>(
       [lineaSepolia.id]: http(),
     },
 
+    // alexia
+    // google assistant
+    // google home
+    // esp home
+
     // Required API Keys
     walletConnectProjectId: process.env.NEXT_PUBLIC_PROJECT_ID as any,
 
