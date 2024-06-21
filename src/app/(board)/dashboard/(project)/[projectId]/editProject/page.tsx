@@ -74,6 +74,7 @@ const Page = () => {
       description: "",
       file: null,
       email: "",
+      date: "",
       wallet: "",
       twitter: "",
       discord: "",
@@ -96,6 +97,7 @@ const Page = () => {
         file: null,
         email: projectData.email,
         wallet: projectData.walletAddress,
+        date: projectData.duration,
         twitter: projectData.twitter,
         discord: projectData.discord,
         telegram: projectData.telegram,
@@ -118,6 +120,7 @@ const Page = () => {
       description,
       file,
       email,
+      date,
       wallet,
       twitter,
       discord,
@@ -135,6 +138,7 @@ const Page = () => {
     formData.append("description", description);
     formData.append("file", file);
     // console.log(file, "the file here");
+    formData.append("duration", date);
     formData.append("walletAddress", wallet);
     formData.append("twitterLink", twitter);
     formData.append("discordLink", discord);
@@ -278,6 +282,13 @@ const Page = () => {
                 <input type="email" {...formik.getFieldProps("email")} />
                 {formik.touched.email && formik.errors.email && (
                   <div className="form_errors">{formik.errors.email}</div>
+                )}
+              </div>
+              <div className="flex flex-col mb-4">
+                <label htmlFor="wallet">End Date</label>
+                <input type="date" {...formik.getFieldProps("date")} />
+                {formik.touched.date && formik.errors.date && (
+                  <div className="form_errors">{formik.errors.date}</div>
                 )}
               </div>
               <div className="flex flex-col mb-4">
