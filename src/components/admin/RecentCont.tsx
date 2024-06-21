@@ -2,12 +2,16 @@
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { capitalize } from "@/utils/Helpers";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { RiCheckboxBlankCircleFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import Button from "../ui/Button";
+import Image from "next/image";
 
 const RecentCont = () => {
   const axiosAuth = useAxiosAuth();
+  const router = useRouter();
   const { order, take, pageNumber, search } = useSelector(
     (state: any) => state.variables
   );
@@ -19,6 +23,9 @@ const RecentCont = () => {
   });
   const projectData = data?.data?.data?.projects?.data;
 
+  const gotoProjects = () => {
+    router.push("/chuckmin/projects");
+  };
   // console.log(projectData);g
 
   const renderProjects = () => {
@@ -27,7 +34,23 @@ const RecentCont = () => {
         key={p.id}
         className="border-t border-primaryTransparent px-5 py-2.5 "
       >
-        <td>{p.name && capitalize(p.name)}</td>
+        <td>
+          {" "}
+          <div className="flex justify-start items-center gap-3 ">
+            <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
+              {p?.projectImageUrl && (
+                <Image
+                  src={p?.projectImageUrl}
+                  alt={p.name}
+                  height={300}
+                  width={300}
+                  className="h-full w-full object-cover"
+                />
+              )}
+            </div>
+            <span className="block">{p.name && capitalize(p.name)}</span>
+          </div>
+        </td>
         <td className="">{p.network}</td>
         <td
           className={` ${
@@ -42,13 +65,13 @@ const RecentCont = () => {
   };
 
   return (
-    <div className="flex-1 border-[3px] border-[#303A5C] py-3 rounded-xl ">
+    <div className="flex-1 border-[3px] border-[#303A5C] py-3 rounded-xl h-fit">
       <div className="flex justify-between px-3 py-[10px] flex-wrap gap-2">
         <div>
           <h2>Recent Projects</h2>
           <p>The most recently listed projects</p>
         </div>
-        {/* <Button title="View all" fn={gotoProjects} /> */}
+        <Button title="View all" fn={gotoProjects} />
       </div>
 
       <div className="mt-3 overflow-auto">

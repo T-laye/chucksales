@@ -56,7 +56,7 @@ const Page = () => {
   const projectData = data?.data?.data?.projects?.data;
   const projectCount = data?.data?.data?.totalCount;
 
-  // console.log(projectData);
+  console.log(projectData);
 
   const {
     mutate,
