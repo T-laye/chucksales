@@ -11,7 +11,7 @@ import {
 } from "@/redux/slices/variables";
 import { capitalize, formatDate } from "@/utils/Helpers";
 import { toast } from "@/utils/Toast";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,6 +27,7 @@ import {
 
 const Page = () => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { projectId } = useParams();
   const axiosAuth = useAxiosAuth();
@@ -59,23 +60,49 @@ const Page = () => {
 
   const projectData = project?.data?.data;
   const contibutorsData = contributors?.data?.data?.contributors;
-  const errorCode = projectError?.message;
+  const errorCode = contributorError?.message;
 
   // console.log(contibutorsData, contributorError);
 
-  // if (isError) {
-  //   if (errorCode === "Request failed with status code 401") {
-  //     router.replace("/signIn");
-  //     // toast({ dispatch, message: "Unauthorized Please Login" });
-  //   } else {
-  //     // toast({ dispatch, message: "Something went wrong!!!" });
-  //   }
-  // }
+  if (isError) {
+    if (errorCode === "Request failed with status code 401") {
+      router.replace("/signIn");
+      toast({ dispatch, message: "Unauthorized Please Login" });
+    } else {
+      toast({ dispatch, message: "Something went wrong!!!" });
+    }
+  }
 
-  const handleOpenCongratsModal = () => {
-    dispatch(handleCongratsModal(true));
-    dispatch(handleContributeModal(false));
-  };
+  const {
+    mutate,
+    isPending,
+    data: approvedData,
+  } = useMutation({
+    mutationFn: (data: { id: string; status: string; deleteP: boolean }) =>
+      axiosAuth.patch(
+        `/projects/admin/manage/status?projectId=${data.id}&status=${data.status}&delete=${data.deleteP}`
+      ),
+    onSuccess: (data) => {
+      toast({ dispatch, message: "Successful" });
+      queryClient.invalidateQueries({
+        queryKey: ["projects", "generalProjects"],
+      });
+      window.location.reload();
+      // console.log(data); // Optional logging for debugging
+    },
+    onError: (error: any) => {
+      if (error?.response?.status === 401) {
+        toast({ dispatch, message: "Unauthenticated. Please Login." });
+      } else {
+        toast({ dispatch, message: "Failed to Approve Project." });
+      }
+      console.log(error); // Optional logging for debugging
+    },
+  });
+
+  function handleApproveProject(id: any, status: string, deleteP: boolean) {
+    mutate({ id, status, deleteP });
+  }
 
   const renderContributors = () => {
     return contibutorsData?.data?.map((c: any) => (
@@ -116,9 +143,18 @@ const Page = () => {
             )}
           </div>
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="font-semibold md:text-3xl mt-1">
-              {capitalize(projectData?.name)}
-            </h3>
+            {projectData?.name && (
+              <h3 className="font-semibold md:text-3xl mt-1">
+                {capitalize(projectData?.name)}{" "}
+                <span
+                  className={`h-4 w-4 ${
+                    projectData?.status === "disabled"
+                      ? "bg-customGray"
+                      : "bg-success"
+                  } inline-block bg-customGrayLightTRansparent rounded-full`}
+                ></span>
+              </h3>
+            )}
           </div>
           <div className=" flex flex-col mt-2  w-full md:flex-row md:justify-between items-center">
             <div className="max-w-3xl">
@@ -187,11 +223,27 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            {/* <Button
-              title={isConnected ? "Contribute" : "Connect & Contribute"}
-              css="w-full md:w-fit"
-              fn={handleOpenContributeModal}
-            /> */}
+            {projectData?.status === "disabled" ? (
+              <Button
+                title="Approve"
+                css="w-full md:w-fit"
+                loading={isPending}
+                fn={() => handleApproveProject(projectId, "live", false)}
+              />
+            ) : (
+              <>
+                {projectData?.status && (
+                  <Button
+                    title="Disable"
+                    css="w-full md:w-fit "
+                    loading={isPending}
+                    fn={() =>
+                      handleApproveProject(projectId, "disabled", false)
+                    }
+                  />
+                )}
+              </>
+            )}
           </div>
         </div>
 

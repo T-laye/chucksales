@@ -70,8 +70,8 @@ const Page = () => {
         <td className="">{p.role}</td>
         <td>{p.createdDate && formatDate(p.createdDate)}</td>
         <td>{p.createdDate && formatDate(p.updatedDate)}</td>
-        <td>{p.deletedDate && formatDate(p.deletedDate)}</td>
-        <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
+        {/* <td>{p.deletedDate && formatDate(p.deletedDate)}</td> */}
+        {/* <td className="relative text-center flex justify-center h-full py-6 overflow-hidden w-fit px-0">
           <select
             className="bg-dark text-center focus:outline-none"
             value={selectedOption}
@@ -80,23 +80,23 @@ const Page = () => {
             <option className="bg-dark text-center" value="">
               Actions
             </option>
-            {/* <option
+            <option
               className="bg-dark"
               value={`/dashboard/${p.id}/editProject`}
             >
               Edit
-            </option> */}
+            </option>
             <option
               className="bg-dark"
               value={`/chuckmin/projects/${p.id}/preview`}
             >
               Preview
             </option>
-            {/* <option className="bg-dark" value="#">
+            <option className="bg-dark" value="#">
               Delete
-            </option> */}
+            </option>
           </select>{" "}
-        </td>
+        </td> */}
       </tr>
     ));
   };
@@ -147,8 +147,8 @@ const Page = () => {
                   <td>Role</td>
                   <td>Created At</td>
                   <td>Updated At</td>
-                  <td>Deleted At</td>
-                  <td>Action</td>
+                  {/* <td>Deleted At</td>
+                  <td>Action</td> */}
                 </tr>
               </thead>
               <tbody>{renderDevs()}</tbody>

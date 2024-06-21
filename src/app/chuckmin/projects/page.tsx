@@ -72,6 +72,7 @@ const Page = () => {
       queryClient.invalidateQueries({
         queryKey: ["projects", "generalProjects"],
       });
+      window.location.reload();
       // console.log(data); // Optional logging for debugging
     },
     onError: (error: any) => {
