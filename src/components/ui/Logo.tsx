@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({ w = "w-28 lg:w-48" }) => {
   return (
     <Link href="/">
       <div className={`${w}`}>
-        <Image
+        <img
           src="/images/chuck_logo.png"
           alt="Chucksales Logo"
           width={700}

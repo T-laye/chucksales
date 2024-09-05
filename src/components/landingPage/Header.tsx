@@ -72,6 +72,7 @@ export default function Header() {
                 {!pathname.startsWith("/dashboard") && (
                   <>
                     <NavLink title="How it works" url="/#howItWorks" />
+                    <NavLink title="Stake" url="/stake" />
                     <NavLink title="Rewards" url="/rewards" />
                     <NavLink title="FAQs" url="/#faq" />
                     <NavLink title="Documentation" url="/documentation" />
