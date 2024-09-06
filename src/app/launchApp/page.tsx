@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Pagination from "@/components/Pagination";
 import Footer from "@/components/landingPage/Footer";
@@ -114,7 +115,7 @@ const Page = () => {
         <td>
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
-              <Image
+              <img
                 src={p.projectImageUrl}
                 alt={p.name}
                 height={300}
@@ -144,7 +145,7 @@ const Page = () => {
       <Header />
       <section className="md:min-h-screen relative">
         <div className="absolute top-[15%] -right-[15%]  -z-0 hidden md:block ">
-          <Image
+          <img
             src="/images/big_glow.svg"
             height={500}
             width={500}
@@ -181,7 +182,7 @@ const Page = () => {
 
             <div className="flex-1">
               <div className="w-10/12 max-w-[525px] 2xl:max-w-[600px] md:wfull md:p-6 mx-auto mt-10 md:mt-0">
-                <Image
+                <img
                   src="/images/block_chain.png"
                   alt="X Logo"
                   width={700}

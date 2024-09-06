@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import Button from "../ui/Button";
@@ -46,7 +47,7 @@ const Ready = () => {
         <div className=" flex justify-center md:justify-end mt-12 md:mt-0 md:w-1/2">
           <div className="relative ml-10 ">
             <div className="absolute top-10 -left-16 w-[94px] h-[94px] md:w-[100px] md:h-[100px] lg:w-[170px] lg:h-[170px] lg:top-20 rounded-3xl overflow-hidden object-cover">
-              <Image
+              <img
                 src="/images/ready_1.png"
                 alt="Picture of man"
                 width={500}
@@ -55,7 +56,7 @@ const Ready = () => {
               />
             </div>
             <div className="w-[213px] h-[177px]  lg:w-[387px] lg:h-[322px] rounded-3xl overflow-hidden object-cover ">
-              <Image
+              <img
                 src="/images/ready_image_2.png"
                 alt="Picture of female programmer"
                 width={500}

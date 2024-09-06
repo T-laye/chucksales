@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Logo from "@/components/ui/Logo";
 import Toast from "@/components/ui/Toast";
@@ -12,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <section className="lg:flex h-screen">
       <div className="h-full w-1/2 hidden lg:block">
-        <Image
+        <img
           src="/images/sign_up_image.jpeg"
           alt="background"
           height={1000}

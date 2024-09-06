@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import React from "react";
 
@@ -26,7 +27,7 @@ const HowCard: React.FC<HowCardProps> = ({
         className={`flex-1 flex ${reverse ? "justify-start" : "justify-end"}`}
       >
         <div className="w-[180px] h-[180px]  rounded-[12px] overflow-hidden hidden md:block ">
-          <Image
+          <img
             src={image}
             alt="How to Connect to wallet"
             width={1000}

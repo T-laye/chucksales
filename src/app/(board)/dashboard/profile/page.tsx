@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
@@ -232,7 +233,7 @@ const Page: React.FC = () => {
                     </div>
                   ) : (
                     <div className="h-full w-full overflow-hidden">
-                      <Image
+                      <img
                         src={preview}
                         alt="preview"
                         height={500}

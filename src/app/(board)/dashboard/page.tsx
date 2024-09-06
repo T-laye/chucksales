@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Pagination from "@/components/Pagination";
 import Button from "@/components/ui/Button";
@@ -122,7 +123,7 @@ const Page = () => {
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
               {p?.projectImageUrl && (
-                <Image
+                <img
                   src={p?.projectImageUrl}
                   alt={p.name}
                   height={300}
@@ -177,7 +178,7 @@ const Page = () => {
     <>
       <section className="">
         <div className="h-[96px] md:h-[191px] w-full ">
-          <Image
+          <img
             src="/images/cover_pic.png"
             alt="cover photo"
             width={1000}
@@ -189,7 +190,7 @@ const Page = () => {
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full border-2 border-dark bg-customGray overflow-hidden ">
             {user?.profileImageUrl && (
-              <Image
+              <img
                 src={user?.profileImageUrl}
                 alt="cover photo"
                 width={700}

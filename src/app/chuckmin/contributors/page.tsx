@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Pagination from "@/components/Pagination";
 import { UserIcon } from "@/components/admin/icons/UserIcon";
@@ -53,7 +54,7 @@ const Page = () => {
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-customGrayLight overflow-hidden">
               {p?.project?.logo && (
-                <Image
+                <img
                   src={p?.project?.logo}
                   alt={p.project?.name}
                   height={300}

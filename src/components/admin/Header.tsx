@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { capitalize } from "@/utils/Helpers";
@@ -57,7 +58,7 @@ export const Header = () => {
         </div>
         {user?.profileImageUrl && (
           <div className="w-[50px] h-[50px] rounded-full bg-customGrayLight overflow-hidden">
-            <Image
+            <img
               src={user?.profileImageUrl}
               height={500}
               width={500}

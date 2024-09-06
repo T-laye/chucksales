@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Pagination from "@/components/Pagination";
 import Header from "@/components/landingPage/Header";
@@ -117,7 +118,7 @@ const Page = () => {
       <Header />
       <section className="pt-20 pb-40">
         <div className="h-[96px] md:h-[191px] w-full ">
-          <Image
+          <img
             src="/images/cover_pic.png"
             alt="cover photo"
             width={1000}
@@ -128,7 +129,7 @@ const Page = () => {
         </div>
         <div className="container px-4 md:px-8 mx-auto flex flex-col items-center md:items-start -mt-8 md:-mt-16">
           <div className="h-20  w-20 md:h-[160px] md:w-[160px] rounded-full  overflow-hidden bg-customGray">
-            <Image
+            <img
               src={projectData?.projectImageUrl}
               alt={projectData?.name || "image"}
               width={700}
@@ -156,7 +157,7 @@ const Page = () => {
                       target="_blank"
                     >
                       {" "}
-                      <Image
+                      <img
                         src="/icons/x_logo.svg"
                         alt="x_logo"
                         width={700}
@@ -175,7 +176,7 @@ const Page = () => {
                       className="block min-h-7 min-w-7 h-7 w-7 rounded-full bg-dark hover:scale-110 duration-150"
                       target="_blank"
                     >
-                      <Image
+                      <img
                         src="/icons/discord_logo.svg"
                         alt="discord_logo"
                         width={700}
@@ -195,7 +196,7 @@ const Page = () => {
                       className="block min-h-7 min-w-7 h-7 w-7 rounded-full bg-dark hover:scale-110 duration-150"
                     >
                       {" "}
-                      <Image
+                      <img
                         src="/icons/telegram_logo.svg"
                         alt="telegram_logo"
                         width={700}

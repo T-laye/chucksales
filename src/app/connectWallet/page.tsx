@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Header from "@/components/landingPage/Header";
 import Button from "@/components/ui/Button";
@@ -37,7 +38,7 @@ const Page = () => {
           className="h-16 gap-3 px-3 py-[10px] flex items-center hover:bg-primaryTransparent duration-150 cursor-pointer"
         >
           <div className="h-11 w-11 rounded-lg overflow-hidden">
-            <Image
+            <img
               // src={`/images/${connector.type}.png`}
               src={connector?.icon ?? `/images/${connector.type}.png`}
               alt="wallet"

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Pagination from "@/components/Pagination";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
@@ -104,7 +105,7 @@ const Page = () => {
           <div className="flex justify-start items-center gap-3 ">
             <div className="min-h-8 min-w-8 h-8 w-8 rounded-full bg-white overflow-hidden">
               {p?.projectImageUrl && (
-                <Image
+                <img
                   src={p?.projectImageUrl}
                   alt={p.name}
                   height={300}

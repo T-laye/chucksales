@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Logo from "../ui/Logo";
 import Link from "next/link";
@@ -61,7 +62,7 @@ const Footer = () => {
           <div className="flex justify-center items-center gap-6">
             <Link href="#">
               <div className="w-6">
-                <Image
+                <img
                   src="/icons/x_logo.svg"
                   alt="X Logo"
                   width={700}
@@ -72,7 +73,7 @@ const Footer = () => {
             </Link>
             <Link href="#">
               <div className="w-6">
-                <Image
+                <img
                   src="/icons/discord_logo.svg"
                   alt="X Logo"
                   width={700}
@@ -83,7 +84,7 @@ const Footer = () => {
             </Link>
             <Link href="#">
               <div className="w-6">
-                <Image
+                <img
                   src="/icons/telegram_logo.svg"
                   alt="X Logo"
                   width={700}

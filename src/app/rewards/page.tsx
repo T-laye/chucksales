@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Footer from "@/components/landingPage/Footer";
 import Header from "@/components/landingPage/Header";
@@ -81,7 +82,7 @@ const Page = () => {
 
             <div className="flex-1">
               <div className="w-3/4 md:w-full md:p-6     mx-auto mt-8 md:mt-0">
-                <Image
+                <img
                   src="/images/coming_soon.png"
                   alt="X Logo"
                   width={700}

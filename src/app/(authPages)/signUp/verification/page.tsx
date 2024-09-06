@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import OtpForm from "@/components/OtpForm";
 import Image from "next/image";
 import React from "react";
@@ -9,7 +10,7 @@ const Page: React.FC = () => {
       <h3 className="text-center mt-12">Verification</h3>
 
       <div className="mt-8 flex items-center justify-center">
-        <Image
+        <img
           src="/images/email_verification_guy.png"
           alt="Mail Man"
           height={500}

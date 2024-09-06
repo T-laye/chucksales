@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -19,7 +20,7 @@ export default function Hero() {
   return (
     <section className=" hero_bg min-h-screen relative">
       <div className="absolute top-[0%] -right-[55%] sm:-right-[10%] 2xl:-right-[5%] -z-0 ">
-        <Image
+        <img
           src="/images/big_glow.svg"
           height={500}
           width={500}
@@ -28,7 +29,7 @@ export default function Hero() {
         />
       </div>
       <div className="absolute top-[45%]  -left-[40%] lg:top-[25%] lg:-left-[10%]">
-        <Image
+        <img
           src="/images/big_glow.svg"
           height={500}
           width={500}
